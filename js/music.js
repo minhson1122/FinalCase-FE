@@ -47,15 +47,18 @@ axios.get('http://localhost:8080/api/songs').then(res => {
     const card = document.getElementById("card");
     card.innerHTML = '';
     let songCount = 0;
+    let songIndex=0;
+    const songs=res.data
     for (const item of res.data) {
         const songDiv = document.createElement("div");
         songDiv.className = "App__section-grid-item";
         songDiv.innerHTML = `
             <div class="featured-image"></div> 
-            <div class="song-name" onclick="toggleAudio('${item.src}')">${item.name}</div>
+            <div class="song-name"  onclick="toggleAudio('${item.src}','${item.name}','${item.singer.name}','${item.album.avatar}')">${item.name}</div>
             <span>NPR</span>
         `;
         card.appendChild(songDiv);
         songCount++;
     }
 });
+

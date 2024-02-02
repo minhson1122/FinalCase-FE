@@ -21,7 +21,7 @@
     <div class="App">
         <div class="App__top-bar">
             <div class="App__header">
-                <button class="App__user"  onclick="profile()">
+                <button class="App__user" onclick="profile()">
                     <div class="App__figure">
                         <svg width="16" height="16" fill="currentColor" viewBox="0 0 18 20"
                              xmlns="http://www.w3.org/2000/svg" data-testid="user-icon">
@@ -38,7 +38,7 @@
         </div>
         <div class="App__nav-bar">
             <div class="App__logo">
-                <img src="../img/Spotify.jpg.webp" />
+                <img src="../img/Spotify.jpg.webp"/>
             </div>
             <div class="App__categories-nav">
                 <div class="App__category-item App__category-item--selected">
@@ -118,20 +118,20 @@
         <div class="App__now-playing-bar">
             <div class="function">
                 <div class="music">
-                    <img
-                            src="https://images.genius.com/31c7d09c4aa1b324bb911d0db72453a3.1000x1000x1.jpg"
-                            alt=""
-                    />
-                    <div class="details">
-                        <div class="name">Night Change</div>
-                        <div class="artist">One Direction</div>
-                    </div>
-                    <div class="love">
                         <img
-                                src="https://cdn-icons-png.flaticon.com/512/2589/2589175.png"
-                                alt="love"
+                                src=""
+                                alt="" id="avatar" style="display: none"
                         />
-                    </div>
+                        <div class="details" >
+                            <div class="name" id="music-name"></div>
+                            <div class="artist" id="nameSinger" ></div>
+                        </div>
+                        <div class="love">
+                            <img
+                                    src="https://cdn-icons-png.flaticon.com/512/2589/2589175.png"
+                                    alt="love"
+                            />
+                        </div>
                 </div>
                 <div class="controls">
                     <div class="playback">
@@ -141,10 +141,14 @@
                                     alt="back"
                             />
                             <img
-                                    src="https://cdn-icons-png.flaticon.com/512/2088/2088562.png"
+                                    src="play.jpg"
                                     alt="pause"
-                                    class="pause"
-                                    onclick="toggleAudio()"
+                                    class="pause" onclick="playMusic()" id="displayPlay"
+                            />
+                            <img
+                                    src="pause.jpg"
+                                    alt="pause"
+                                    class="pause" onclick="pause()" style="display: none" id="pauseMusic"
                             />
                             <img
                                     src="https://cdn-icons-png.flaticon.com/512/4211/4211386.png"
@@ -244,7 +248,7 @@
                 <input value="Hieubyi@gmail.com" readonly>
 
                 <label>Phone :</label>
-                <input value="0964345589"  readonly>
+                <input value="0964345589" readonly>
                 <button onclick="editProfile()">Edit</button>
                 <button onclick="backHome()">Cancel</button>
             </div>
