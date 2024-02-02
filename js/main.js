@@ -4,11 +4,14 @@ let progressBar = document.getElementById("progressBar");
 let progress = document.getElementById("progress");
 let currentTimeSpan = document.getElementById("currentTime");
 
-function toggleAudio() {
-    if (audio.paused) {
-        audio.play();
+function toggleAudio( url) {
+    const audioElement = document.getElementById("myAudio");
+    audioElement.src = url;
+    console.log(url)
+    if (audioElement.paused) {
+        audioElement.play();
     } else {
-        audio.pause();
+        audioElement.pause();
     }
 }
 
@@ -29,6 +32,7 @@ audio.addEventListener("timeupdate", function() {
 
     let minutes = Math.floor(currentTime / 60);
     let seconds = Math.floor(currentTime % 60);
+    currentTimeSpan.style.display='block';
     currentTimeSpan.textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
     progress.style.width = progressPercentage + "%";
 });

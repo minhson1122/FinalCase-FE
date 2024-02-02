@@ -1,6 +1,6 @@
 document.getElementById("myButton").addEventListener("click", function() {
-    var newBackground = document.getElementById("new-background");
-    newBackground.classList.toggle("visible");
+    var newBackground = document.getElementById("");
+    newBackground.style.display="block";
 });
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
