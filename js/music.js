@@ -49,16 +49,33 @@ axios.get('http://localhost:8080/api/songs').then(res => {
     let songCount = 0;
     let songIndex=0;
     const songs=res.data
-    for (const item of res.data) {
+     function playSong(index) {
+         if (index < 0 || index >= songs.length) return;
+         songIndex = index;
+         const song = songs[index];
+         toggleAudio(song.src,song.name,song.singer.name,song.album.avatar)
+     }
+    document.getElementById("nextSong").addEventListener("click", function() {
+        if (songIndex >= 0 && songIndex < songs.length - 1) {
+            playSong(songIndex + 1);
+        }
+    });
+    document.getElementById("prevSong").addEventListener("click", function() {
+        if (songIndex > 0) {
+            playSong(songIndex - 1);
+        }
+    });
+    songs.forEach ((item,index) =>{
         const songDiv = document.createElement("div");
         songDiv.className = "App__section-grid-item";
         songDiv.innerHTML = `
             <div class="featured-image"></div> 
-            <div class="song-name"  onclick="toggleAudio('${item.src}','${item.name}','${item.singer.name}','${item.album.avatar}')">${item.name}</div>
-            <span>NPR</span>
+            <div class="song-name">${item.name}</div>
+            <span>${item.singer.name}</span>
         `;
+        songDiv.querySelector('.song-name').addEventListener('click', () => playSong(index));
         card.appendChild(songDiv);
         songCount++;
-    }
+    });
 });
 
