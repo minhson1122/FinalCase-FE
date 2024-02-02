@@ -8,14 +8,16 @@ const img = document.getElementById("avatar");
 const audioElement = document.getElementById("myAudio");
 const pausePlay = document.getElementById("pauseMusic")
 const displayPlay = document.getElementById("displayPlay")
+const like = document.getElementById("like")
 
-function toggleAudio(url, name, nameSinger, avatar) {
+function toggleAudio(url, name, nameSinger, avatar,likes) {
     nameSing.innerHTML = nameSinger;
     nameMuic.innerHTML = name;
     img.src = avatar;
-    img.style.display = 'block'
+    like.innerHTML=likes;
     audioElement.src = url;
     console.log(url)
+    img.style.display='block'
 
     if (audioElement.paused) {
         audioElement.play();

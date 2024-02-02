@@ -45,6 +45,8 @@ const getImageData = (e) => {
 
 axios.get('http://localhost:8080/api/songs').then(res => {
     const card = document.getElementById("card");
+    const control = document.getElementById("control");
+    const love = document.getElementById("love");
     card.innerHTML = '';
     let songCount = 0;
     let songIndex=0;
@@ -53,7 +55,7 @@ axios.get('http://localhost:8080/api/songs').then(res => {
          if (index < 0 || index >= songs.length) return;
          songIndex = index;
          const song = songs[index];
-         toggleAudio(song.src,song.name,song.singer.name,song.album.avatar)
+         toggleAudio(song.src,song.name,song.singer.name,song.album.avatar, song.likes)
      }
     document.getElementById("nextSong").addEventListener("click", function() {
         if (songIndex >= 0 && songIndex < songs.length - 1) {
@@ -73,7 +75,11 @@ axios.get('http://localhost:8080/api/songs').then(res => {
             <div class="song-name">${item.name}</div>
             <span>${item.singer.name}</span>
         `;
-        songDiv.querySelector('.song-name').addEventListener('click', () => playSong(index));
+        songDiv.querySelector('.song-name').addEventListener('click', () =>{
+            playSong(index)
+            control.style.display='block';
+            love.style.display='block';
+        });
         card.appendChild(songDiv);
         songCount++;
     });
