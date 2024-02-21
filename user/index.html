@@ -119,14 +119,14 @@
         <div class="App__now-playing-bar">
             <div class="function">
                 <div class="music">
-                        <img
-                                src=""
-                                alt="" id="avatar" style="display: none"
-                        />
-                        <div class="details" >
-                            <div class="name" id="music-name"></div>
-                            <div class="artist" id="nameSinger" ></div>
-                        </div>
+                    <img
+                            src=""
+                            alt="" id="avatar" style="display: none"
+                    />
+                    <div class="details">
+                        <div class="name" id="music-name"></div>
+                        <div class="artist" id="nameSinger"></div>
+                    </div>
 
                 </div>
                 <div class="controls" style="display: none" id="control">
@@ -157,11 +157,11 @@
                     <div class="play">
                         <audio id="myAudio" src=""></audio>
                         <div id="customControls">
-                            <span style="color: white; margin-right: 10px">0:00</span>
+                            <span id="currentTime" style="display: none; margin-right: 10px">0:00</span>
                             <div id="progressBar" onclick="seek(event)">
                                 <div id="progress"></div>
                             </div>
-                            <span id="currentTime" style="display: none">0:00</span>
+                            <span id="songTime" style=" margin-left: 10px ;display: none;color: white">0:00</span>
                         </div>
                     </div>
                 </div>

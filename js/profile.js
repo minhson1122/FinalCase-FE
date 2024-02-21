@@ -9,10 +9,10 @@
 }
  function backHome(){
     document.getElementById("profiles").style.display="none";
-    document.getElementById("originnal-backround").style.display="display";
+    document.getElementById("originnal-backround").style.display="block";
 
  }
  function backProfile(){
      document.getElementById("formEdit").style.display="none";
-     document.getElementById("originnal-backround").style.display="display";
+     document.getElementById("profiles").style.display="block";
  }

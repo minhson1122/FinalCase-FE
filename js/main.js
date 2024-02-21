@@ -2,6 +2,7 @@ let audio = document.getElementById("myAudio");
 let progressBar = document.getElementById("progressBar");
 let progress = document.getElementById("progress");
 let currentTimeSpan = document.getElementById("currentTime");
+let totalTime = document.getElementById("songTime");
 const nameMuic = document.getElementById("music-name");
 const nameSing = document.getElementById("nameSinger");
 const img = document.getElementById("avatar");
@@ -10,14 +11,14 @@ const pausePlay = document.getElementById("pauseMusic")
 const displayPlay = document.getElementById("displayPlay")
 const like = document.getElementById("like")
 
-function toggleAudio(url, name, nameSinger, avatar,likes) {
+function toggleAudio(url, name, nameSinger, avatar) {
     nameSing.innerHTML = nameSinger;
     nameMuic.innerHTML = name;
     img.src = avatar;
-    like.innerHTML=likes;
+
     audioElement.src = url;
     console.log(url)
-    img.style.display='block'
+    img.style.display = 'block'
 
     if (audioElement.paused) {
         audioElement.play();
@@ -26,6 +27,10 @@ function toggleAudio(url, name, nameSinger, avatar,likes) {
     } else {
         audioElement.pause();
     }
+
+}
+function updateLike(likes) {
+    like.innerHTML = likes;
 }
 
 function pause() {
@@ -55,11 +60,17 @@ function seek(event) {
 audio.addEventListener("timeupdate", function () {
     let currentTime = audio.currentTime;
     let duration = audio.duration;
-    let progressPercentage = (currentTime / duration) * 100;
-
+    let totalMinutes = Math.floor(duration / 60);
+    let totalSeconds = Math.floor(duration % 60);
     let minutes = Math.floor(currentTime / 60);
     let seconds = Math.floor(currentTime % 60);
     currentTimeSpan.style.display = 'block';
     currentTimeSpan.textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-    progress.style.width = progressPercentage + "%";
+    if (!isNaN(totalMinutes) && !isNaN(totalSeconds)) {
+        totalTime.style.display = 'block';
+        totalTime.textContent = totalMinutes + ":" + (totalSeconds < 10 ? "0" : "") + totalSeconds;
+    } else {
+        totalTime.style.display = 'none';
+    }
+
 });

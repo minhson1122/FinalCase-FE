@@ -43,19 +43,22 @@ const getImageData = (e) => {
 };
 
 
+
 axios.get('http://localhost:8080/api/songs').then(res => {
     const card = document.getElementById("card");
     const control = document.getElementById("control");
     const love = document.getElementById("love");
     card.innerHTML = '';
     let songCount = 0;
-    let songIndex=0;
+    let songIndex=-1;
+    let indexs=-1;
     const songs=res.data
      function playSong(index) {
          if (index < 0 || index >= songs.length) return;
          songIndex = index;
          const song = songs[index];
-         toggleAudio(song.src,song.name,song.singer.name,song.album.avatar, song.likes)
+         toggleAudio(song.src,song.name,song.singer.name,song.album.avatar)
+         updateLike(song.likes)
      }
     document.getElementById("nextSong").addEventListener("click", function() {
         if (songIndex >= 0 && songIndex < songs.length - 1) {
@@ -79,9 +82,18 @@ axios.get('http://localhost:8080/api/songs').then(res => {
             playSong(index)
             control.style.display='block';
             love.style.display='block';
+            indexs=`${item.id}`;
         });
         card.appendChild(songDiv);
         songCount++;
+
     });
+    love.addEventListener('click', ()=>{
+        axios.get(`http://localhost:8080/api/songs/like/${indexs}`).then(res=>{
+            updateLike(res.data.likes)
+
+        })
+    });
+
 });
 
