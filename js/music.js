@@ -44,7 +44,11 @@ const getImageData = (e) => {
 
 
 
-axios.get('http://localhost:8080/api/songs').then(res => {
+axios.get('http://localhost:8080/api/songs', {
+    headers: {
+        'Authorization': `Bearer ${token}`
+    }
+}).then(res => {
     const card = document.getElementById("card");
     const control = document.getElementById("control");
     const love = document.getElementById("love");
@@ -89,7 +93,11 @@ axios.get('http://localhost:8080/api/songs').then(res => {
 
     });
     love.addEventListener('click', ()=>{
-        axios.get(`http://localhost:8080/api/songs/like/${indexs}`).then(res=>{
+        axios.get(`http://localhost:8080/api/songs/like/${indexs}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(res=>{
             updateLike(res.data.likes)
 
         })
