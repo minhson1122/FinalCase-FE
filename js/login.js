@@ -1,5 +1,5 @@
 var newBackground = document.getElementById("new-background");
-var homeUser = document.getElementById("home-user")
+var homeUser = document.getElementById("home")
 document.getElementById("myButton").addEventListener("click", function() {
     newBackground.style.display="block";
     homeUser.style.display="none";

@@ -44,11 +44,7 @@ const getImageData = (e) => {
 
 
 
-axios.get('http://localhost:8080/api/songs', {
-    headers: {
-        'Authorization': `Bearer ${token}`
-    }
-}).then(res => {
+axios.get('http://localhost:8080/api/songs').then(res => {
     const card = document.getElementById("card");
     const control = document.getElementById("control");
     const love = document.getElementById("love");
@@ -63,15 +59,18 @@ axios.get('http://localhost:8080/api/songs', {
          const song = songs[index];
          toggleAudio(song.src,song.name,song.singer.name,song.album.avatar)
          updateLike(song.likes)
+         listen(index)
      }
     document.getElementById("nextSong").addEventListener("click", function() {
         if (songIndex >= 0 && songIndex < songs.length - 1) {
             playSong(songIndex + 1);
+            listen(songIndex + 1)
         }
     });
     document.getElementById("prevSong").addEventListener("click", function() {
         if (songIndex > 0) {
             playSong(songIndex - 1);
+            listen(songIndex - 1)
         }
     });
     songs.forEach ((item,index) =>{
@@ -84,6 +83,7 @@ axios.get('http://localhost:8080/api/songs', {
         `;
         songDiv.querySelector('.song-name').addEventListener('click', () =>{
             playSong(index)
+
             control.style.display='block';
             love.style.display='block';
             indexs=`${item.id}`;
@@ -92,12 +92,16 @@ axios.get('http://localhost:8080/api/songs', {
         songCount++;
 
     });
+    function listen(indexs) {
+        axios.get(`http://localhost:8080/api/songs/liten/${indexs}`
+        ).then(res=>{
+            console.log(res.data.listens)
+
+        })
+    }
     love.addEventListener('click', ()=>{
-        axios.get(`http://localhost:8080/api/songs/like/${indexs}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        }).then(res=>{
+        axios.get(`http://localhost:8080/api/songs/like/${indexs}`
+        ).then(res=>{
             updateLike(res.data.likes)
 
         })
