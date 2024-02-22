@@ -152,7 +152,7 @@
     align-items: center;
     height: 32px;
     border-radius: 16px;
-    padding: 3px;
+    padding: 3px 2px 2px 9px;
     background-color: #000;
 }
 

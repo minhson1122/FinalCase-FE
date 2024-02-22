@@ -2,7 +2,7 @@ var newBackground = document.getElementById("new-background");
 var homeUser = document.getElementById("home")
 document.getElementById("myButton").addEventListener("click", function() {
     newBackground.style.display="block";
-    homeUser.style.display="none";
+
 });
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -23,4 +23,8 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
                 alert("Tài Khoản Hoặc Mật Khẩu Sai");
             }
     })
+});
+document.getElementById("xLogin-btn").addEventListener("click", function() {
+    newBackground.style.display="none";
+
 });
