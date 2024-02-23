@@ -10,6 +10,21 @@ const audioElement = document.getElementById("myAudio");
 const pausePlay = document.getElementById("pauseMusic")
 const displayPlay = document.getElementById("displayPlay")
 const like = document.getElementById("like")
+let searchBox = document.getElementById("searchBox")
+let home = document.getElementById("home")
+
+window.onload = function() {
+    var greetingElement = document.getElementById('good-something');
+    var currentTime = new Date().getHours();
+
+    if (currentTime < 12) {
+        greetingElement.textContent = 'Good morning!';
+    } else if (currentTime < 18) {
+        greetingElement.textContent = 'Good afternoon!';
+    } else {
+        greetingElement.textContent = 'Good evening!';
+    }
+};
 
 function toggleAudio(url, name, nameSinger, avatar) {
     nameSing.innerHTML = nameSinger;
@@ -29,6 +44,7 @@ function toggleAudio(url, name, nameSinger, avatar) {
     }
 
 }
+
 function updateLike(likes) {
     like.innerHTML = likes;
 }
@@ -55,6 +71,7 @@ function seek(event) {
     let seekTime = percentage * audio.duration;
     audio.currentTime = seekTime;
 }
+
 function updateProgress() {
     const currentTime = audio.currentTime;
     const duration = audio.duration;
@@ -78,5 +95,13 @@ audio.addEventListener("timeupdate", function () {
     } else {
         totalTime.style.display = 'none';
     }
+});
+document.getElementById("search").addEventListener("click", function () {
+    searchBox.style.display = "block";
+    home.style.opacity="75%";
+});
 
+document.getElementById("main-view").addEventListener("click", function () {
+    searchBox.style.display = "none";
+    home.style.opacity="100%";
 });

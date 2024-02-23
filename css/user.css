@@ -6,6 +6,9 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
+/*.originnal-backround{*/
+/*    position: relative;*/
+/*}*/
 
 .App {
     --vertical-nav-width: 232px;
@@ -23,7 +26,6 @@
     scrollbar-width: none;
     font-size: 16px;
 }
-
 .App::-webkit-scrollbar {
     display: none;
 }
@@ -59,6 +61,11 @@
     color: #c4c4c4;
     padding: 18px 12px;
 }
+.App__categories-nav>div:hover{
+    color: #fff;
+    background-color: rgba(50, 50, 50, 0.6);
+    border-radius: 5px;
+}
 
 .App__category-item--selected {
     color: #fff;
@@ -81,6 +88,27 @@
     place-items: center;
     margin-right: 10px;
 }
+.search{
+    position: absolute;
+    height: 50px;
+    top: 100px;
+    left: 310px;
+    right: 310px;
+    bottom: 200px;
+    margin: 0;
+    padding: 0;
+    z-index: 2;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+.search label{
+    font-size: 30px;
+    color: white;
+}
+.search input{
+    border-radius: 10px;
+}
 
 .App__category-item .icon svg {
     width: 24px;
@@ -90,6 +118,11 @@
 .App__playlists-nav {
     color: #c4c4c4;
     padding: 18px 12px;
+}
+.App__playlists-nav>div:hover{
+    color: #fff;
+    background-color: rgba(50, 50, 50, 0.6);
+    border-radius: 5px;
 }
 
 .App__now-playing-bar {
@@ -113,7 +146,9 @@
 
 .App__main-view::-webkit-scrollbar {
     display: none;
+    position: relative;
 }
+
 
 .App__header {
     width: 100%;
@@ -152,7 +187,7 @@
     align-items: center;
     height: 32px;
     border-radius: 16px;
-    padding: 3px;
+    padding: 3px 2px 2px 9px;
     background-color: #000;
 }
 

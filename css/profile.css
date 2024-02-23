@@ -42,17 +42,18 @@
 
 }
 label{
+    font-size: 16px;
     display: block;
     margin-bottom: 8px;
-    color: white;
-    font-weight: bold;
+    color: #757575;
+    /*font-weight: bold;*/
 }
 input{
     width: 100%;
     padding: 10px;
     margin-bottom: 16px;
     box-sizing: border-box;
-    border: 1px solid #ccc;
+    border: 1px solid #757575;
     border-radius: 4px;
     font-size: 16px;
 }
