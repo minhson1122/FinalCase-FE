@@ -2,7 +2,6 @@ var newBackground = document.getElementById("new-background");
 var homeUser = document.getElementById("home")
 document.getElementById("myButton").addEventListener("click", function() {
     newBackground.style.display="block";
-    homeUser.style.display="none";
 });
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
