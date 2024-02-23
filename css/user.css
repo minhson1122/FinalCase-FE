@@ -29,6 +29,9 @@
 .App::-webkit-scrollbar {
     display: none;
 }
+#for-user, #for-user1{
+    display: none;
+}
 
 .App .test {
     border: 1px solid magenta;
@@ -205,7 +208,12 @@
     display: grid;
     place-items: center;
 }
-
+#profile-nav{
+    display: none;
+}
+#login-nav{
+    display: block;
+}
 .App__username {
     color: #fff;
     font-size: 0.9em;
