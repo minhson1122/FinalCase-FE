@@ -13,6 +13,8 @@ let functionBar=document.getElementById("function")
 let currentPage = 1; // Trang hiện tại, mặc định là trang đầu tiên
 let totalPages = 0;
 const itemsPerPage = 10; // Số lượng mục trên mỗi trang
+let token = localStorage.getItem('userToken');
+let role = localStorage.getItem('role')
 window.onload = function() {
     loginUser()
 }
@@ -62,8 +64,6 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
         })
 });
 function loginUser() {
-    let token = localStorage.getItem('userToken');
-    let role = localStorage.getItem('role')
     if (token !== null && role ==='ROLE_USER' ) {
         axios.get('http://localhost:8080/api/playLists', {
             headers: {
@@ -103,6 +103,7 @@ document.getElementById("main-view").addEventListener("click", function () {
 });
 document.getElementById("logout").addEventListener("click", function () {
     localStorage.setItem('userToken', null);
+    localStorage.setItem('role', null);
     console.log(localStorage.getItem('userToken'))
     forUser.style.display="none"
     forUser1.style.display = "none"
