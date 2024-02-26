@@ -74,7 +74,19 @@ function loginUser() {
                 itemDiv.appendChild(img);
                 itemDiv.appendChild(name);
                 playlistList.appendChild(itemDiv);
-            })
+                itemDiv.addEventListener('click', function (){
+                    const playlistId = this.getAttribute("data-id");
+                    console.log(playlistId);
+                    axios.get(`http://localhost:8080/api/song-playlist/${playlistId}`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    }).then(res => {
+                        console.log("Songs in Playlist", res.data);
+
+                    })
+                });
+            });
 
             newBackground.style.display = "none";
             homeUser.style.display = "block";
@@ -85,17 +97,6 @@ function loginUser() {
             profileNav.style.display = "flex";
         })
 
-        playList.addEventListener('click',function (){
-            const playlistId = this.getAttribute("data-id");
-            axios.get(`http://localhost:8080/api/song-playlist/${playlistId}`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            }).then(res => {
-                console.log("play",res.data)
-            });
-
-        })
     }
 
 }
