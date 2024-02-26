@@ -68,6 +68,7 @@
     width: 100%;
     overflow: auto;
     padding: 5px 10px 5px 10px;
+
 }
 .item-list{
     /*padding-top: 15px;*/
@@ -77,6 +78,7 @@
     display: flex;
     justify-content: start;
     align-items: center;
+    margin-top: 10px;
 }
 .item-list>img{
     margin: 10px;

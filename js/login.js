@@ -64,6 +64,7 @@ function loginUser() {
             res.data.forEach((item) => {
                 const itemDiv = document.createElement("div");
                 itemDiv.classList.add("item-list");
+                itemDiv.setAttribute("data-id", item.id);
                 const img = document.createElement("img");
                 img.setAttribute("src", item.avatar);
                 img.setAttribute("alt", "Playlist image");
@@ -85,13 +86,13 @@ function loginUser() {
         })
 
         playList.addEventListener('click',function (){
-            axios.get('http://localhost:8080/api/song-playlist', {
+            const playlistId = this.getAttribute("data-id");
+            axios.get(`http://localhost:8080/api/song-playlist/${playlistId}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             }).then(res => {
                 console.log("play",res.data)
-                console.log("song",res.data)
             });
 
         })
