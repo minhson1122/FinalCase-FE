@@ -65,12 +65,33 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
 });
 function loginUser() {
     if (token !== null && role ==='ROLE_USER' ) {
+    const token = localStorage.getItem('userToken');
+    const nameItem = document.getElementById("name-item")
+    const imgItem = document.getElementById("img-item")
+    const playList = document.getElementById("playlist-list")
+    if (token !== null) {
         axios.get('http://localhost:8080/api/playLists', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         }).then(res => {
-            console.log("data", res)
+            const playlistList = document.getElementById("playlist-list");
+            playlistList.innerHTML = '';
+            res.data.forEach((item) => {
+                const itemDiv = document.createElement("div");
+                itemDiv.classList.add("item-list");
+                itemDiv.setAttribute("data-id", item.id);
+                const img = document.createElement("img");
+                img.setAttribute("src", item.avatar);
+                img.setAttribute("alt", "Playlist image");
+                const name = document.createElement("p");
+                name.classList.add("name-item");
+                name.textContent = item.name;
+                itemDiv.appendChild(img);
+                itemDiv.appendChild(name);
+                playlistList.appendChild(itemDiv);
+            })
+
             newBackground.style.display = "none";
             homeUser.style.display = "block";
             forUser.style.display = "flex"
@@ -84,6 +105,17 @@ function loginUser() {
     }
     else if(token !== null && role === 'ROLE_ADMIN'){
         showListUser();
+        playList.addEventListener('click',function (){
+            const playlistId = this.getAttribute("data-id");
+            axios.get(`http://localhost:8080/api/song-playlist/${playlistId}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }).then(res => {
+                console.log("play",res.data)
+            });
+
+        })
     }
 
 }

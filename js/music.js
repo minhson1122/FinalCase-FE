@@ -89,7 +89,6 @@ axios.get('http://localhost:8080/api/songs').then(res => {
         `;
         songDiv.querySelector('.song-name').addEventListener('click', () => {
             playSong(index)
-
             control.style.display = 'block';
             love.style.display = 'block';
             indexs = `${item.id}`;
@@ -107,5 +106,6 @@ axios.get('http://localhost:8080/api/songs').then(res => {
     });
 
 });
+
 
 
