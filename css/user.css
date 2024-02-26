@@ -46,12 +46,49 @@
 .App__nav-bar {
     grid-area: nav-bar;
     width: var(--vertical-nav-width);
-    height: 100%;
+    height: 60px;
     min-height: 100%;
     background-color: #000;
     padding-top: 24px;
     padding-bottom: var(--now-playing-bar-height);
 }
+.playlist-nav-bar{
+    margin-top: 10px;
+    height: 45vh;
+    color: white;
+    position: relative;
+
+}
+.main-title{
+    height: 3vh;
+}
+.playlist-list{
+    position: absolute;
+    height: 42vh;
+    width: 100%;
+    overflow: auto;
+    padding: 5px 10px 5px 10px;
+}
+.item-list{
+    /*padding-top: 15px;*/
+    color: #c4c4c4;
+    height: 4vh;
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.item-list>img{
+    margin: 10px;
+    width: 35px;
+    height: 35px;
+}
+.playlist-list>div:hover{
+    color: #fff;
+    background-color: rgba(50, 50, 50, 0.6);
+    border-radius: 5px;
+}
+
 
 .App__logo {
     display: flex;
@@ -583,4 +620,21 @@
     font-size: 4vh;
     color: white;
     margin-bottom: 12px;
+}
+* {
+    scrollbar-width: none;
+}
+/* Hỗ trợ cho Chrome, Safari và Edge */
+*::-webkit-scrollbar {
+    display: none;
+}
+
+/* Ẩn thanh scrollbar dọc */
+/* Hỗ trợ cho Firefox */
+* {
+    scrollbar-width: none;
+}
+/* Hỗ trợ cho Chrome, Safari và Edge */
+*::-webkit-scrollbar {
+    width: 0px;
 }
