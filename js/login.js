@@ -32,7 +32,14 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
         localStorage.setItem('userToken', res.data.accessToken);
         console.log(res.data)
         console.log(res.data.accessToken)
-        window.location.reload()
+        console.log(res.data.roles[0].authority)
+       if (res.data.roles[0].authority==='ROLE_USER'){
+           loginUser()
+
+       }
+       else if(res.data.roles[0].authority==='ROLE_ADMIN'){
+           alert("tk admin")
+       }
     })
         .catch(error => {
             console.error(error);
@@ -41,25 +48,27 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
             }
         })
 });
-const token = localStorage.getItem('userToken');
-if (token !== null) {
-    axios.get('http://localhost:8080/api/playLists', {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    }).then(res => {
-        console.log("data", res)
-        newBackground.style.display = "none";
-        homeUser.style.display = "block";
-        forUser.style.display = "flex"
-        forUser1.style.display = "block"
-        home.style.opacity = "100%";
-        loginNav.style.display = "none";
-        profileNav.style.display = "flex";
-    })
+function loginUser() {
+    const token = localStorage.getItem('userToken');
+    if (token !== null) {
+        axios.get('http://localhost:8080/api/playLists', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(res => {
+            console.log("data", res)
+            newBackground.style.display = "none";
+            homeUser.style.display = "block";
+            forUser.style.display = "flex"
+            forUser1.style.display = "block"
+            home.style.opacity = "100%";
+            loginNav.style.display = "none";
+            profileNav.style.display = "flex";
+        })
+
+    }
 
 }
-
 document.getElementById("xLogin-btn").addEventListener("click", function () {
     newBackground.style.display = "none";
     home.style.opacity = "100%";
