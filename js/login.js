@@ -8,14 +8,14 @@ let profileNav = document.getElementById("profile-nav")
 let playlist = document.getElementById("playlist-nav-bar")
 let adminBox = document.getElementById("admin-background")
 let backUser = document.getElementById("back-user")
-let playingBar= document.getElementById("playing-bar")
-let functionBar=document.getElementById("function")
+let playingBar = document.getElementById("playing-bar")
+let functionBar = document.getElementById("function")
 let currentPage = 1; // Trang hiện tại, mặc định là trang đầu tiên
 let totalPages = 0;
 const itemsPerPage = 10; // Số lượng mục trên mỗi trang
 let token = localStorage.getItem('userToken');
 let role = localStorage.getItem('role')
-window.onload = function() {
+window.onload = function () {
     loginUser()
 }
 document.getElementById("myButton").addEventListener("click", function () {
@@ -46,15 +46,14 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
         console.log(res.data)
         console.log(res.data.accessToken)
         console.log(res.data.roles[0].authority)
-       if (res.data.roles[0].authority==='ROLE_USER'){
-           loginUser()
+        if (res.data.roles[0].authority === 'ROLE_USER') {
+            loginUser()
             role = res.data.roles[0].authority
-       }
-       else if(res.data.roles[0].authority==='ROLE_ADMIN'){
-           alert("tk admin")
-           showListUser();
-           role = 'ROLE_ADMIN'
-       }
+        } else if (res.data.roles[0].authority === 'ROLE_ADMIN') {
+            alert("tk admin")
+            showListUser();
+            role = res.data.roles[0].authority
+        }
     })
         .catch(error => {
             console.error(error);
@@ -63,13 +62,12 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
             }
         })
 });
+
 function loginUser() {
-    if (token !== null && role ==='ROLE_USER' ) {
-    const token = localStorage.getItem('userToken');
     const nameItem = document.getElementById("name-item")
     const imgItem = document.getElementById("img-item")
     const playList = document.getElementById("playlist-list")
-    if (token !== null) {
+    if (token !== null && role === 'ROLE_USER') {
         axios.get('http://localhost:8080/api/playLists', {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -99,26 +97,24 @@ function loginUser() {
             home.style.opacity = "100%";
             loginNav.style.display = "none";
             profileNav.style.display = "flex";
-            playlist.style.display="block"
-        })
+            playlist.style.display = "block"
+            playList.addEventListener('click', function () {
+                const playlistId = this.getAttribute("data-id");
+                axios.get(`http://localhost:8080/api/song-playlist/${playlistId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                }).then(res => {
+                    console.log("play", res.data)
+                });
 
-    }
-    else if(token !== null && role === 'ROLE_ADMIN'){
+            })
+        })
+    } else if (token !== null && role === 'ROLE_ADMIN') {
         showListUser();
-        playList.addEventListener('click',function (){
-            const playlistId = this.getAttribute("data-id");
-            axios.get(`http://localhost:8080/api/song-playlist/${playlistId}`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            }).then(res => {
-                console.log("play",res.data)
-            });
-
-        })
     }
-
 }
+
 document.getElementById("xLogin-btn").addEventListener("click", function () {
     newBackground.style.display = "none";
     home.style.opacity = "100%";
@@ -137,35 +133,35 @@ document.getElementById("logout").addEventListener("click", function () {
     localStorage.setItem('userToken', null);
     localStorage.setItem('role', null);
     console.log(localStorage.getItem('userToken'))
-    forUser.style.display="none"
+    forUser.style.display = "none"
     forUser1.style.display = "none"
     newBackground.style.display = "none";
     home.style.opacity = "100%";
     loginNav.style.display = "block";
     profileNav.style.display = "none";
-    playlist.style.display="none"
-    adminBox.style.display="none"
-    backUser.style.display="block"
-    playingBar.style.display="block"
-    playingBar.style.background="#1B1B1B"
+    playlist.style.display = "none"
+    adminBox.style.display = "none"
+    backUser.style.display = "block"
+    playingBar.style.display = "block"
+    playingBar.style.background = "#1B1B1B"
 })
 
 function showListUser() {
-    adminBox.style.display="block";
-    forUser.style.display="none"
+    adminBox.style.display = "block";
+    forUser.style.display = "none"
     forUser1.style.display = "none"
     newBackground.style.display = "none";
     home.style.opacity = "100%";
     loginNav.style.display = "none";
     profileNav.style.display = "flex";
-    playlist.style.display="none"
-    backUser.style.display="none"
-    playingBar.style.background="#121212"
-    functionBar.style.display="none"
+    playlist.style.display = "none"
+    backUser.style.display = "none"
+    playingBar.style.background = "#121212"
+    functionBar.style.display = "none"
     axios.get(`http://localhost:8080/admin`).then(response => {
         let data = response.data;
 
-        totalPages = Math.ceil(data.length/itemsPerPage);
+        totalPages = Math.ceil(data.length / itemsPerPage);
         // Tính toán chỉ số bắt đầu và kết thúc của mục trên trang hiện tại
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = Math.min(startIndex + itemsPerPage, data.length);
@@ -209,6 +205,7 @@ function showListUser() {
         console.error('Error fetching user data:', error);
     });
 }
+
 // Thay đổi trạng thái tài khoản
 function changeEnabled(id) {
     let data = {
