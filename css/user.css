@@ -57,7 +57,7 @@
     height: 45vh;
     color: white;
     position: relative;
-
+    display: none;
 }
 .main-title{
     height: 3vh;

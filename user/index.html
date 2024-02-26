@@ -7,6 +7,21 @@
     <link rel="stylesheet" href="../css/user.css"/>
     <link rel="stylesheet" href="../css/login.css"/>
     <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+
+
+    <!-- Custom styles for this page -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+            crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.5/axios.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-storage.js"></script>
@@ -123,7 +138,7 @@
             <div class="App__divider-container">
                 <hr>
             </div>
-            <div class="playlist-nav-bar">
+            <div class="playlist-nav-bar" id="playlist-nav-bar">
                 <div class="main-title">
                     <h3>Your playlists:</h3>
                 </div>
@@ -138,8 +153,8 @@
 
 
 
-        <div class="App__now-playing-bar">
-            <div class="function">
+        <div class="App__now-playing-bar" id="playing-bar">
+            <div class="function" id="function">
                 <div class="music">
                     <img
                             src=""
@@ -194,34 +209,40 @@
             </div>
         </div>
         <div class="App__main-view" id="main-view">
-            <div class="App__top-gradient"></div>
-            <div class="App__header-placeholder"></div>
-            <section class="App__section App__quick-links">
-                <h1 id="good-something"></h1>
-                <div class="App__quick-links-container">
-                    <div class="App__quick-link">
-                        <div class="App__quick-link-featured-img">♥</div>
-                        <span>Liked Songs</span>
+            <div id="back-user">
+                <div class="App__top-gradient"></div>
+                <div class="App__header-placeholder"></div>
+                <section class="App__section App__quick-links">
+                    <h1 id="good-something"></h1>
+                    <div class="App__quick-links-container">
+                        <div class="App__quick-link">
+                            <div class="App__quick-link-featured-img">♥</div>
+                            <span>Liked Songs</span>
+                        </div>
+                        <div class="App__quick-link">
+                            <div class="App__quick-link-featured-img"></div>
+                            <span>Daily Mix 1</span>
+                        </div>
                     </div>
-                    <div class="App__quick-link">
-                        <div class="App__quick-link-featured-img"></div>
-                        <span>Daily Mix 1</span>
+                </section>
+                <section class="App__section App__your-shows">
+                    <div class="App__section-header">
+                        <h3>Top 10 trending</h3>
+                        <span>SEE ALL</span>
                     </div>
-                </div>
-            </section>
-            <section class="App__section App__your-shows">
-                <div class="App__section-header">
-                    <h3>Top 10 trending</h3>
-                    <span>SEE ALL</span>
-                </div>
-                <div class="App__section-grid-container" id="card"></div>
-            </section>
-            <section class="App__section App__your-shows">
-                <div class="App__section-header">
-                    <h3>Your top mixes</h3>
-                    <span>SEE ALL</span>
-                </div>
-            </section>
+                    <div class="App__section-grid-container" id="card"></div>
+                </section>
+                <section class="App__section App__your-shows">
+                    <div class="App__section-header">
+                        <h3>Your top mixes</h3>
+                        <span>SEE ALL</span>
+                    </div>
+                </section>
+            </div>
+            <div class="admin-background" id="admin-background">
+                    <h1>List User</h1>
+                    <div class="list-user" id="user-table"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -231,7 +252,7 @@
         <div class="form">
             <div class="column-left">
                 <label>Name:</label>
-                <input type="text" name="" id="name" required>
+                <input type="text" name="" id="name" value="" required>
 
                 <label>Email:</label>
                 <input type="text" name="" id="username" required>
@@ -305,7 +326,7 @@
     <div class="signup-container">
         <div class="xLogin"><button id="xSignup-btn">x</button></div>
         <form id="signupForm">
-            <h2>Welcome Back</h2>
+            <h2>Sign Up</h2>
             <div class="input-group">
                 <input type="text" name="username" required>
                 <label>Username</label>
@@ -338,6 +359,5 @@
 <script src="../js/main.js"></script>
 <script src="../js/login.js"></script>
 <script src="../js/profile.js"></script>
-
 </body>
 </html>
