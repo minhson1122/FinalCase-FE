@@ -15,7 +15,24 @@ let totalPages = 0;
 const itemsPerPage = 10; // Số lượng mục trên mỗi trang
 let token = localStorage.getItem('userToken');
 let role = localStorage.getItem('role')
+let choicePlaylist1 = document.getElementById("choice-playlist1")
+let choicePlaylist2 = document.getElementById("choice-playlist2")
+let choicePlaylist3 = document.getElementById("choice-playlist3")
+let playlistSelected = document.getElementById("playlist-selected")
+let homeBtn= document.getElementById("home-btn")
+let itemDiv = document.createElement("div");
+itemDiv.classList.add("item-list");
 window.onload = function () {
+    let greetingElement = document.getElementById('good-something');
+    let currentTime = new Date().getHours();
+
+    if (currentTime < 12) {
+        greetingElement.textContent = 'Good morning!';
+    } else if (currentTime < 18) {
+        greetingElement.textContent = 'Good afternoon!';
+    } else {
+        greetingElement.textContent = 'Good evening!';
+    }
     loginUser()
 }
 document.getElementById("myButton").addEventListener("click", function () {
@@ -77,8 +94,7 @@ function loginUser() {
             const playlistList = document.getElementById("playlist-list");
             playlistList.innerHTML = '';
             res.data.forEach((item) => {
-                const itemDiv = document.createElement("div");
-                itemDiv.classList.add("item-list");
+
                 itemDiv.setAttribute("data-id", item.id);
                 const img = document.createElement("img");
                 img.setAttribute("src", item.avatar);
@@ -89,7 +105,7 @@ function loginUser() {
                 itemDiv.appendChild(img);
                 itemDiv.appendChild(name);
                 playlistList.appendChild(itemDiv);
-                itemDiv.addEventListener('click', function (){
+                itemDiv.addEventListener('click', function () {
                     const playlistId = this.getAttribute("data-id");
                     console.log(playlistId);
                     axios.get(`http://localhost:8080/api/song-playlist/${playlistId}`, {
@@ -97,12 +113,38 @@ function loginUser() {
                             'Authorization': `Bearer ${token}`
                         }
                     }).then(res => {
-                        res.data.forEach((item)=>{
+                        choicePlaylist1.style.display = "none";
+                        choicePlaylist2.style.display = "none";
+                        choicePlaylist3.style.display = "none";
+                        playlistSelected.style.display = "block"
+                        itemDiv.classList.add("App__category-item--selected")
+                        homeBtn.classList.remove("App__category-item--selected")
+                        let str = `<div id="playlist-selected-tiem">
+<img src="${res.data[0].playList.avatar}" alt="">
+<h2>${res.data[0].playList.name}</h2>
+<hr>
+<table id="playlist-selected-table">
+<tr>
+<th>Song name</th>
+<th>Album</th>
+<th>Likes</th>
+<th>Listens</th>
+</tr>
+`
 
-                            console.log("test",item.song.name)
+                        res.data.forEach((item) => {
+                            console.log("test", item.song)
+                            str += `
+<tr>
+<td>${item.song.name}</td>
+<td>${item.song.album.name}</td>
+<td>${item.song.likes}</td>
+<td>${item.song.listens}</td>
+</tr>
+`
                         })
-                        console.log("Songs in Playlist", res.data);
-
+                        str += `</table></div>`
+                        playlistSelected.innerHTML = str
 
                     })
                 });
@@ -125,8 +167,9 @@ function loginUser() {
                     console.log("play", res.data)
                 });
 
+
             })
-        })
+            })
     } else if (token !== null && role === 'ROLE_ADMIN') {
         showListUser();
     }
@@ -146,6 +189,14 @@ document.getElementById("main-view").addEventListener("click", function () {
     signup.style.display = "none";
     home.style.opacity = "100%";
 });
+document.getElementById("home-btn").addEventListener("click", function () {
+    choicePlaylist1.style.display = "block";
+    choicePlaylist2.style.display = "block";
+    choicePlaylist3.style.display = "block";
+    playlistSelected.style.display = "none"
+    itemDiv.classList.remove("App__category-item--selected")
+    homeBtn.classList.add("App__category-item--selected")
+});
 document.getElementById("logout").addEventListener("click", function () {
     localStorage.setItem('userToken', null);
     localStorage.setItem('role', null);
@@ -161,6 +212,13 @@ document.getElementById("logout").addEventListener("click", function () {
     backUser.style.display = "block"
     playingBar.style.display = "block"
     playingBar.style.background = "#1B1B1B"
+    itemDiv.classList.remove("App__category-item--selected")
+    homeBtn.classList.add("App__category-item--selected")
+    choicePlaylist1.style.display = "block";
+    choicePlaylist2.style.display = "block";
+    choicePlaylist3.style.display = "block";
+    playlistSelected.style.display = "none"
+
 })
 
 function showListUser() {
@@ -220,6 +278,7 @@ function showListUser() {
         console.error('Error fetching user data:', error);
     });
 }
+
 function changeEnabled(id) {
     let data = {
         avt: document.getElementById(`avt-${id}`).getAttribute('src'),

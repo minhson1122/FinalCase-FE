@@ -392,6 +392,33 @@
     color: #686868;
     font-size: 0.8em;
 }
+#playlist-selected{
+    display: none;
+    margin: 0 10vw 10vw 0;
+    height: 50vh;
+    width: 100vw;
+    color: white;
+}
+#playlist-selected img,h2,table{
+    margin-left: 10vw;
+}
+#playlist-selected img{
+
+    width: 10vh;
+    height: 10vh;
+    border: white solid 1px;
+}
+#playlist-selected-table{
+    margin-top: 20px;
+}
+#playlist-selected-table>th,td{
+    padding: 20px 40px 20px 40px;
+
+}
+#playlist-selected-table td:hover{
+    border-radius: 5px;
+    background: #1E1E1E;
+}
 
 .function {
     display: flex;

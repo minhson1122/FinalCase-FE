@@ -13,19 +13,6 @@ const like = document.getElementById("like")
 let searchBox = document.getElementById("searchBox")
 let home = document.getElementById("home")
 
-window.onload = function() {
-    var greetingElement = document.getElementById('good-something');
-    var currentTime = new Date().getHours();
-
-    if (currentTime < 12) {
-        greetingElement.textContent = 'Good morning!';
-    } else if (currentTime < 18) {
-        greetingElement.textContent = 'Good afternoon!';
-    } else {
-        greetingElement.textContent = 'Good evening!';
-    }
-};
-
 function toggleAudio(url, name, nameSinger, avatar) {
     nameSing.innerHTML = nameSinger;
     nameMuic.innerHTML = name;
