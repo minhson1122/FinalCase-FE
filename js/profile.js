@@ -15,6 +15,7 @@ let file;
 let fileName;
 let uploadedFileName;
 let imageURL;
+let currentId = null;
 const getImageData = (e) => {
     file = e.target.files[0];
     fileName = Math.round(Math.random() * 9999) + file.name;
@@ -52,43 +53,49 @@ document.getElementById('editProfile').addEventListener('click',function () {
 
 
  function profile() {
-     var newBackground = document.getElementById("profiles");
+     let newBackground = document.getElementById("profiles");
      newBackground.style.display = "block";
 
  }
-function dataProfile(id){
-    axios.get(`http://localhost:8080/users/`+id).then(res=>{
+function dataProfile(currentId){
+    axios.get(`http://localhost:8080/users/`+currentId,{
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    }).then(res=>{
         console.log(res.data)
         document.getElementById('nameU').value=res.data.name
         document.getElementById('email').value=res.data.username
         document.getElementById('phoneu').value=res.data.phone
         document.getElementById('profilePics').src=res.data.avatar
-
+        currentId = id
     })
 }
-function edit(id) {
-    document.getElementById('form').addEventListener('submit',function (event){
-        event.preventDefault();
-        var usernames = document.querySelector('[name="usernames"]').value;
-        var passwords = document.querySelector('[name="passwords"]').value;
-        var confirmPassword = document.querySelector('[name="confirmPasswords"]').value;
-        var name = document.querySelector('[name="name"]').value;
-        var phone = document.querySelector('[name="phone"]').value;
-        var img = imageURL;
+function edit() {
+        let name = document.getElementById("name").value;
+        let password = document.getElementById("password").value;
+        let confirmPassword = document.getElementById("confirmPassword").value;
+        let phone = document.getElementById("phone").value;
         let data = {
-            id: id,
-            username: usernames,
-            password: passwords,
+            id: currentId,
+            password: password,
             confirmPassword: confirmPassword,
             enabled: true,
             name: name,
-            avatar: img,
+            avatar: imageURL,
             phone: phone
         }
-        axios.put(`http://localhost:8080/users/`+id,data).then(()=>{
+        console.log("edit",data)
+        axios.put(`http://localhost:8080/users/`+currentId,data,{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(()=>{
             alert("edit done")
+            document.getElementById("formEdit").style.display="none";
+            document.getElementById("profiles").style.display="none";
         })
-    })
+
 }
  function backHome(){
     document.getElementById("profiles").style.display="none";

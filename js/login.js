@@ -33,6 +33,7 @@ window.onload = function () {
         greetingElement.textContent = 'Good evening!';
     }
     loginUser()
+    console.log("load 1",currentId)
 }
 document.getElementById("myButton").addEventListener("click", function () {
     newBackground.style.display = "block";
@@ -59,13 +60,14 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
     axios.post(`http://localhost:8080/login`, data).then(res => {
         localStorage.setItem('userToken', res.data.accessToken);
         localStorage.setItem('role', res.data.roles[0].authority);
+        localStorage.setItem('currentId', res.data.id);
         console.log(res.data)
         console.log(res.data.accessToken)
         console.log(res.data.roles[0].authority)
         if (res.data.roles[0].authority === 'ROLE_USER') {
             loginUser()
-            dataProfile(res.data.id)
             role = res.data.roles[0].authority
+
         } else if (res.data.roles[0].authority === 'ROLE_ADMIN') {
             alert("tk admin")
             showListUser();
@@ -84,12 +86,16 @@ function loginUser() {
     const nameItem = document.getElementById("name-item")
     const imgItem = document.getElementById("img-item")
     const playList = document.getElementById("playlist-list")
+    currentId = localStorage.getItem("currentId")
+    dataProfile(currentId)
     if (token !== null && role === 'ROLE_USER') {
         axios.get('http://localhost:8080/api/playLists', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         }).then(res => {
+            console.log(currentId)
+
             const playlistList = document.getElementById("playlist-list");
             playlistList.innerHTML = '';
             res.data.forEach((item) => {
@@ -187,6 +193,7 @@ document.getElementById("xSignup-btn").addEventListener("click", function () {
 
 document.getElementById("main-view").addEventListener("click", function () {
     newBackground.style.display = "none";
+    document.getElementById("formEdit").style.display="none";
     signup.style.display = "none";
     home.style.opacity = "100%";
 });
@@ -201,6 +208,7 @@ document.getElementById("home-btn").addEventListener("click", function () {
 document.getElementById("logout").addEventListener("click", function () {
     localStorage.setItem('userToken', null);
     localStorage.setItem('role', null);
+    localStorage.setItem('currentId', null);
     console.log(localStorage.getItem('userToken'))
     forUser.style.display = "none"
     forUser1.style.display = "none"
@@ -219,7 +227,8 @@ document.getElementById("logout").addEventListener("click", function () {
     choicePlaylist2.style.display = "block";
     choicePlaylist3.style.display = "block";
     playlistSelected.style.display = "none"
-
+    document.getElementById("formEdit").style.display="none";
+    currentId = null;
 })
 
 function showListUser() {

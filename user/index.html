@@ -239,26 +239,20 @@
 </div>
 <!--Giao diện EditProfile user-->
 <div class="backround-edit-user" id="formEdit" style="display: none">
-    <div class="form-edit-container">
+    <div class="form-edit-container" >
         <div class="form">
             <div class="column-left">
-                <label>Name:</label>
-                <input type="text" name="name" id="name" value="" required>
+                <label>Name:<input type="text" name="name" id="name"></label>
 
-                <label>Email:</label>
-                <input type="text" name="usernames" id="username" required>
+                <label>Password: <input type="password" name="passwords" id="password" ></label>
 
-                <label>Password:</label>
-                <input type="password" name="passwords" id="password" required>
 
-                <label>Confirm Password:</label>
-                <input type="password" name="confirmPasswords" id="confirmPassword" required>
+                <label>Confirm Password: <input type="password" name="confirmPasswords" id="confirmPassword" ></label>
 
-                <label>Phone :</label>
-                <input type="text" name="phone" id="phone" required>
 
-                <button type="submit">Save</button>
-                <button onclick="backProfile()">Cancel</button>
+                <label>Phone :<input type="text" name="phone" id="phone" ></label>
+                <button onclick="edit()">Save</button>
+                <button type="button" onclick="backProfile()">Cancel</button>
             </div>
             <div class="column-right">
                 <label>Profile Picture:</label>
@@ -266,6 +260,7 @@
                 <img src="" alt="" id="profilePic" style="display: none">
             </div>
         </div>
+
     </div>
 </div>
 <!--Giao dien profile-->
@@ -273,21 +268,15 @@
     <div class="form-edit-container">
         <div class="form">
             <div class="column-left">
-                <label>Name:</label>
-                <input id="nameU" readonly>
-
-                <label>Email:</label>
-                <input id="email" readonly>
-
-                <label>Phone :</label>
-                <input id="phoneu" readonly>
+                <label>Name:<input id="nameU" value="" readonly></label>
+                <label>Email: <input id="email" value="" readonly></label>
+                <label>Phone :<input id="phoneu" value="" readonly></label>
                 <button id="editProfile">Edit</button>
                 <button onclick="backHome()">Cancel</button>
             </div>
             <div class="column-right">
                 <label>Profile Picture:</label>
-                <img src="" height="1284" width="1284" id="profilePics"
-                     style="display: block"/>
+                <img id="profilePics" alt="" src=""/>
             </div>
         </div>
     </div>
