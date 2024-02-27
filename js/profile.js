@@ -43,14 +43,18 @@ const getImageData = (e) => {
         }
     );
 };
-function editProfile() {
+document.getElementById('editProfile').addEventListener('click',function () {
     var newBackground = document.getElementById("formEdit");
     newBackground.style.display="block";
     document.getElementById("profiles").style.display="none";
-}
+
+})
+
+
  function profile() {
      var newBackground = document.getElementById("profiles");
      newBackground.style.display = "block";
+
  }
 function dataProfile(id){
     axios.get(`http://localhost:8080/users/`+id).then(res=>{
@@ -59,9 +63,33 @@ function dataProfile(id){
         document.getElementById('email').value=res.data.username
         document.getElementById('phoneu').value=res.data.phone
         document.getElementById('profilePics').src=res.data.avatar
+
     })
 }
-
+function edit(id) {
+    document.getElementById('form').addEventListener('submit',function (event){
+        event.preventDefault();
+        var usernames = document.querySelector('[name="usernames"]').value;
+        var passwords = document.querySelector('[name="passwords"]').value;
+        var confirmPassword = document.querySelector('[name="confirmPasswords"]').value;
+        var name = document.querySelector('[name="name"]').value;
+        var phone = document.querySelector('[name="phone"]').value;
+        var img = imageURL;
+        let data = {
+            id: id,
+            username: usernames,
+            password: passwords,
+            confirmPassword: confirmPassword,
+            enabled: true,
+            name: name,
+            avatar: img,
+            phone: phone
+        }
+        axios.put(`http://localhost:8080/users/`+id,data).then(()=>{
+            alert("edit done")
+        })
+    })
+}
  function backHome(){
     document.getElementById("profiles").style.display="none";
     document.getElementById("originnal-backround").style.display="block";
@@ -72,11 +100,3 @@ function dataProfile(id){
      document.getElementById("profiles").style.display="block";
  }
 
-document.getElementById('form').addEventListener('submit',function (event){
-    event.preventDefault();
-    var usernames = document.querySelector('[name="username"]').value;
-    var passwords = document.querySelector('[name="password"]').value;
-    var confirmPassword = document.querySelector('[name="password"]').value;
-    var name = document.querySelector('[name="name"]').value;
-    var img = imageURL;
-})
