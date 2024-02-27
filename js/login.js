@@ -46,12 +46,20 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
         console.log(res.data)
         console.log(res.data.accessToken)
         console.log(res.data.roles[0].authority)
+        let userId = res.data.id
         if (res.data.roles[0].authority === 'ROLE_USER') {
+            alert("tk user")
             loginUser()
             role = res.data.roles[0].authority
         } else if (res.data.roles[0].authority === 'ROLE_ADMIN') {
             alert("tk admin")
             showListUser();
+            role = res.data.roles[0].authority
+        }
+        else {
+            alert("tk author")
+            console.log(userId)
+            showSongByAuthorId(userId)
             role = res.data.roles[0].authority
         }
     })
@@ -113,6 +121,10 @@ function loginUser() {
     } else if (token !== null && role === 'ROLE_ADMIN') {
         showListUser();
     }
+    else if (token !== null && role === `ROLE_AUTHOR`) {
+
+
+    }
 }
 
 document.getElementById("xLogin-btn").addEventListener("click", function () {
@@ -160,7 +172,6 @@ function showListUser() {
     functionBar.style.display = "none"
     axios.get(`http://localhost:8080/admin`).then(response => {
         let data = response.data;
-
         totalPages = Math.ceil(data.length / itemsPerPage);
         // Tính toán chỉ số bắt đầu và kết thúc của mục trên trang hiện tại
         const startIndex = (currentPage - 1) * itemsPerPage;

@@ -38,7 +38,7 @@ const getImageData = (e) => {
                     console.log(url)
                     imageURL = url;
                 });
-        }
+         }
     );
 };
 
@@ -106,6 +106,19 @@ axios.get('http://localhost:8080/api/songs').then(res => {
     });
 
 });
+function showSongByAuthorId(id) {
+    axios.get(`http://localhost:8080/api/songs/${id}`).then(resp => {
+        console.log(resp.data)
+        let data = resp.data
+        let str = '<div>'
+        for (const item of data) {
+            str += `<div>${item.name}</div> `
+        }
+        str+='</div>'
 
+        document.getElementById("back-user").style.display="none";
+        document.getElementById("admin-background").style.display="none";
+        document.getElementById("song-table").innerHTML= str
+    })
 
-
+}
