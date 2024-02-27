@@ -48,6 +48,7 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
         console.log(res.data.roles[0].authority)
         if (res.data.roles[0].authority === 'ROLE_USER') {
             loginUser()
+            dataProfile(res.data.id)
             role = res.data.roles[0].authority
         } else if (res.data.roles[0].authority === 'ROLE_ADMIN') {
             alert("tk admin")
@@ -97,9 +98,7 @@ function loginUser() {
                         }
                     }).then(res => {
                         res.data.forEach((item)=>{
-                            const nameSong = document.createElement("span");
-                            name.classList.add("name-playList");
-                            name.textContent = item.name;
+
                             console.log("test",item.song.name)
                         })
                         console.log("Songs in Playlist", res.data);

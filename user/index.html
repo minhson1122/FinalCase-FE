@@ -24,7 +24,7 @@
     <script src="../js/music.js"></script>
 </head>
 <body>
-<!--<input type="file" onchange="getImageData(event)">-->
+
 <!--Viêt giao diện Urer-->
 <div class="originnal-backround" id="home">
 
@@ -242,26 +242,26 @@
         <div class="form">
             <div class="column-left">
                 <label>Name:</label>
-                <input type="text" name="" id="name" value="" required>
+                <input type="text" name="name" id="name" value="" required>
 
                 <label>Email:</label>
-                <input type="text" name="" id="username" required>
+                <input type="text" name="usernames" id="username" required>
 
                 <label>Password:</label>
-                <input type="password" name="" id="password" required>
+                <input type="password" name="passwords" id="password" required>
 
                 <label>Confirm Password:</label>
-                <input type="password" name="" id="confirmPassword" required>
+                <input type="password" name="confirmPasswords" id="confirmPassword" required>
 
                 <label>Phone :</label>
-                <input type="text" name="" id="phone" required>
+                <input type="text" name="phone" id="phone" required>
 
                 <button type="submit">Save</button>
                 <button onclick="backProfile()">Cancel</button>
             </div>
             <div class="column-right">
                 <label>Profile Picture:</label>
-                <input type="file" id="picture">
+                <input type="file" onchange="getImageData(event)">
                 <img src="" alt="" id="profilePic" style="display: none">
             </div>
         </div>
@@ -273,19 +273,19 @@
         <div class="form">
             <div class="column-left">
                 <label>Name:</label>
-                <input value="Hieu" readonly>
+                <input id="nameU" readonly>
 
                 <label>Email:</label>
-                <input value="Hieubyi@gmail.com" readonly>
+                <input id="email" readonly>
 
                 <label>Phone :</label>
-                <input value="0964345589" readonly>
+                <input id="phoneu" readonly>
                 <button onclick="editProfile()">Edit</button>
                 <button onclick="backHome()">Cancel</button>
             </div>
             <div class="column-right">
                 <label>Profile Picture:</label>
-                <img src="2022_05_03_12_03_IMG_0003.JPG" height="1284" width="1284" id="profilePics"
+                <img src="" height="1284" width="1284" id="profilePics"
                      style="display: block"/>
             </div>
         </div>
