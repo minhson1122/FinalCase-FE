@@ -96,12 +96,18 @@ function loginUser() {
                             'Authorization': `Bearer ${token}`
                         }
                     }).then(res => {
+                        res.data.forEach((item)=>{
+                            const nameSong = document.createElement("span");
+                            name.classList.add("name-playList");
+                            name.textContent = item.name;
+                            console.log("test",item.song.name)
+                        })
                         console.log("Songs in Playlist", res.data);
+
 
                     })
                 });
             });
-
             newBackground.style.display = "none";
             homeUser.style.display = "block";
             forUser.style.display = "flex"
@@ -125,7 +131,6 @@ function loginUser() {
     } else if (token !== null && role === 'ROLE_ADMIN') {
         showListUser();
     }
-
 }
 
 document.getElementById("xLogin-btn").addEventListener("click", function () {
@@ -206,8 +211,6 @@ function showListUser() {
                     </tr>`;
         }
         str += `</table>`;
-
-        // Thêm nút điều hướng phân trang
         if (totalPages > 1) {
             str += `<button onclick="previousPage()" class="btn btn-success">Previous</button>
                     <button onclick="nextPage()" class="btn btn-success">Next</button>`;
@@ -218,8 +221,6 @@ function showListUser() {
         console.error('Error fetching user data:', error);
     });
 }
-
-// Thay đổi trạng thái tài khoản
 function changeEnabled(id) {
     let data = {
         avt: document.getElementById(`avt-${id}`).getAttribute('src'),
@@ -232,9 +233,7 @@ function changeEnabled(id) {
 
     axios.put(`http://localhost:8080/admin/${id}`, data).then(() => {
         showListUser();
-    }).catch(error => {
-        console.error('Error updating user:', error);
-    });
+    })
 }
 
 function previousPage() {
