@@ -14,7 +14,7 @@ let currentPage = 1; // Trang hiện tại, mặc định là trang đầu tiên
 let totalPages = 0;
 const itemsPerPage = 10; // Số lượng mục trên mỗi trang
 let token = localStorage.getItem('userToken');
-let role = localStorage.getItem('role')
+let role = localStorage.getItem('role');
 let choicePlaylist1 = document.getElementById("choice-playlist1")
 let choicePlaylist2 = document.getElementById("choice-playlist2")
 let choicePlaylist3 = document.getElementById("choice-playlist3")
@@ -51,13 +51,13 @@ document.getElementById("signup-box").addEventListener("click", function () {
 });
 document.getElementById('loginForm').addEventListener('submit', function (event) {
     event.preventDefault();
-    var username = document.querySelector('[name="username"]').value;
-    var password = document.querySelector('[name="password"]').value;
-    data = {
+    let username = document.querySelector('[name="username"]').value;
+    let password = document.querySelector('[name="password"]').value;
+    let dataLogin = {
         "username": username,
         "password": password
     }
-    axios.post(`http://localhost:8080/login`, data).then(res => {
+    axios.post(`http://localhost:8080/login`, dataLogin).then(res => {
         localStorage.setItem('userToken', res.data.accessToken);
         localStorage.setItem('role', res.data.roles[0].authority);
         localStorage.setItem('currentId', res.data.id);
@@ -66,12 +66,9 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
         console.log(res.data.roles[0].authority)
         if (res.data.roles[0].authority === 'ROLE_USER') {
             loginUser()
-            role = res.data.roles[0].authority
-
         } else if (res.data.roles[0].authority === 'ROLE_ADMIN') {
             alert("tk admin")
             showListUser();
-            role = res.data.roles[0].authority
         }
     })
         .catch(error => {
@@ -127,9 +124,18 @@ function loginUser() {
                         playlistSelected.style.display = "block"
                         // if(document.getElementById(`playlist${playlistId}`))
                         let str = `<div id="playlist-selected-tiem">
+<div class="top-top">
+<div class="top">
 <img src="${res.data[0].playList.avatar}" alt="">
 <h2>${res.data[0].playList.name}</h2>
+</div>
+<div class="play-playlist-btn">
+<i class="fa-regular fa-circle-play pause" id="displayPlay"></i>
+<i class="fa-regular fa-circle-pause pause" style="display: none" id="pauseMusic"></i>
+</div>
+</div>
 <hr>
+<div class="bot">
 <table id="playlist-selected-table">
 <tr>
 <th>Song name</th>
@@ -150,7 +156,7 @@ function loginUser() {
 </tr>
 `
                         })
-                        str += `</table></div>`
+                        str += `</table></div></div>`
                         playlistSelected.innerHTML = str
 
                     })
@@ -174,12 +180,35 @@ function loginUser() {
                     console.log("play", res.data)
                 });
 
-
             })
             })
     } else if (token !== null && role === 'ROLE_ADMIN') {
         showListUser();
     }
+    // else {
+    //     localStorage.setItem('role', null);
+    //     localStorage.setItem('userToken', null);
+    //     localStorage.setItem('currentId', null);
+    //     console.log(localStorage.getItem('userToken'))
+    //     forUser.style.display = "none"
+    //     forUser1.style.display = "none"
+    //     newBackground.style.display = "none";
+    //     home.style.opacity = "100%";
+    //     loginNav.style.display = "block";
+    //     profileNav.style.display = "none";
+    //     playlist.style.display = "none"
+    //     adminBox.style.display = "none"
+    //     backUser.style.display = "block"
+    //     playingBar.style.display = "block"
+    //     playingBar.style.background = "#1B1B1B"
+    //     itemDiv.classList.remove("App__category-item--selected")
+    //     homeBtn.classList.add("App__category-item--selected")
+    //     choicePlaylist1.style.display = "block";
+    //     choicePlaylist2.style.display = "block";
+    //     choicePlaylist3.style.display = "block";
+    //     playlistSelected.style.display = "none"
+    //     document.getElementById("formEdit").style.display="none";
+    // }
 }
 
 document.getElementById("xLogin-btn").addEventListener("click", function () {

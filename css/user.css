@@ -405,10 +405,28 @@
     display: none;
     margin: 0 10vw 10vw 0;
     height: 50vh;
-    width: 100vw;
+    width: 89vw;
     color: white;
 }
-#playlist-selected img,h2,table{
+.top-top{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.top{
+    margin-left: 15vw;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.top>h2{
+        margin-left: 2vw;
+}
+.play-playlist-btn>i{
+    margin-left: 8vw;
+}
+
+.bot{
     margin-left: 10vw;
 }
 #playlist-selected img{
@@ -417,12 +435,14 @@
     height: 10vh;
     border: white solid 1px;
 }
-#playlist-selected-table{
-    margin-top: 20px;
-}
-#playlist-selected-table>th,td{
-    padding: 20px 40px 20px 40px;
 
+.bot>table{
+    margin-top: 20px;
+    padding: 20px 40px 20px 40px;
+}
+.bot>table th,.bot>table td{
+    padding: 20px 40px 20px 40px;
+    text-align: start;
 }
 #playlist-selected-table td:hover{
     border-radius: 5px;
