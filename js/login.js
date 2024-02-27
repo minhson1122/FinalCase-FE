@@ -20,8 +20,7 @@ let choicePlaylist2 = document.getElementById("choice-playlist2")
 let choicePlaylist3 = document.getElementById("choice-playlist3")
 let playlistSelected = document.getElementById("playlist-selected")
 let homeBtn= document.getElementById("home-btn")
-let itemDiv = document.createElement("div");
-itemDiv.classList.add("item-list");
+let itemDiv=""
 window.onload = function () {
     let greetingElement = document.getElementById('good-something');
     let currentTime = new Date().getHours();
@@ -94,7 +93,7 @@ function loginUser() {
             const playlistList = document.getElementById("playlist-list");
             playlistList.innerHTML = '';
             res.data.forEach((item) => {
-
+                itemDiv = document.createElement("div");
                 itemDiv.setAttribute("data-id", item.id);
                 const img = document.createElement("img");
                 img.setAttribute("src", item.avatar);
@@ -105,9 +104,12 @@ function loginUser() {
                 itemDiv.appendChild(img);
                 itemDiv.appendChild(name);
                 playlistList.appendChild(itemDiv);
+
                 itemDiv.addEventListener('click', function () {
                     const playlistId = this.getAttribute("data-id");
                     console.log(playlistId);
+                    itemDiv.id=`play-list${playlistId}`;
+                    console.log(itemDiv)
                     axios.get(`http://localhost:8080/api/song-playlist/${playlistId}`, {
                         headers: {
                             'Authorization': `Bearer ${token}`
@@ -117,8 +119,7 @@ function loginUser() {
                         choicePlaylist2.style.display = "none";
                         choicePlaylist3.style.display = "none";
                         playlistSelected.style.display = "block"
-                        itemDiv.classList.add("App__category-item--selected")
-                        homeBtn.classList.remove("App__category-item--selected")
+                        // if(document.getElementById(`playlist${playlistId}`))
                         let str = `<div id="playlist-selected-tiem">
 <img src="${res.data[0].playList.avatar}" alt="">
 <h2>${res.data[0].playList.name}</h2>
@@ -156,7 +157,7 @@ function loginUser() {
             home.style.opacity = "100%";
             loginNav.style.display = "none";
             profileNav.style.display = "flex";
-            playlist.style.display = "block"
+            playlist.style.display = "flex"
             playList.addEventListener('click', function () {
                 const playlistId = this.getAttribute("data-id");
                 axios.get(`http://localhost:8080/api/song-playlist/${playlistId}`, {

@@ -63,15 +63,33 @@
     height: 3vh;
 }
 .playlist-list{
+    margin-top: 3vh;
     position: absolute;
     height: 42vh;
     width: 100%;
     overflow: auto;
     padding: 5px 10px 5px 10px;
-
+    /*border: white 1px solid;*/
+}
+.playlist-list>div{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.playlist-list>div>img{
+    margin-top: 15px;
+    margin-left: 10px;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+.playlist-list>div:hover{
+    color: #fff;
+    background-color: rgba(50, 50, 50, 0.6);
+    border-radius: 5px;
 }
 .item-list{
-    /*padding-top: 15px;*/
+    padding-top: 15px;
     color: #c4c4c4;
     height: 4vh;
     width: 100%;
@@ -80,16 +98,7 @@
     align-items: center;
     margin-top: 10px;
 }
-.item-list>img{
-    margin: 10px;
-    width: 35px;
-    height: 35px;
-}
-.playlist-list>div:hover{
-    color: #fff;
-    background-color: rgba(50, 50, 50, 0.6);
-    border-radius: 5px;
-}
+
 
 
 .App__logo {
