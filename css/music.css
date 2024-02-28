@@ -1,0 +1,21 @@
+.song-item  {
+    display: flex;
+    flex-wrap: wrap;}
+
+.author-background {
+    padding-top: 120px;
+}
+.author-song-item {
+    margin: 25px;
+}
+.listSong {
+    background: #242424 ;
+    width: calc(16.666% - 20px);
+    width: 225px;
+    margin: 10px;
+    padding: 20px
+}
+
+
+
+

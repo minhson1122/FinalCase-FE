@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/login.css"/>
     <link rel="stylesheet" href="../css/profile.css">
     <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/music.css">
     <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
@@ -24,7 +25,7 @@
     <script src="../js/music.js"></script>
 </head>
 <body>
-
+<!--<input type="file" onchange="getImageData(event)">-->
 <!--Viêt giao diện Urer-->
 <div class="originnal-backround" id="home">
 
@@ -217,9 +218,36 @@
                     <h1>List User</h1>
                     <div class="list-user" id="user-table"></div>
             </div>
+
+            <div class="author-background" id="author-background" style="display: none">
+                <h1 style="color: white">List Song</h1>
+                <button onclick="addSong()">Create New Song</button>
+                <div class="author-song-item" id="author-song-item" ></div>
+            </div>
+
+
         </div>
     </div>
 </div>
+<!--<div class="backround-edit-user" id="form-add-song" style="display: none">-->
+<!--    <div class="form-edit-container" >-->
+<!--        <div class="form">-->
+<!--            <div class="column-left">-->
+<!--                <label>Name:<input type="text" name="name" id="name"></label>-->
+<!--                <label>Password: <input type="password" name="passwords" id="password" ></label>-->
+<!--                <label>Confirm Password: <input type="password" name="confirmPasswords" id="confirmPassword" ></label>-->
+<!--                <label>Phone :<input type="text" name="phone" id="phone" ></label>-->
+<!--                <button onclick="edit()">Save</button>-->
+<!--                <button type="button" onclick="backProfile()">Cancel</button>-->
+<!--            </div>-->
+<!--            <div class="column-right">-->
+<!--                <label>Profile Picture:</label>-->
+<!--                <input type="file" onchange="getImageData(event)">-->
+<!--                <img src="" alt="" id="profilePic" style="display: none">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 <!--Giao diện EditProfile user-->
 <div class="backround-edit-user" id="formEdit" style="display: none">
     <div class="form-edit-container" >
@@ -243,7 +271,6 @@
                 <img src="" alt="" id="profilePic" style="display: none">
             </div>
         </div>
-
     </div>
 </div>
 <!--Giao dien profile-->

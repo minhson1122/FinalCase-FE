@@ -69,4 +69,43 @@ axios.get('http://localhost:8080/api/songs').then(res => {
 });
 
 
+function showSongByAuthorId() {
+    loginNav.style.display = "none";
+    profileNav.style.display = "flex";
+    playingBar.style.background = "#121212"
+    forUser.style.display = "none"
+    forUser1.style.display = "none"
+    newBackground.style.display = "none";
+    home.style.opacity = "100%";
+    backUser.style.display = "none"
+    authorBackground.style.display="block"
+    axios.get(`http://localhost:8080/api/songs/${currentId}`).then(resp => {
+        console.log(resp.data)
+        let data = resp.data
+        let str = `<div class="song-item">`
+        for (const item of data) {
+            str += `<div class="listSong">
+                <div class="album-avt"><img src="${item.album.avatar}" alt="avt"/></div>
+                <div><h5 style="color: white"> Song Name:${item.name}</h5></div>
+                <div><h5 style="color: white"> Singer:${item.singer.name}</h5></div>
+                <button onclick="removeSong(${item.id})">Delete</button>
+            </div>`
+        }
+        str += '</div>'
+        document.getElementById("author-song-item").innerHTML = str
+    })
+}
+function removeSong(id){
+    axios.delete(`http://localhost:8080/api/songs/${id}`).then(() => {
+        showSongByAuthorId(currentId)
+    })
+}
+function addSong() {
+    document.getElementById("author-song-item").innerHTML =
+        `<input type="file" onchange="getImageData(event)"/> ` +
+        `<input type="text" id="note"/> ` +
+        `<input type="text" id="name"/> ` +
+        '<button onclick="addSongs()">Add</button>'
+}
+
 
