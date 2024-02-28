@@ -34,6 +34,7 @@ window.onload = function () {
     }
     loginUser()
     console.log("load 1",currentId)
+
 }
 document.getElementById("myButton").addEventListener("click", function () {
     newBackground.style.display = "block";
@@ -118,6 +119,8 @@ function loginUser() {
                             'Authorization': `Bearer ${token}`
                         }
                     }).then(res => {
+                        console.log("playList",res.data)
+
                         choicePlaylist1.style.display = "none";
                         choicePlaylist2.style.display = "none";
                         choicePlaylist3.style.display = "none";
