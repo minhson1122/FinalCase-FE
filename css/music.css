@@ -1,0 +1,14 @@
+.song-item  {
+    display: flex;
+    flex-wrap: wrap;}
+
+.author-background {
+    padding-top: 120px;
+}
+.author-song-item {
+    margin: 25px;
+}
+
+
+
+

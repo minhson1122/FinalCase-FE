@@ -38,7 +38,7 @@ const getImageData = (e) => {
                     console.log(url)
                     imageURL = url;
                 });
-         }
+        }
     );
 };
 
@@ -106,19 +106,42 @@ axios.get('http://localhost:8080/api/songs').then(res => {
     });
 
 });
+
+
 function showSongByAuthorId(id) {
     axios.get(`http://localhost:8080/api/songs/${id}`).then(resp => {
         console.log(resp.data)
         let data = resp.data
-        let str = '<div>'
+        let str = `<div class="song-item">`
         for (const item of data) {
-            str += `<div>${item.name}</div> `
+            str += `<div class="listSong" style="background: #242424 ; width: calc(16.666% - 20px); width: 225px ;margin: 10px; padding: 20px" >
+                <div class="album-avt"><img src="${item.album.avatar}" alt="avt"/></div>
+                <div><h5 style="color: white"> Song Name:${item.name}</h5></div>
+                <div><h5 style="color: white"> Singer:${item.singer.name}</h5></div>
+            </div>`
         }
-        str+='</div>'
-
-        document.getElementById("back-user").style.display="none";
-        document.getElementById("admin-background").style.display="none";
-        document.getElementById("song-table").innerHTML= str
+        str += '</div>'
+        document.getElementById("back-user").style.display = "none";
+        document.getElementById("admin-background").style.display = "none";
+        document.getElementById("author-song-item").innerHTML = str
     })
-
 }
+
+function addSong() {
+    document.getElementById("author-song-item").innerHTML =
+        `<input type="file" onchange="getImageData(event)"/> ` +
+        `<input type="text" id="note"/> ` +
+        `<input type="text" id="name"/> ` +
+        '<button onclick="addSongs()">Add</button>'
+}
+function addSongs(){
+    let data ={
+        src:imageURL,
+        name:document.getElementById("name").value,
+        note:document.getElementById("note").value,
+    }
+axios.post("http://localhost:8080/api/songs",data).then(()=>{
+    showSongByAuthorId();
+})
+}
+
