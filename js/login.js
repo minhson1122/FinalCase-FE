@@ -14,9 +14,26 @@ let currentPage = 1; // Trang hiện tại, mặc định là trang đầu tiên
 let totalPages = 0;
 const itemsPerPage = 10; // Số lượng mục trên mỗi trang
 let token = localStorage.getItem('userToken');
-let role = localStorage.getItem('role')
+let role = localStorage.getItem('role');
+let choicePlaylist1 = document.getElementById("choice-playlist1")
+let choicePlaylist2 = document.getElementById("choice-playlist2")
+let choicePlaylist3 = document.getElementById("choice-playlist3")
+let playlistSelected = document.getElementById("playlist-selected")
+let homeBtn= document.getElementById("home-btn")
+let itemDiv=""
 window.onload = function () {
+    let greetingElement = document.getElementById('good-something');
+    let currentTime = new Date().getHours();
+
+    if (currentTime < 12) {
+        greetingElement.textContent = 'Good morning!';
+    } else if (currentTime < 18) {
+        greetingElement.textContent = 'Good afternoon!';
+    } else {
+        greetingElement.textContent = 'Good evening!';
+    }
     loginUser()
+    console.log("load 1",currentId)
 }
 document.getElementById("myButton").addEventListener("click", function () {
     newBackground.style.display = "block";
@@ -34,27 +51,25 @@ document.getElementById("signup-box").addEventListener("click", function () {
 });
 document.getElementById('loginForm').addEventListener('submit', function (event) {
     event.preventDefault();
-    var username = document.querySelector('[name="username"]').value;
-    var password = document.querySelector('[name="password"]').value;
-    data = {
+    let username = document.querySelector('[name="username"]').value;
+    let password = document.querySelector('[name="password"]').value;
+    let dataLogin = {
         "username": username,
         "password": password
     }
-    axios.post(`http://localhost:8080/login`, data).then(res => {
+    axios.post(`http://localhost:8080/login`, dataLogin).then(res => {
         localStorage.setItem('userToken', res.data.accessToken);
         localStorage.setItem('role', res.data.roles[0].authority);
+        localStorage.setItem('currentId', res.data.id);
         console.log(res.data)
         console.log(res.data.accessToken)
         console.log(res.data.roles[0].authority)
         let userId = res.data.id
         if (res.data.roles[0].authority === 'ROLE_USER') {
-            alert("tk user")
             loginUser()
-            role = res.data.roles[0].authority
         } else if (res.data.roles[0].authority === 'ROLE_ADMIN') {
             alert("tk admin")
             showListUser();
-            role = res.data.roles[0].authority
         }
         else {
             alert("tk author")
@@ -75,17 +90,20 @@ function loginUser() {
     const nameItem = document.getElementById("name-item")
     const imgItem = document.getElementById("img-item")
     const playList = document.getElementById("playlist-list")
+    currentId = localStorage.getItem("currentId")
+    dataProfile(currentId)
     if (token !== null && role === 'ROLE_USER') {
         axios.get('http://localhost:8080/api/playLists', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         }).then(res => {
+            console.log(currentId)
+
             const playlistList = document.getElementById("playlist-list");
             playlistList.innerHTML = '';
             res.data.forEach((item) => {
-                const itemDiv = document.createElement("div");
-                itemDiv.classList.add("item-list");
+                itemDiv = document.createElement("div");
                 itemDiv.setAttribute("data-id", item.id);
                 const img = document.createElement("img");
                 img.setAttribute("src", item.avatar);
@@ -96,8 +114,61 @@ function loginUser() {
                 itemDiv.appendChild(img);
                 itemDiv.appendChild(name);
                 playlistList.appendChild(itemDiv);
-            })
 
+                itemDiv.addEventListener('click', function () {
+                    const playlistId = this.getAttribute("data-id");
+                    console.log(playlistId);
+                    itemDiv.id=`play-list${playlistId}`;
+                    console.log(itemDiv)
+                    axios.get(`http://localhost:8080/api/song-playlist/${playlistId}`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    }).then(res => {
+                        choicePlaylist1.style.display = "none";
+                        choicePlaylist2.style.display = "none";
+                        choicePlaylist3.style.display = "none";
+                        playlistSelected.style.display = "block"
+                        // if(document.getElementById(`playlist${playlistId}`))
+                        let str = `<div id="playlist-selected-tiem">
+<div class="top-top">
+<div class="top">
+<img src="${res.data[0].playList.avatar}" alt="">
+<h2>${res.data[0].playList.name}</h2>
+</div>
+<div class="play-playlist-btn">
+<i class="fa-regular fa-circle-play pause" id="displayPlay"></i>
+<i class="fa-regular fa-circle-pause pause" style="display: none" id="pauseMusic"></i>
+</div>
+</div>
+<hr>
+<div class="bot">
+<table id="playlist-selected-table">
+<tr>
+<th>Song name</th>
+<th>Album</th>
+<th>Likes</th>
+<th>Listens</th>
+</tr>
+`
+
+                        res.data.forEach((item) => {
+                            console.log("test", item.song)
+                            str += `
+<tr>
+<td>${item.song.name}</td>
+<td>${item.song.album.name}</td>
+<td>${item.song.likes}</td>
+<td>${item.song.listens}</td>
+</tr>
+`
+                        })
+                        str += `</table></div></div>`
+                        playlistSelected.innerHTML = str
+
+                    })
+                });
+            });
             newBackground.style.display = "none";
             homeUser.style.display = "block";
             forUser.style.display = "flex"
@@ -105,7 +176,7 @@ function loginUser() {
             home.style.opacity = "100%";
             loginNav.style.display = "none";
             profileNav.style.display = "flex";
-            playlist.style.display = "block"
+            playlist.style.display = "flex"
             playList.addEventListener('click', function () {
                 const playlistId = this.getAttribute("data-id");
                 axios.get(`http://localhost:8080/api/song-playlist/${playlistId}`, {
@@ -117,7 +188,7 @@ function loginUser() {
                 });
 
             })
-        })
+            })
     } else if (token !== null && role === 'ROLE_ADMIN') {
         showListUser();
     }
@@ -138,12 +209,22 @@ document.getElementById("xSignup-btn").addEventListener("click", function () {
 
 document.getElementById("main-view").addEventListener("click", function () {
     newBackground.style.display = "none";
+    document.getElementById("formEdit").style.display="none";
     signup.style.display = "none";
     home.style.opacity = "100%";
+});
+document.getElementById("home-btn").addEventListener("click", function () {
+    choicePlaylist1.style.display = "block";
+    choicePlaylist2.style.display = "block";
+    choicePlaylist3.style.display = "block";
+    playlistSelected.style.display = "none"
+    itemDiv.classList.remove("App__category-item--selected")
+    homeBtn.classList.add("App__category-item--selected")
 });
 document.getElementById("logout").addEventListener("click", function () {
     localStorage.setItem('userToken', null);
     localStorage.setItem('role', null);
+    localStorage.setItem('currentId', null);
     console.log(localStorage.getItem('userToken'))
     forUser.style.display = "none"
     forUser1.style.display = "none"
@@ -156,6 +237,14 @@ document.getElementById("logout").addEventListener("click", function () {
     backUser.style.display = "block"
     playingBar.style.display = "block"
     playingBar.style.background = "#1B1B1B"
+    itemDiv.classList.remove("App__category-item--selected")
+    homeBtn.classList.add("App__category-item--selected")
+    choicePlaylist1.style.display = "block";
+    choicePlaylist2.style.display = "block";
+    choicePlaylist3.style.display = "block";
+    playlistSelected.style.display = "none"
+    document.getElementById("formEdit").style.display="none";
+    currentId = null;
 })
 
 function showListUser() {
@@ -204,8 +293,6 @@ function showListUser() {
                     </tr>`;
         }
         str += `</table>`;
-
-        // Thêm nút điều hướng phân trang
         if (totalPages > 1) {
             str += `<button onclick="previousPage()" class="btn btn-success">Previous</button>
                     <button onclick="nextPage()" class="btn btn-success">Next</button>`;
@@ -217,7 +304,6 @@ function showListUser() {
     });
 }
 
-// Thay đổi trạng thái tài khoản
 function changeEnabled(id) {
     let data = {
         avt: document.getElementById(`avt-${id}`).getAttribute('src'),
@@ -230,9 +316,7 @@ function changeEnabled(id) {
 
     axios.put(`http://localhost:8080/admin/${id}`, data).then(() => {
         showListUser();
-    }).catch(error => {
-        console.error('Error updating user:', error);
-    });
+    })
 }
 
 function previousPage() {

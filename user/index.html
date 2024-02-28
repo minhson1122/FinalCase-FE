@@ -12,10 +12,6 @@
     <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-
-    <!-- Custom styles for this page -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
             crossorigin="anonymous"></script>
@@ -27,9 +23,6 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-storage.js"></script>
     <script src="https://kit.fontawesome.com/44420478c7.js" crossorigin="anonymous"></script>
     <script src="../js/music.js"></script>
-
-
-
 </head>
 <body>
 <!--<input type="file" onchange="getImageData(event)">-->
@@ -67,7 +60,7 @@
                 <img src="../img/Spotify.jpg.webp"/>
             </div>
             <div class="App__categories-nav">
-                <div class="App__category-item App__category-item--selected">
+                <div class="App__category-item " id="home-btn">
                     <div class="icon">
                         <svg viewBox="0 0 576 512" width="100" title="home">
                             <path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"
@@ -118,23 +111,6 @@
                     </div>
                     <span>Liked Songs</span>
                 </div>
-                <div class="App__category-item">
-                    <div class="icon">
-                        <svg role="img" width="12" height="12" viewBox="0 0 527 483" fill="none"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                  d="M1.5 264.208C1.5 119.17 118.974 1.5 264 1.5C409.026 1.5 526.5 119.17 526.5 264.208C526.5 351.905 483.535 429.569 417.628 477.247C406.996 484.938 392.595 481.729 385.684 471.362L376.758 457.971C369.699 447.382 372.818 433.617 382.485 426.529C432.426 389.914 464.783 330.851 464.783 264.208C464.783 153.128 374.839 63.1707 264 63.1707C153.161 63.1707 63.2173 153.128 63.2173 264.208C63.2173 330.851 95.5742 389.914 145.515 426.529C155.182 433.617 158.301 447.382 151.242 457.971L142.316 471.362C135.405 481.729 121.004 484.938 110.372 477.247C44.4653 429.569 1.5 351.905 1.5 264.208Z"
-                                  fill="#1ED760"></path>
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                  d="M104.5 263.216C104.5 174.586 175.78 102.5 264 102.5C352.22 102.5 423.5 174.586 423.5 263.216C423.5 315.346 398.84 361.707 360.685 391.048C350.27 399.057 336.041 395.66 329.404 385.602L323.251 376.279C316.458 365.986 319.652 353.018 328.353 346.12C352.699 326.817 368.307 296.878 368.307 263.216C368.307 204.912 321.476 157.884 264 157.884C206.524 157.884 159.693 204.912 159.693 263.216C159.693 296.878 175.301 326.817 199.647 346.12C208.348 353.018 211.542 365.986 204.749 376.279L198.596 385.602C191.959 395.66 177.73 399.057 167.315 391.048C129.16 361.707 104.5 315.346 104.5 263.216Z"
-                                  fill="#1ED760"></path>
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                  d="M200.5 261C200.5 226.296 229.118 198.5 264 198.5C298.882 198.5 327.5 226.296 327.5 261C327.5 295.704 298.882 323.5 264 323.5C229.118 323.5 200.5 295.704 200.5 261Z"
-                                  fill="#1ED760"></path>
-                        </svg>
-                    </div>
-                    <span>Your Episodes</span>
-                </div>
             </div>
             <div class="App__divider-container">
                 <hr>
@@ -145,15 +121,12 @@
                 </div>
                 <div class="playlist-list" id="playlist-list">
                     <div class="item-list" >
-                        <img id="img-item" src="" alt="">
                         <p class="name-item" id="name-item"> </p>
+                        <p class="name-playList" id="name-playList"></p>
                     </div>
                 </div>
             </div>
         </div>
-
-
-
         <div class="App__now-playing-bar" id="playing-bar">
             <div class="function" id="function">
                 <div class="music">
@@ -165,7 +138,6 @@
                         <div class="name" id="music-name"></div>
                         <div class="artist" id="nameSinger"></div>
                     </div>
-
                 </div>
                 <div class="controls" style="display: none" id="control">
                     <div class="playback">
@@ -209,12 +181,11 @@
                 </div>
             </div>
         </div>
-
         <div class="App__main-view" id="main-view">
             <div id="back-user">
                 <div class="App__top-gradient"></div>
                 <div class="App__header-placeholder"></div>
-                <section class="App__section App__quick-links">
+                <section class="App__section App__quick-links" id="choice-playlist1">
                     <h1 id="good-something"></h1>
                     <div class="App__quick-links-container">
                         <div class="App__quick-link">
@@ -227,21 +198,22 @@
                         </div>
                     </div>
                 </section>
-                <section class="App__section App__your-shows">
+                <section class="App__section App__your-shows" id="choice-playlist2">
                     <div class="App__section-header">
                         <h3>Top 10 trending</h3>
                         <span>SEE ALL</span>
                     </div>
                     <div class="App__section-grid-container" id="card"></div>
                 </section>
-                <section class="App__section App__your-shows">
+                <section class="App__section App__your-shows" id="choice-playlist3">
                     <div class="App__section-header">
                         <h3>Your top mixes</h3>
                         <span>SEE ALL</span>
                     </div>
                 </section>
+                <div id="playlist-selected">
+                </div>
             </div>
-
             <div class="admin-background" id="admin-background">
                     <h1>List User</h1>
                     <div class="list-user" id="user-table"></div>
@@ -258,33 +230,28 @@
 </div>
 <!--Giao diện EditProfile user-->
 <div class="backround-edit-user" id="formEdit" style="display: none">
-    <div class="form-edit-container">
+    <div class="form-edit-container" >
         <div class="form">
             <div class="column-left">
-                <label>Name:</label>
-                <input type="text" name="" id="name" value="" required>
+                <label>Name:<input type="text" name="name" id="name"></label>
 
-                <label>Email:</label>
-                <input type="text" name="" id="username" required>
+                <label>Password: <input type="password" name="passwords" id="password" ></label>
 
-                <label>Password:</label>
-                <input type="password" name="" id="password" required>
 
-                <label>Confirm Password:</label>
-                <input type="password" name="" id="confirmPassword" required>
+                <label>Confirm Password: <input type="password" name="confirmPasswords" id="confirmPassword" ></label>
 
-                <label>Phone :</label>
-                <input type="text" name="" id="phone" required>
 
-                <button type="submit">Save</button>
-                <button onclick="backProfile()">Cancel</button>
+                <label>Phone :<input type="text" name="phone" id="phone" ></label>
+                <button onclick="edit()">Save</button>
+                <button type="button" onclick="backProfile()">Cancel</button>
             </div>
             <div class="column-right">
                 <label>Profile Picture:</label>
-                <input type="file" id="picture">
+                <input type="file" onchange="getImageData(event)">
                 <img src="" alt="" id="profilePic" style="display: none">
             </div>
         </div>
+
     </div>
 </div>
 <!--Giao dien profile-->
@@ -292,21 +259,15 @@
     <div class="form-edit-container">
         <div class="form">
             <div class="column-left">
-                <label>Name:</label>
-                <input value="Hieu" readonly>
-
-                <label>Email:</label>
-                <input value="Hieubyi@gmail.com" readonly>
-
-                <label>Phone :</label>
-                <input value="0964345589" readonly>
-                <button onclick="editProfile()">Edit</button>
+                <label>Name:<input id="nameU" value="" readonly></label>
+                <label>Email: <input id="email" value="" readonly></label>
+                <label>Phone :<input id="phoneu" value="" readonly></label>
+                <button id="editProfile">Edit</button>
                 <button onclick="backHome()">Cancel</button>
             </div>
             <div class="column-right">
                 <label>Profile Picture:</label>
-                <img src="2022_05_03_12_03_IMG_0003.JPG" height="1284" width="1284" id="profilePics"
-                     style="display: block"/>
+                <img id="profilePics" alt="" src=""/>
             </div>
         </div>
     </div>
@@ -362,9 +323,7 @@
         <input type="text">
     </label>
 </div>
-
 <!--Giao diện Admin Viêt ở đây -->
-<!---->
 <div class="admin-backround"></div>
 <script src="../js/main.js"></script>
 <script src="../js/login.js"></script>
