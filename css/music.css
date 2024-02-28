@@ -8,6 +8,13 @@
 .author-song-item {
     margin: 25px;
 }
+.listSong {
+    background: #242424 ;
+    width: calc(16.666% - 20px);
+    width: 225px;
+    margin: 10px;
+    padding: 20px
+}
 
 
 

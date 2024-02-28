@@ -20,6 +20,7 @@ let choicePlaylist2 = document.getElementById("choice-playlist2")
 let choicePlaylist3 = document.getElementById("choice-playlist3")
 let playlistSelected = document.getElementById("playlist-selected")
 let homeBtn= document.getElementById("home-btn")
+let authorBackground = document.getElementById("author-background")
 let itemDiv=""
 window.onload = function () {
     let greetingElement = document.getElementById('good-something');
@@ -64,7 +65,6 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
         console.log(res.data)
         console.log(res.data.accessToken)
         console.log(res.data.roles[0].authority)
-        let userId = res.data.id
         if (res.data.roles[0].authority === 'ROLE_USER') {
             loginUser()
         } else if (res.data.roles[0].authority === 'ROLE_ADMIN') {
@@ -73,10 +73,11 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
         }
         else {
             alert("tk author")
-            console.log(userId)
-            showSongByAuthorId(userId)
+            console.log("id hiện tại",currentId)
+            showSongByAuthorId()
             role = res.data.roles[0].authority
         }
+
     })
         .catch(error => {
             console.error(error);
@@ -193,8 +194,7 @@ function loginUser() {
         showListUser();
     }
     else if (token !== null && role === `ROLE_AUTHOR`) {
-
-
+        showSongByAuthorId()
     }
 }
 
@@ -244,6 +244,7 @@ document.getElementById("logout").addEventListener("click", function () {
     choicePlaylist3.style.display = "block";
     playlistSelected.style.display = "none"
     document.getElementById("formEdit").style.display="none";
+    authorBackground.style.display="none"
     currentId = null;
 })
 
