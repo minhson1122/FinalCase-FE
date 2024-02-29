@@ -79,12 +79,67 @@ function showSongByAuthorId() {
                 <div class="album-avt"><img src="${item.album.avatar}" alt="avt"/></div>
                 <div><h5>${item.name}</h5></div>
                 <div><h5>${item.singer.name}</h5></div>
-                <button onclick="removeSong(${item.id})">Delete</button>
-                
+                <div>
+                <button onclick="showEditSongForm(${item.id})">Edit</button>
+                <button onclick="removeSong(${item.id})">Delete</button>    
+                </div>   
             </div>`
         }
         str += '</div>'
         document.getElementById("author-song-item").innerHTML = str
+    })
+}
+function showEditSongForm(id){
+    document.getElementById("author-title").innerHTML = `Edit Song`
+    document.getElementById(`create-song-button`).style.display = `none`
+    axios.get(`http://localhost:8080/api/songs/song/${id}`).then(resp => {
+        axios.get(`http://localhost:8080/api/albums`).then(albums => {
+            axios.get(`http://localhost:8080/api/singers`).then(singers => {
+                let str =
+                    `<div class="column-left">
+                <input type="hidden" id="song-id" value="${resp.data.id}">
+                <label>Name:<input type="text" name="name" id="edit-song-name" value="${resp.data.name}"></label>
+                <label>Note: <input type="text" name="note" id="edit-song-note" value="${resp.data.note}"></label>
+                <label>Choice Album: <select id="edit-album">`
+                for (const album of albums.data) {
+                    str += `<option value="${album.id}">${album.name}</option>`
+                }
+                str += `</select></label>
+                <label>Choice Singer: <select id="edit-singer">`
+                for (const singer of singers.data) {
+                    str += `<option value="${singer.id}">${singer.name}</option>`
+                }
+                str += `</select></label> 
+                </div>
+                <div style="display: flex">
+                <button type="button" onclick="showSongByAuthorId()">Cancel</button>
+                <button onclick="editSong()">Edit</button>
+                </div>`
+                document.getElementById("author-song-item").innerHTML = str
+            })
+            console.log(`${resp.data.id}`)
+        })
+    })
+
+}
+function editSong(){
+    let id = document.getElementById(`song-id`).value
+    let data = {
+        name: document.getElementById(`edit-song-name`).value,
+        note: document.getElementById(`edit-song-note`).value,
+        src: songURl,
+        album: {
+            id: document.getElementById(`edit-album`).value
+        },
+        singer: {
+            id: document.getElementById(`edit-singer`).value
+        },
+        author: {
+            id: currentId
+        },
+    }
+    axios.put(`http://localhost:8080/api/songs/${id}`, data).then(() =>{
+        showSongByAuthorId()
     })
 }
 function removeSong(id){
