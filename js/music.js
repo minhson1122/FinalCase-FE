@@ -1,70 +1,77 @@
 
 axios.get('http://localhost:8080/api/songs').then(res => {
     const card = document.getElementById("card");
-    const control = document.getElementById("control");
-    const love = document.getElementById("love");
-    card.innerHTML = '';
-    let songIndex = -1;
+    localStorage.setItem('activeSongList', 'savedSongs');
     localStorage.setItem('songs', JSON.stringify(res.data));
-    const song =JSON.parse(localStorage.getItem('indexSong'))
-    const savedSongs =JSON.parse(localStorage.getItem('songs'))
-    const idSongs =JSON.parse(localStorage.getItem('idSong'))
-    console.log("song",savedSongs)
-    savedSongs.forEach((item, index) => {
+    card.innerHTML = '';
+    res.data.forEach((item, index) => {
         const songDiv = document.createElement("div");
         songDiv.className = "App__section-grid-item";
         songDiv.innerHTML = `
             <div class=""><img src="${item.album.avatar}" alt=""></div> 
             <div class="song-name">${item.name}</div>
             <span>${item.singer.name}</span>
+            
         `;
         songDiv.querySelector('.song-name').addEventListener('click', function ()  {
             playSong(index)
 
             localStorage.setItem('idSong',JSON.stringify(`${item.id}`))
-
         });
         card.appendChild(songDiv);
     });
+    love.addEventListener('click', () => {
+        axios.get(`http://localhost:8080/api/songs/like/${idSongs}`
+        ).then(res => {
+            updateLike(res.data.likes)
 
-      function playSong(indexSong) {
-            if (indexSong < 0 || indexSong >= savedSongs.length) return;
-            songIndex = indexSong;
-            const song = savedSongs[indexSong];
-            localStorage.setItem('indexSong', JSON.stringify(savedSongs[indexSong]));
-            toggleAudio(song.src, song.name, song.singer.name, song.album.avatar)
-            updateLike(song.likes)
-            control.style.display = 'block';
-            love.style.display = 'block';
-            axios.get(`http://localhost:8080/api/songs/listen/${song.id}`
-            ).then(res => {
-                console.log(res.data)
-
-            })
+        })
+    });
 
 
-        }
-
-        document.getElementById("nextSong").addEventListener("click", function () {
-            if (songIndex >= 0 && songIndex < songs.length - 1) {
-                playSong(songIndex + 1);
-
-            }
-        });
-        document.getElementById("prevSong").addEventListener("click", function () {
-            if (songIndex > 0) {
-                playSong(songIndex - 1);
-            }
-        });
-
-        love.addEventListener('click', () => {
-            axios.get(`http://localhost:8080/api/songs/like/${idSongs}`
-            ).then(res => {
-                updateLike(res.data.likes)
-
-            })
-        });
 
 
 });
+
+const song =JSON.parse(localStorage.getItem('indexSong'))
+const savedSongs =JSON.parse(localStorage.getItem('songs'))
+// const saveListSongs =JSON.parse(localStorage.getItem('listSongs'))
+const idSongs =JSON.parse(localStorage.getItem('idSong'))
+console.log("song",savedSongs)
+function playSong(indexSong) {
+    function getCurrentSongList() {
+        const activeSongList = localStorage.getItem('activeSongList');
+        if (activeSongList === 'saveListSongs') {
+            return JSON.parse(localStorage.getItem('listSongs'));
+        } else if(activeSongList==='savedSongs') {
+            return JSON.parse(localStorage.getItem('songs'));
+        }
+    }
+
+    const currentSongs = getCurrentSongList();
+    console.log("check",currentSongs)
+    if (indexSong < 0 || indexSong >= currentSongs.length) return;
+    const song = currentSongs[indexSong];
+    localStorage.setItem('indexSong', JSON.stringify(currentSongs[indexSong]));
+    toggleAudio(song.src, song.name, song.singer.name, song.album.avatar)
+    updateLike(song.likes)
+
+    axios.get(`http://localhost:8080/api/songs/listen/${song.id}`
+    ).then(res => {
+        console.log(res.data)
+
+    })
+    document.getElementById("nextSong").addEventListener("click", function () {
+        if (indexSong >= 0 && indexSong < currentSongs.length - 1) {
+            playSong(indexSong + 1);
+
+        }
+    });
+    document.getElementById("prevSong").addEventListener("click", function () {
+        if (indexSong > 0) {
+            playSong(indexSong - 1);
+        }
+    });
+
+}
 

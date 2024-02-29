@@ -19,9 +19,9 @@ let choicePlaylist1 = document.getElementById("choice-playlist1")
 let choicePlaylist2 = document.getElementById("choice-playlist2")
 let choicePlaylist3 = document.getElementById("choice-playlist3")
 let playlistSelected = document.getElementById("playlist-selected")
-let homeBtn= document.getElementById("home-btn")
+let homeBtn = document.getElementById("home-btn")
 let authorBackground = document.getElementById("author-background")
-let itemDiv=""
+let itemDiv = ""
 window.onload = function () {
     let greetingElement = document.getElementById('good-something');
     let currentTime = new Date().getHours();
@@ -34,7 +34,7 @@ window.onload = function () {
         greetingElement.textContent = 'Good evening!';
     }
     loginUser()
-    console.log("load 1",currentId)
+    console.log("load 1", currentId)
 
 }
 document.getElementById("myButton").addEventListener("click", function () {
@@ -71,10 +71,9 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
         } else if (res.data.roles[0].authority === 'ROLE_ADMIN') {
             alert("tk admin")
             showListUser();
-        }
-        else {
+        } else {
             alert("tk author")
-            console.log("id hiện tại",currentId)
+            console.log("id hiện tại", currentId)
             showSongByAuthorId()
             role = res.data.roles[0].authority
         }
@@ -120,20 +119,22 @@ function loginUser() {
                 itemDiv.addEventListener('click', function () {
                     const playlistId = this.getAttribute("data-id");
                     console.log(playlistId);
-                    itemDiv.id=`play-list${playlistId}`;
+                    itemDiv.id = `play-list${playlistId}`;
                     console.log(itemDiv)
                     axios.get(`http://localhost:8080/api/song-playlist/${playlistId}`, {
                         headers: {
                             'Authorization': `Bearer ${token}`
                         }
                     }).then(res => {
-                        console.log("playList",res.data)
-
+                        console.log("playList", res.data.song)
+                        const songs = res.data.map(item => item.song);
+                        console.log("Songs list", songs);
+                        localStorage.setItem('listSongs', JSON.stringify(songs))
                         choicePlaylist1.style.display = "none";
                         choicePlaylist2.style.display = "none";
                         choicePlaylist3.style.display = "none";
                         playlistSelected.style.display = "block"
-                        // if(document.getElementById(`playlist${playlistId}`))
+                        let indexList = -1;
                         let str = `<div id="playlist-selected-tiem">
 <div class="top-top">
 <div class="top">
@@ -149,27 +150,34 @@ function loginUser() {
 <div class="bot">
 <table id="playlist-selected-table">
 <tr>
-<th>Song name</th>
+<th">Song name</th>
 <th>Album</th>
 <th>Likes</th>
 <th>Listens</th>
 </tr>
 `
 
-                        res.data.forEach((item) => {
+                        res.data.forEach((item, index) => {
                             console.log("test", item.song)
                             str += `
 <tr>
-<td>${item.song.name}</td>
+<td class="play-song" data-index="${index}">${item.song.name}</td>
 <td>${item.song.album.name}</td>
 <td>${item.song.likes}</td>
 <td>${item.song.listens}</td>
 </tr>
 `
+
                         })
                         str += `</table></div></div>`
                         playlistSelected.innerHTML = str
-
+                        document.querySelectorAll('.play-song').forEach(item => {
+                            item.addEventListener('click', function () {
+                                const index = parseInt(this.getAttribute('data-index'), 10);
+                                localStorage.setItem('activeSongList', 'saveListSongs');
+                                playSong(index);
+                            });
+                        });
                     })
                 });
             });
@@ -192,12 +200,11 @@ function loginUser() {
                 });
 
             })
-            })
+        })
     } else if (token !== null && role === 'ROLE_ADMIN') {
         showListUser();
-    }
-    else if (token !== null && role === `ROLE_AUTHOR`) {
-        showSongByAuthorId()
+    } else if (token !== null && role === `ROLE_AUTHOR`) {
+
     }
 }
 
@@ -212,7 +219,7 @@ document.getElementById("xSignup-btn").addEventListener("click", function () {
 
 document.getElementById("main-view").addEventListener("click", function () {
     newBackground.style.display = "none";
-    document.getElementById("formEdit").style.display="none";
+    document.getElementById("formEdit").style.display = "none";
     signup.style.display = "none";
     home.style.opacity = "100%";
 });
@@ -246,8 +253,8 @@ document.getElementById("logout").addEventListener("click", function () {
     choicePlaylist2.style.display = "block";
     choicePlaylist3.style.display = "block";
     playlistSelected.style.display = "none"
-    document.getElementById("formEdit").style.display="none";
-    authorBackground.style.display="none"
+    document.getElementById("formEdit").style.display = "none";
+    authorBackground.style.display = "none"
     currentId = null;
 })
 
