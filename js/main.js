@@ -31,7 +31,7 @@ function toggleAudio(url, name, nameSinger, avatar) {
     } else {
         audioElement.pause();
     }
-
+    alert(1)
 }
 
 function updateLike(likes) {

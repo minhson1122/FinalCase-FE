@@ -77,7 +77,7 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
             showSongByAuthorId()
             role = res.data.roles[0].authority
         }
-
+        window.location.reload();
     })
         .catch(error => {
             console.error(error);
@@ -230,31 +230,8 @@ document.getElementById("home-btn").addEventListener("click", function () {
     homeBtn.classList.add("App__category-item--selected")
 });
 document.getElementById("logout").addEventListener("click", function () {
-    localStorage.setItem('userToken', null);
-    localStorage.setItem('role', null);
-    localStorage.setItem('currentId', null);
-    localStorage.setItem('activeSongList', 'savedSongs');
-    console.log(localStorage.getItem('userToken'))
-    forUser.style.display = "none"
-    forUser1.style.display = "none"
-    newBackground.style.display = "none";
-    home.style.opacity = "100%";
-    loginNav.style.display = "block";
-    profileNav.style.display = "none";
-    playlist.style.display = "none"
-    adminBox.style.display = "none"
-    backUser.style.display = "block"
-    playingBar.style.display = "block"
-    playingBar.style.background = "#1B1B1B"
-    itemDiv.classList.remove("App__category-item--selected")
-    homeBtn.classList.add("App__category-item--selected")
-    choicePlaylist1.style.display = "block";
-    choicePlaylist2.style.display = "block";
-    choicePlaylist3.style.display = "block";
-    playlistSelected.style.display = "none"
-    document.getElementById("formEdit").style.display = "none";
-    authorBackground.style.display = "none"
-    currentId = null;
+    localStorage.clear();
+    window.location.reload();
 })
 
 function showListUser() {
