@@ -60,7 +60,7 @@
                 <img src="../img/Spotify.jpg.webp"/>
             </div>
             <div class="App__categories-nav">
-                <div class="App__category-item " id="home-btn">
+                <div class="App__category-item" id="home-btn">
                     <div class="icon">
                         <svg viewBox="0 0 576 512" width="100" title="home">
                             <path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"
@@ -214,53 +214,34 @@
                 <div id="playlist-selected">
                 </div>
             </div>
+<!--            Giao diện Admin-->
             <div class="admin-background" id="admin-background">
                     <h1>List User</h1>
                     <div class="list-user" id="user-table"></div>
             </div>
-
+<!--            Giao diện Author-->
             <div class="author-background" id="author-background" style="display: none">
-                <h1 style="color: white">List Song</h1>
-                <button onclick="addSong()">Create New Song</button>
+                <h1 id="author-title">List Song</h1>
+                <button onclick="showAddSongForm()" id="create-song-button">Create New Song</button>
                 <div class="author-song-item" id="author-song-item" ></div>
             </div>
-
-
         </div>
     </div>
 </div>
-<!--<div class="backround-edit-user" id="form-add-song" style="display: none">-->
-<!--    <div class="form-edit-container" >-->
-<!--        <div class="form">-->
-<!--            <div class="column-left">-->
-<!--                <label>Name:<input type="text" name="name" id="name"></label>-->
-<!--                <label>Password: <input type="password" name="passwords" id="password" ></label>-->
-<!--                <label>Confirm Password: <input type="password" name="confirmPasswords" id="confirmPassword" ></label>-->
-<!--                <label>Phone :<input type="text" name="phone" id="phone" ></label>-->
-<!--                <button onclick="edit()">Save</button>-->
-<!--                <button type="button" onclick="backProfile()">Cancel</button>-->
-<!--            </div>-->
-<!--            <div class="column-right">-->
-<!--                <label>Profile Picture:</label>-->
-<!--                <input type="file" onchange="getImageData(event)">-->
-<!--                <img src="" alt="" id="profilePic" style="display: none">-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+<div class="backround-edit-user"  style="display: none">
+    <div class="form-edit-container" >
+        <div class="form" id="form-add-song">
+        </div>
+    </div>
+</div>
 <!--Giao diện EditProfile user-->
 <div class="backround-edit-user" id="formEdit" style="display: none">
     <div class="form-edit-container" >
         <div class="form">
             <div class="column-left">
                 <label>Name:<input type="text" name="name" id="name"></label>
-
                 <label>Password: <input type="password" name="passwords" id="password" ></label>
-
-
                 <label>Confirm Password: <input type="password" name="confirmPasswords" id="confirmPassword" ></label>
-
-
                 <label>Phone :<input type="text" name="phone" id="phone" ></label>
                 <button onclick="edit()">Save</button>
                 <button type="button" onclick="backProfile()">Cancel</button>

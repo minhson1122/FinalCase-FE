@@ -4,16 +4,25 @@
 
 .author-background {
     padding-top: 120px;
+    margin-left: 30px;
+    color: white;
+}
+.author-background > button {
+    margin-top: 15px;
 }
 .author-song-item {
     margin: 25px;
 }
 .listSong {
-    background: #242424 ;
+    border-radius: 10px;
+    background: #242424;
     width: calc(16.666% - 20px);
     width: 225px;
     margin: 10px;
     padding: 20px
+}
+.listSong > div {
+    padding: 10px;
 }
 
 

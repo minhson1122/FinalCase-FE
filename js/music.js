@@ -1,6 +1,3 @@
-
-
-
 axios.get('http://localhost:8080/api/songs').then(res => {
     const card = document.getElementById("card");
     const control = document.getElementById("control");
@@ -20,16 +17,12 @@ axios.get('http://localhost:8080/api/songs').then(res => {
         axios.get(`http://localhost:8080/api/songs/listen/${song.id}`
         ).then(res => {
             console.log(res.data)
-
         })
-
-
     }
 
     document.getElementById("nextSong").addEventListener("click", function () {
         if (songIndex >= 0 && songIndex < songs.length - 1) {
             playSong(songIndex + 1);
-
         }
     });
     document.getElementById("prevSong").addEventListener("click", function () {
@@ -76,6 +69,7 @@ function showSongByAuthorId() {
     home.style.opacity = "100%";
     backUser.style.display = "none"
     authorBackground.style.display="block"
+    document.getElementById(`create-song-button`).style.display = `block`
     axios.get(`http://localhost:8080/api/songs/${currentId}`).then(resp => {
         console.log(resp.data)
         let data = resp.data
@@ -83,9 +77,10 @@ function showSongByAuthorId() {
         for (const item of data) {
             str += `<div class="listSong">
                 <div class="album-avt"><img src="${item.album.avatar}" alt="avt"/></div>
-                <div><h5 style="color: white"> Song Name:${item.name}</h5></div>
-                <div><h5 style="color: white"> Singer:${item.singer.name}</h5></div>
+                <div><h5>${item.name}</h5></div>
+                <div><h5>${item.singer.name}</h5></div>
                 <button onclick="removeSong(${item.id})">Delete</button>
+                
             </div>`
         }
         str += '</div>'
@@ -97,12 +92,60 @@ function removeSong(id){
         showSongByAuthorId(currentId)
     })
 }
-function addSong() {
-    document.getElementById("author-song-item").innerHTML =
-        `<input type="file" onchange="getImageData(event)"/> ` +
-        `<input type="text" id="note"/> ` +
-        `<input type="text" id="name"/> ` +
-        '<button onclick="addSongs()">Add</button>'
+function showAddSongForm() {
+    document.getElementById("author-title").innerHTML = `Create New Song`
+    document.getElementById(`create-song-button`).style.display = `none`
+    axios.get(`http://localhost:8080/api/albums`).then(albums => {
+        axios.get(`http://localhost:8080/api/singers`).then(singers => {
+            let str =
+                `<div class="column-left">
+                <label>Name:<input type="text" name="name" id="song-name"></label>
+                <label>Note: <input type="text" name="note" id="song-note"></label>
+                <label>Choice Album: <select id="list-album">`
+            for (const album of albums.data) {
+                str += `<option value="${album.id}">${album.name}</option>`
+            }
+            str += `</select></label>
+                <label>Choice Singer: <select id="list-singer">`
+            for (const singer of singers.data) {
+                str += `<option value="${singer.id}">${singer.name}</option>`
+            }
+            str += `</select></label> 
+                </div>
+                <div class="column-right">
+                <label>Song Data:</label>
+                <input type="file" onchange="getImageData(event)" id="song-url">
+                </div>
+                <div style="display: flex">
+                <button type="button" onclick="showSongByAuthorId()">Cancel</button>
+                <button onclick="addSong()" id="save-song-button" style="display: none">Save</button>
+                </div>`
+            document.getElementById("author-song-item").innerHTML = str
+        })
+    })
 }
+function addSong(){
+    let data  = {
+        name: document.getElementById("song-name").value,
+        note: document.getElementById(`song-note`).value,
+        src: songURl,
+        album: {
+            id: document.getElementById(`list-album`).value
+        },
+        singer: {
+           id: document.getElementById(`list-singer`).value
+        },
+        author: {
+            id: currentId
+        },
+        likes: 0,
+        listens: 0,
+    }
+    axios.post(`http://localhost:8080/api/songs`,data).then(() =>{
+        showSongByAuthorId()
+    })
+}
+
+
 
 
