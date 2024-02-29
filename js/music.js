@@ -14,9 +14,10 @@ axios.get('http://localhost:8080/api/songs').then(res => {
             
         `;
         songDiv.querySelector('.song-name').addEventListener('click', function ()  {
+            localStorage.setItem('activeSongList', 'savedSongs');
+            localStorage.setItem('idSong',JSON.stringify(`${item.id}`))
             playSong(index)
 
-            localStorage.setItem('idSong',JSON.stringify(`${item.id}`))
         });
         card.appendChild(songDiv);
     });
@@ -27,15 +28,9 @@ axios.get('http://localhost:8080/api/songs').then(res => {
 
         })
     });
-
-
-
-
 });
-
 const song =JSON.parse(localStorage.getItem('indexSong'))
 const savedSongs =JSON.parse(localStorage.getItem('songs'))
-// const saveListSongs =JSON.parse(localStorage.getItem('listSongs'))
 const idSongs =JSON.parse(localStorage.getItem('idSong'))
 console.log("song",savedSongs)
 function playSong(indexSong) {
@@ -55,6 +50,17 @@ function playSong(indexSong) {
     localStorage.setItem('indexSong', JSON.stringify(currentSongs[indexSong]));
     toggleAudio(song.src, song.name, song.singer.name, song.album.avatar)
     updateLike(song.likes)
+    if (localStorage.getItem('activeSongList')==='saveListSongs'){
+        const audioPlayer = document.getElementById('myAudio');
+        audioPlayer.onended = () => {
+            if (indexSong < currentSongs.length - 1) {
+                playSong(indexSong + 1);
+            } else {
+                console.log('End of playlist');
+                playSong(0)
+            }
+        };
+    }
 
     axios.get(`http://localhost:8080/api/songs/listen/${song.id}`
     ).then(res => {
@@ -72,6 +78,12 @@ function playSong(indexSong) {
             playSong(indexSong - 1);
         }
     });
+}
+function playList() {
+    localStorage.setItem('activeSongList', 'saveListSongs');
+    document.getElementById('displayPlay').style.display = 'none';
+    document.getElementById('pauseMusic').style.display = 'block';
+    playSong(0);
+
 
 }
-

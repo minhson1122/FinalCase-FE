@@ -94,13 +94,12 @@ function loginUser() {
     currentId = localStorage.getItem("currentId")
     dataProfile(currentId)
     if (token !== null && role === 'ROLE_USER') {
-        axios.get('http://localhost:8080/api/playLists', {
+        axios.get('http://localhost:8080/api/playLists/'+currentId, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         }).then(res => {
             console.log(currentId)
-
             const playlistList = document.getElementById("playlist-list");
             playlistList.innerHTML = '';
             res.data.forEach((item) => {
@@ -134,15 +133,14 @@ function loginUser() {
                         choicePlaylist2.style.display = "none";
                         choicePlaylist3.style.display = "none";
                         playlistSelected.style.display = "block"
-                        let indexList = -1;
                         let str = `<div id="playlist-selected-tiem">
 <div class="top-top">
 <div class="top">
 <img src="${res.data[0].playList.avatar}" alt="">
 <h2>${res.data[0].playList.name}</h2>
 </div>
-<div class="play-playlist-btn">
-<i class="fa-regular fa-circle-play pause" id="displayPlay"></i>
+<div class="play-playlist-btn" >
+<i class="fa-regular fa-circle-play pause" id="displayPlay" onclick="playList()"></i>
 <i class="fa-regular fa-circle-pause pause" style="display: none" id="pauseMusic"></i>
 </div>
 </div>
@@ -150,7 +148,7 @@ function loginUser() {
 <div class="bot">
 <table id="playlist-selected-table">
 <tr>
-<th">Song name</th>
+<th>Song name</th>
 <th>Album</th>
 <th>Likes</th>
 <th>Listens</th>
@@ -235,6 +233,7 @@ document.getElementById("logout").addEventListener("click", function () {
     localStorage.setItem('userToken', null);
     localStorage.setItem('role', null);
     localStorage.setItem('currentId', null);
+    localStorage.setItem('activeSongList', 'savedSongs');
     console.log(localStorage.getItem('userToken'))
     forUser.style.display = "none"
     forUser1.style.display = "none"
