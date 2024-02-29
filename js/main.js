@@ -18,7 +18,6 @@ function toggleAudio(url, name, nameSinger, avatar) {
     nameSing.innerHTML = nameSinger;
     nameMuic.innerHTML = name;
     img.src = avatar;
-
     audioElement.src = url;
     console.log(url)
     img.style.display = 'block'
@@ -31,7 +30,6 @@ function toggleAudio(url, name, nameSinger, avatar) {
     } else {
         audioElement.pause();
     }
-    alert(1)
 }
 
 function updateLike(likes) {

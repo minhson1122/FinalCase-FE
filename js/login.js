@@ -249,7 +249,6 @@ function showListUser() {
     axios.get(`http://localhost:8080/admin`).then(response => {
         let data = response.data;
         totalPages = Math.ceil(data.length / itemsPerPage);
-        // Tính toán chỉ số bắt đầu và kết thúc của mục trên trang hiện tại
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = Math.min(startIndex + itemsPerPage, data.length);
 
@@ -312,7 +311,6 @@ function previousPage() {
         showListUser();
     }
 }
-
 function nextPage() {
     if (currentPage < totalPages) {
         currentPage++;

@@ -10,8 +10,7 @@ axios.get('http://localhost:8080/api/songs').then(res => {
         songDiv.innerHTML = `
             <div class=""><img src="${item.album.avatar}" alt=""></div> 
             <div class="song-name">${item.name}</div>
-            <span>${item.singer.name}</span>
-            
+            <span>${item.singer.name}</span>   
         `;
         songDiv.querySelector('.song-name').addEventListener('click', function ()  {
             localStorage.setItem('activeSongList', 'savedSongs');
@@ -25,7 +24,6 @@ axios.get('http://localhost:8080/api/songs').then(res => {
         axios.get(`http://localhost:8080/api/songs/like/${idSongs}`
         ).then(res => {
             updateLike(res.data.likes)
-
         })
     });
 });
@@ -42,7 +40,6 @@ function playSong(indexSong) {
             return JSON.parse(localStorage.getItem('songs'));
         }
     }
-
     const currentSongs = getCurrentSongList();
     console.log("check",currentSongs)
     if (indexSong < 0 || indexSong >= currentSongs.length) return;
@@ -61,7 +58,6 @@ function playSong(indexSong) {
             }
         };
     }
-
     axios.get(`http://localhost:8080/api/songs/listen/${song.id}`
     ).then(res => {
         console.log(res.data)
