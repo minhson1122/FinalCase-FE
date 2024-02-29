@@ -1,5 +1,13 @@
 
-axios.get('http://localhost:8080/api/songs').then(res => {
+const song =JSON.parse(localStorage.getItem('indexSong'))
+const savedSongs =JSON.parse(localStorage.getItem('songs'))
+const idSongs =JSON.parse(localStorage.getItem('idSong'))
+Songs('http://localhost:8080/api/songs/top')
+function ShowList() {
+    Songs('http://localhost:8080/api/songs')
+}
+function Songs(url){
+    axios.get(url).then(res => {
     const card = document.getElementById("card");
     localStorage.setItem('activeSongList', 'savedSongs');
     localStorage.setItem('songs', JSON.stringify(res.data));
@@ -26,11 +34,8 @@ axios.get('http://localhost:8080/api/songs').then(res => {
             updateLike(res.data.likes)
         })
     });
-});
-const song =JSON.parse(localStorage.getItem('indexSong'))
-const savedSongs =JSON.parse(localStorage.getItem('songs'))
-const idSongs =JSON.parse(localStorage.getItem('idSong'))
-console.log("song",savedSongs)
+});}
+
 function playSong(indexSong) {
     function getCurrentSongList() {
         const activeSongList = localStorage.getItem('activeSongList');
