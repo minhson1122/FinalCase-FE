@@ -76,6 +76,7 @@ function dataProfile(currentId){
     })
 }
 function edit() {
+
         let name = document.getElementById("name").value;
         let password = document.getElementById("password").value;
         let confirmPassword = document.getElementById("confirmPassword").value;
