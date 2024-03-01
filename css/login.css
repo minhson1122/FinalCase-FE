@@ -169,22 +169,22 @@
 
 }
 
-.signup-btn {
-    width: 100px;
-    height: 40px;
-    padding: 10px;
-    border: none;
-    background: #5c6bc0;
+/*.signup-btn {*/
+/*    width: 100px;*/
+/*    height: 40px;*/
+/*    padding: 10px;*/
+/*    border: none;*/
+/*    background: #5c6bc0;*/
 
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
+/*    color: white;*/
+/*    border-radius: 4px;*/
+/*    cursor: pointer;*/
+/*    transition: background 0.3s ease;*/
+/*}*/
 
-.signup-btn:hover {
-    background: #3f51b5;
-}
+/*.signup-btn:hover {*/
+/*    background: #3f51b5;*/
+/*}*/
 
 .foot-form{
     display: flex;
