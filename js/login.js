@@ -69,7 +69,7 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
         console.log(res.data.accessToken)
         console.log(res.data.roles[0].authority)
         loginUser()
-        // window.location.reload();
+        window.location.reload();
     })
         .catch(error => {
             console.error(error);
@@ -93,7 +93,8 @@ function loginUser() {
         showSongByAuthorId()
     }
 }
-function userView(){
+
+function userView() {
     axios.get('http://localhost:8080/api/playLists/' + currentId, {
         headers: {
             'Authorization': `Bearer ${token}`
@@ -200,6 +201,7 @@ function userView(){
         })
     })
 }
+
 document.getElementById("xLogin-btn").addEventListener("click", function () {
     newBackground.style.display = "none";
     home.style.opacity = "100%";
@@ -216,19 +218,16 @@ document.getElementById("main-view").addEventListener("click", function () {
     home.style.opacity = "100%";
 });
 document.getElementById("home-btn").addEventListener("click", function () {
-    if(token !== null && role === 'ROLE_ADMIN'){
+    if (token !== null && role === 'ROLE_ADMIN') {
         window.location.reload()
-    }
-    else if (token !== null && role === 'ROLE_AUTHOR'){
+    } else if (token !== null && role === 'ROLE_AUTHOR') {
         showSongByAuthorId()
-    }
-    else if (token !== null && role === 'ROLE_USER'){
+    } else if (token !== null && role === 'ROLE_USER') {
         choicePlaylist1.style.display = "block";
         choicePlaylist2.style.display = "block";
         choicePlaylist3.style.display = "block";
         playlistSelected.style.display = "none"
-    }
-    else {
+    } else {
         window.location.reload()
     }
 });

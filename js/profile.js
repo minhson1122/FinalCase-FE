@@ -40,74 +40,78 @@ const getImageData = (e) => {
                     console.log(url)
                     imageURL = url;
                     songURl = url;
-                    document.getElementById("profilePic").src=url;
-                    document.getElementById("profilePic").style.display='block';
+                    document.getElementById("profilePic").src = url;
+                    document.getElementById("profilePic").style.display = 'block';
                     document.getElementById(`song-url`).src = url;
                     document.getElementById("save-song-button").style.display = `block`;
                 });
         }
     );
 };
-document.getElementById('editProfile').addEventListener('click',function () {
+document.getElementById('editProfile').addEventListener('click', function () {
     var newBackground = document.getElementById("formEdit");
-    newBackground.style.display="block";
-    document.getElementById("profiles").style.display="none";
+    newBackground.style.display = "block";
+    document.getElementById("profiles").style.display = "none";
 
 })
 
 
- function profile() {
-     let newBackground = document.getElementById("profiles");
-     newBackground.style.display = "block";
+function profile() {
+    let newBackground = document.getElementById("profiles");
+    newBackground.style.display = "block";
 
- }
-function dataProfile(currentId){
-    axios.get(`http://localhost:8080/users/`+currentId,{
+}
+
+function dataProfile(currentId) {
+    axios.get(`http://localhost:8080/users/` + currentId, {
         headers: {
             'Authorization': `Bearer ${token}`
         }
-    }).then(res=>{
+    }).then(res => {
         console.log(res.data)
-        document.getElementById('nameU').value=res.data.name
-        document.getElementById('email').value=res.data.username
-        document.getElementById('phoneu').value=res.data.phone
-        document.getElementById('profilePics').src=res.data.avatar
+        document.getElementById('nameU').value = res.data.name
+        document.getElementById('email').value = res.data.username
+        document.getElementById('phoneu').value = res.data.phone
+        document.getElementById('profilePics').src = res.data.avatar
         currentId = id
     })
 }
+
 function edit() {
-        let name = document.getElementById("name").value;
-        let password = document.getElementById("password").value;
-        let confirmPassword = document.getElementById("confirmPassword").value;
-        let phone = document.getElementById("phone").value;
-        let data = {
-            id: currentId,
-            password: password,
-            confirmPassword: confirmPassword,
-            enabled: true,
-            name: name,
-            avatar: imageURL,
-            phone: phone
+    let name = document.getElementById("name").value;
+    let password = document.getElementById("password").value;
+    let confirmPassword = document.getElementById("confirmPassword").value;
+    let phone = document.getElementById("phone").value;
+    let data = {
+        id: currentId,
+        password: password,
+        confirmPassword: confirmPassword,
+        enabled: true,
+        name: name,
+        avatar: imageURL,
+        phone: phone
+    }
+    console.log("edit", data)
+    axios.put(`http://localhost:8080/users/` + currentId, data, {
+        headers: {
+            'Authorization': `Bearer ${token}`
         }
-        console.log("edit",data)
-        axios.put(`http://localhost:8080/users/`+currentId,data,{
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        }).then(()=>{
-            alert("edit done")
-            document.getElementById("formEdit").style.display="none";
-            document.getElementById("profiles").style.display="none";
-        })
+    }).then(() => {
+        alert("edit done")
+        document.getElementById("formEdit").style.display = "none";
+        document.getElementById("profiles").style.display = "none";
+    })
 
 }
- function backHome(){
-    document.getElementById("profiles").style.display="none";
-    document.getElementById("originnal-backround").style.display="block";
 
- }
- function backProfile(){
-     document.getElementById("formEdit").style.display="none";
-     document.getElementById("profiles").style.display="block";
- }
+function backHome() {
+    document.getElementById("profiles").style.display = "none";
+    document.getElementById("originnal-backround").style.display = "block";
+
+}
+
+function backProfile() {
+    document.getElementById("formEdit").style.display = "none";
+    document.getElementById("profiles").style.display = "block";
+}
 

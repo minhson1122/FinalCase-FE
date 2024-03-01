@@ -92,6 +92,7 @@ function playList() {
 
 
 }
+
 function showSongByAuthorId() {
     alert("tk author")
     loginNav.style.display = "none";
@@ -102,7 +103,7 @@ function showSongByAuthorId() {
     newBackground.style.display = "none";
     home.style.opacity = "100%";
     backUser.style.display = "none"
-    authorBackground.style.display="block"
+    authorBackground.style.display = "block"
     document.getElementById(`create-song-button`).style.display = `block`
     axios.get(`http://localhost:8080/api/songs/${currentId}`).then(resp => {
         console.log(resp.data)
@@ -110,10 +111,11 @@ function showSongByAuthorId() {
         let str = `<div class="song-item">`
         for (const item of data) {
             str += `<div class="listSong">
-                <div class="album-avt"><img src="${item.album.avatar}" alt="avt"/></div>
+                <div class="album-avt">
+                <img src="${item.album.avatar}" alt="avt"/></div>
                 <div><h5>${item.name}</h5></div>
                 <div><h5>${item.singer.name}</h5></div>
-                <div>
+                <div class="song-item-btn-gr">
                 <button onclick="showEditSongForm(${item.id})">Edit</button>
                 <button onclick="removeSong(${item.id})">Delete</button>    
                 </div>   
@@ -146,7 +148,7 @@ function showEditSongForm(id) {
                 }
                 str += `</select></label> 
                 </div>
-                <div style="display: flex">
+                <div class="add-song-btn-gr">
                 <button type="button" onclick="showSongByAuthorId()">Cancel</button>
                 <button onclick="editSong()">Edit</button>
                 </div>`
@@ -184,6 +186,7 @@ function removeSong(id) {
         showSongByAuthorId(currentId)
     })
 }
+
 function showAddSongForm() {
     document.getElementById("author-title").innerHTML = `Create New Song`
     document.getElementById(`create-song-button`).style.display = `none`
@@ -204,11 +207,11 @@ function showAddSongForm() {
             }
             str += `</select></label> 
                 </div>
-                <div class="column-right">
+                <div class="song-data">
                 <label>Song Data:</label>
                 <input type="file" onchange="getImageData(event)" id="song-url">
                 </div>
-                <div style="display: flex">
+                <div class="add-song-btn-gr">
                 <button type="button" onclick="showSongByAuthorId()">Cancel</button>
                 <button onclick="addSong()" id="save-song-button" style="display: none">Save</button>
                 </div>`

@@ -1,6 +1,7 @@
 .song-item  {
     display: flex;
-    flex-wrap: wrap;}
+    flex-wrap: wrap;
+}
 
 .author-background {
     padding-top: 120px;
@@ -19,12 +20,29 @@
     width: calc(16.666% - 20px);
     width: 225px;
     margin: 10px;
-    padding: 20px
+    padding: 5px
 }
 .listSong > div {
     padding: 10px;
 }
-
-
+.song-item-btn-gr > button {
+    width: 90px;
+    height: 45px;
+}
+.add-song-btn-gr {
+    display: flex;
+    margin: 5px;
+}
+.add-song-btn-gr > button {
+    width: 90px;
+    height: 45px;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.song-data {
+    width: 890px;
+}
 
 
