@@ -3,29 +3,39 @@
     margin-left: 30px;
     color: white;
 }
-.author-background > button {
-    margin-top: 15px;
+/*.author-background > button {*/
+/*    margin-top: 15px;*/
+/*}*/
+.author-song-item {
+    margin: 25px;
 }
-.grid-item-btn-gr{
-    display: flex;
+.listSong {
+    border-radius: 10px;
+    background: #242424;
+    width: calc(16.666% - 20px);
+    width: 225px;
+    margin: 10px;
+    padding: 5px
 }
-.grid-item-btn-gr > button {
-    padding: 5px;
-    width: 90px;
-    height: 45px;
+.listSong > div {
+    padding: 10px;
 }
+/*.song-item-btn-gr > button {*/
+/*    width: 90px;*/
+/*    height: 45px;*/
+/*}*/
 .add-song-btn-gr {
     display: flex;
     margin: 5px;
 }
-.add-song-btn-gr > button {
-    width: 90px;
-    height: 45px;
-    margin: 5px;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-}
+/*.add-song-btn-gr > button {*/
+/*    width: 90px;*/
+/*    height: 45px;*/
+/*    margin: 5px;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    text-align: center;*/
+/*}*/
 .song-data {
     width: 890px;
 }
