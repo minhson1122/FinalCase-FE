@@ -69,7 +69,7 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
         console.log(res.data.accessToken)
         console.log(res.data.roles[0].authority)
         loginUser()
-        // window.location.reload();
+        window.location.reload();
     })
         .catch(error => {
             console.error(error);
@@ -238,7 +238,6 @@ document.getElementById("logout").addEventListener("click", function () {
 })
 
 function showListUser() {
-    alert("tk admin")
     adminBox.style.display = "block";
     forUser.style.display = "none"
     forUser1.style.display = "none"
