@@ -1,7 +1,6 @@
 let newBackground = document.getElementById("new-background");
 let homeUser = document.getElementById("home")
 let signup = document.getElementById("signup-background")
-let forUser = document.getElementById("for-user")
 let forUser1 = document.getElementById("for-user1")
 let loginNav = document.getElementById("login-nav")
 let profileNav = document.getElementById("profile-nav")
@@ -12,10 +11,9 @@ let playingBar = document.getElementById("playing-bar")
 let functionBar = document.getElementById("function")
 let currentPage = 1;
 let totalPages = 0;
-const itemsPerPage = 10; // Số lượng mục trên mỗi trang
+const itemsPerPage = 10;
 let token = localStorage.getItem('userToken');
 let role = localStorage.getItem('role');
-
 let choicePlaylist1 = document.getElementById("choice-playlist1")
 let choicePlaylist2 = document.getElementById("choice-playlist2")
 let choicePlaylist3 = document.getElementById("choice-playlist3")
@@ -118,17 +116,13 @@ function userView() {
 
             itemDiv.addEventListener('click', function () {
                 const playlistId = this.getAttribute("data-id");
-                console.log(playlistId);
                 itemDiv.id = `play-list${playlistId}`;
-                console.log(itemDiv)
                 axios.get(`http://localhost:8080/api/song-playlist/${playlistId}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
                 }).then(res => {
-                    console.log("playList", res.data.song)
                     const songs = res.data.map(item => item.song);
-                    console.log("Songs list", songs);
                     localStorage.setItem('listSongs', JSON.stringify(songs))
                     choicePlaylist1.style.display = "none";
                     choicePlaylist2.style.display = "none";
@@ -166,7 +160,6 @@ function userView() {
 <td>${item.song.listens}</td>
 </tr>
 `
-
                     })
                     str += `</table></div></div>`
                     playlistSelected.innerHTML = str
@@ -182,23 +175,11 @@ function userView() {
         });
         newBackground.style.display = "none";
         homeUser.style.display = "block";
-        forUser.style.display = "flex"
-        forUser1.style.display = "block"
+        forUser1.style.display = "flex"
         home.style.opacity = "100%";
         loginNav.style.display = "none";
         profileNav.style.display = "flex";
         playlist.style.display = "flex"
-        playList.addEventListener('click', function () {
-            const playlistId = this.getAttribute("data-id");
-            axios.get(`http://localhost:8080/api/song-playlist/${playlistId}`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            }).then(res => {
-                console.log("play", res.data)
-            });
-
-        })
     })
 }
 

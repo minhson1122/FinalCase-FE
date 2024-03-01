@@ -682,17 +682,23 @@
 * {
     scrollbar-width: none;
 }
-/* Hỗ trợ cho Chrome, Safari và Edge */
 *::-webkit-scrollbar {
     display: none;
 }
-
-/* Ẩn thanh scrollbar dọc */
-/* Hỗ trợ cho Firefox */
 * {
     scrollbar-width: none;
 }
-/* Hỗ trợ cho Chrome, Safari và Edge */
 *::-webkit-scrollbar {
     width: 0px;
+}
+#background-create-playlist{
+    position: absolute;
+    left: 233px;
+    bottom:1px;
+    margin: 0;
+    padding: 0;
+    z-index: 2;
+    width: calc(100% - 233px);
+    height:100% ;
+    background: white;
 }

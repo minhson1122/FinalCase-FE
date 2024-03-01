@@ -14,6 +14,8 @@ let searchBox = document.getElementById("searchBox")
 let home = document.getElementById("home")
 const control = document.getElementById("control");
 const love = document.getElementById("love");
+let background_user=document.getElementById("back-user");
+let background_create_playlist=document.getElementById('background-create-playlist')
 function toggleAudio(url, name, nameSinger, avatar) {
     nameSing.innerHTML = nameSinger;
     nameMuic.innerHTML = name;
@@ -92,3 +94,9 @@ document.getElementById("main-view").addEventListener("click", function () {
     searchBox.style.display = "none";
     home.style.opacity="100%";
 });
+  
+
+function createPlaylist() {
+    background_user.style.display='none';
+    background_create_playlist.style.display='block';
+}
