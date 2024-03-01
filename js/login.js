@@ -314,7 +314,6 @@ function changeEnabled(id) {
         phone: document.getElementById(`phone-${id}`).value,
         roles: document.getElementById(`roles-${id}`).value,
     };
-
     axios.put(`http://localhost:8080/admin/${id}`, data).then(() => {
         showListUser();
     })
