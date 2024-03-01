@@ -1,64 +1,97 @@
-axios.get('http://localhost:8080/api/songs').then(res => {
-    const card = document.getElementById("card");
-    const control = document.getElementById("control");
-    const love = document.getElementById("love");
-    card.innerHTML = '';
-    let songCount = 0;
-    let songIndex = -1;
-    let indexs = -1;
-    const songs = res.data
+const song = JSON.parse(localStorage.getItem('indexSong'))
+const savedSongs = JSON.parse(localStorage.getItem('songs'))
+const idSongs = JSON.parse(localStorage.getItem('idSong'))
+Songs('http://localhost:8080/api/songs/top')
 
-    function playSong(index) {
-        if (index < 0 || index >= songs.length) return;
-        songIndex = index;
-        const song = songs[index];
-        toggleAudio(song.src, song.name, song.singer.name, song.album.avatar)
-        updateLike(song.likes)
-        axios.get(`http://localhost:8080/api/songs/listen/${song.id}`
-        ).then(res => {
-            console.log(res.data)
-        })
+function ShowList() {
+    Songs('http://localhost:8080/api/songs')
+}
+
+function Songs(url) {
+    axios.get(url).then(res => {
+        const card = document.getElementById("card");
+        localStorage.setItem('activeSongList', 'savedSongs');
+        localStorage.setItem('songs', JSON.stringify(res.data));
+        card.innerHTML = '';
+        res.data.forEach((item, index) => {
+            const songDiv = document.createElement("div");
+            songDiv.className = "App__section-grid-item";
+            songDiv.innerHTML = `
+            <div class=""><img src="${item.album.avatar}" alt=""></div> 
+            <div class="song-name">${item.name}</div>
+            <span>${item.singer.name}</span>   
+        `;
+            songDiv.querySelector('.song-name').addEventListener('click', function () {
+                localStorage.setItem('activeSongList', 'savedSongs');
+                localStorage.setItem('idSong', JSON.stringify(`${item.id}`))
+                playSong(index)
+
+            });
+            card.appendChild(songDiv);
+        });
+        love.addEventListener('click', () => {
+            axios.get(`http://localhost:8080/api/songs/like/${idSongs}`
+            ).then(res => {
+                updateLike(res.data.likes)
+            })
+        });
+    });
+}
+
+function playSong(indexSong) {
+    function getCurrentSongList() {
+        const activeSongList = localStorage.getItem('activeSongList');
+        if (activeSongList === 'saveListSongs') {
+            return JSON.parse(localStorage.getItem('listSongs'));
+        } else if (activeSongList === 'savedSongs') {
+            return JSON.parse(localStorage.getItem('songs'));
+        }
     }
 
+    const currentSongs = getCurrentSongList();
+    console.log("check", currentSongs)
+    if (indexSong < 0 || indexSong >= currentSongs.length) return;
+    const song = currentSongs[indexSong];
+    localStorage.setItem('indexSong', JSON.stringify(currentSongs[indexSong]));
+    toggleAudio(song.src, song.name, song.singer.name, song.album.avatar)
+    updateLike(song.likes)
+    if (localStorage.getItem('activeSongList') === 'saveListSongs') {
+        const audioPlayer = document.getElementById('myAudio');
+        audioPlayer.onended = () => {
+            if (indexSong < currentSongs.length - 1) {
+                playSong(indexSong + 1);
+            } else {
+                console.log('End of playlist');
+                playSong(0)
+            }
+        };
+    }
+    axios.get(`http://localhost:8080/api/songs/listen/${song.id}`
+    ).then(res => {
+        console.log(res.data)
+
+    })
     document.getElementById("nextSong").addEventListener("click", function () {
-        if (songIndex >= 0 && songIndex < songs.length - 1) {
-            playSong(songIndex + 1);
+        if (indexSong >= 0 && indexSong < currentSongs.length - 1) {
+            playSong(indexSong + 1);
+
         }
     });
     document.getElementById("prevSong").addEventListener("click", function () {
-        if (songIndex > 0) {
-            playSong(songIndex - 1);
+        if (indexSong > 0) {
+            playSong(indexSong - 1);
         }
     });
-    songs.forEach((item, index) => {
-        const songDiv = document.createElement("div");
-        songDiv.className = "App__section-grid-item";
-        songDiv.innerHTML = `
-            <div class=""><img src="${item.album.avatar}" alt=""></div> 
-            <div class="song-name">${item.name}</div>
-            <span>${item.singer.name}</span>
-        `;
-        songDiv.querySelector('.song-name').addEventListener('click', () => {
-            playSong(index)
-            control.style.display = 'block';
-            love.style.display = 'block';
-            indexs = `${item.id}`;
-        });
-        card.appendChild(songDiv);
-        songCount++;
+}
 
-    });
-    love.addEventListener('click', () => {
-        axios.get(`http://localhost:8080/api/songs/like/${indexs}`
-        ).then(res => {
-            updateLike(res.data.likes)
-
-        })
-    });
-
-});
+function playList() {
+    localStorage.setItem('activeSongList', 'saveListSongs');
+    document.getElementById('displayPlay').style.display = 'none';
+    document.getElementById('pauseMusic').style.display = 'block';
+    playSong(0);
 
 
+}
 function showSongByAuthorId() {
     loginNav.style.display = "none";
     profileNav.style.display = "flex";
@@ -89,7 +122,8 @@ function showSongByAuthorId() {
         document.getElementById("author-song-item").innerHTML = str
     })
 }
-function showEditSongForm(id){
+
+function showEditSongForm(id) {
     document.getElementById("author-title").innerHTML = `Edit Song`
     document.getElementById(`create-song-button`).style.display = `none`
     axios.get(`http://localhost:8080/api/songs/song/${id}`).then(resp => {
@@ -122,7 +156,8 @@ function showEditSongForm(id){
     })
 
 }
-function editSong(){
+
+function editSong() {
     let id = document.getElementById(`song-id`).value
     let data = {
         name: document.getElementById(`edit-song-name`).value,
@@ -138,11 +173,12 @@ function editSong(){
             id: currentId
         },
     }
-    axios.put(`http://localhost:8080/api/songs/${id}`, data).then(() =>{
+    axios.put(`http://localhost:8080/api/songs/${id}`, data).then(() => {
         showSongByAuthorId()
     })
 }
-function removeSong(id){
+
+function removeSong(id) {
     axios.delete(`http://localhost:8080/api/songs/${id}`).then(() => {
         showSongByAuthorId(currentId)
     })
@@ -179,8 +215,9 @@ function showAddSongForm() {
         })
     })
 }
-function addSong(){
-    let data  = {
+
+function addSong() {
+    let data = {
         name: document.getElementById("song-name").value,
         note: document.getElementById(`song-note`).value,
         src: songURl,
@@ -188,7 +225,7 @@ function addSong(){
             id: document.getElementById(`list-album`).value
         },
         singer: {
-           id: document.getElementById(`list-singer`).value
+            id: document.getElementById(`list-singer`).value
         },
         author: {
             id: currentId
@@ -196,11 +233,7 @@ function addSong(){
         likes: 0,
         listens: 0,
     }
-    axios.post(`http://localhost:8080/api/songs`,data).then(() =>{
+    axios.post(`http://localhost:8080/api/songs`, data).then(() => {
         showSongByAuthorId()
     })
 }
-
-
-
-

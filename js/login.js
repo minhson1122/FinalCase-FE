@@ -10,19 +10,21 @@ let adminBox = document.getElementById("admin-background")
 let backUser = document.getElementById("back-user")
 let playingBar = document.getElementById("playing-bar")
 let functionBar = document.getElementById("function")
-let currentPage = 1; // Trang hiện tại, mặc định là trang đầu tiên
+let currentPage = 1;
 let totalPages = 0;
 const itemsPerPage = 10; // Số lượng mục trên mỗi trang
 let token = localStorage.getItem('userToken');
 let role = localStorage.getItem('role');
+
 let choicePlaylist1 = document.getElementById("choice-playlist1")
 let choicePlaylist2 = document.getElementById("choice-playlist2")
 let choicePlaylist3 = document.getElementById("choice-playlist3")
 let playlistSelected = document.getElementById("playlist-selected")
-let homeBtn= document.getElementById("home-btn")
+let homeBtn = document.getElementById("home-btn")
 let authorBackground = document.getElementById("author-background")
-let itemDiv=""
+let itemDiv = ""
 window.onload = function () {
+    loginUser()
     let greetingElement = document.getElementById('good-something');
     let currentTime = new Date().getHours();
 
@@ -33,8 +35,9 @@ window.onload = function () {
     } else {
         greetingElement.textContent = 'Good evening!';
     }
-    loginUser()
-    console.log("load 1",currentId)
+
+    console.log("load 1", currentId)
+
 }
 document.getElementById("myButton").addEventListener("click", function () {
     newBackground.style.display = "block";
@@ -70,14 +73,13 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
         } else if (res.data.roles[0].authority === 'ROLE_ADMIN') {
             alert("tk admin")
             showListUser();
-        }
-        else {
+        } else {
             alert("tk author")
-            console.log("id hiện tại",currentId)
+            console.log("id hiện tại", currentId)
             showSongByAuthorId()
-            role = res.data.roles[0].authority
+            // role = res.data.roles[0].authority
         }
-
+        window.location.reload();
     })
         .catch(error => {
             console.error(error);
@@ -94,51 +96,61 @@ function loginUser() {
     currentId = localStorage.getItem("currentId")
     dataProfile(currentId)
     if (token !== null && role === 'ROLE_USER') {
-        axios.get('http://localhost:8080/api/playLists', {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        }).then(res => {
-            console.log(currentId)
+        userView()
+    } else if (token !== null && role === 'ROLE_ADMIN') {
+        showListUser();
+    } else if (token !== null && role === `ROLE_AUTHOR`) {
+        showSongByAuthorId()
+    }
+}
+function userView(){
+    axios.get('http://localhost:8080/api/playLists/' + currentId, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    }).then(res => {
+        console.log(currentId)
+        const playlistList = document.getElementById("playlist-list");
+        playlistList.innerHTML = '';
+        res.data.forEach((item) => {
+            itemDiv = document.createElement("div");
+            itemDiv.setAttribute("data-id", item.id);
+            const img = document.createElement("img");
+            img.setAttribute("src", item.avatar);
+            img.setAttribute("alt", "Playlist image");
+            const name = document.createElement("p");
+            name.classList.add("name-item");
+            name.textContent = item.name;
+            itemDiv.appendChild(img);
+            itemDiv.appendChild(name);
+            playlistList.appendChild(itemDiv);
 
-            const playlistList = document.getElementById("playlist-list");
-            playlistList.innerHTML = '';
-            res.data.forEach((item) => {
-                itemDiv = document.createElement("div");
-                itemDiv.setAttribute("data-id", item.id);
-                const img = document.createElement("img");
-                img.setAttribute("src", item.avatar);
-                img.setAttribute("alt", "Playlist image");
-                const name = document.createElement("p");
-                name.classList.add("name-item");
-                name.textContent = item.name;
-                itemDiv.appendChild(img);
-                itemDiv.appendChild(name);
-                playlistList.appendChild(itemDiv);
-
-                itemDiv.addEventListener('click', function () {
-                    const playlistId = this.getAttribute("data-id");
-                    console.log(playlistId);
-                    itemDiv.id=`play-list${playlistId}`;
-                    console.log(itemDiv)
-                    axios.get(`http://localhost:8080/api/song-playlist/${playlistId}`, {
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        }
-                    }).then(res => {
-                        choicePlaylist1.style.display = "none";
-                        choicePlaylist2.style.display = "none";
-                        choicePlaylist3.style.display = "none";
-                        playlistSelected.style.display = "block"
-                        // if(document.getElementById(`playlist${playlistId}`))
-                        let str = `<div id="playlist-selected-tiem">
+            itemDiv.addEventListener('click', function () {
+                const playlistId = this.getAttribute("data-id");
+                console.log(playlistId);
+                itemDiv.id = `play-list${playlistId}`;
+                console.log(itemDiv)
+                axios.get(`http://localhost:8080/api/song-playlist/${playlistId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                }).then(res => {
+                    console.log("playList", res.data.song)
+                    const songs = res.data.map(item => item.song);
+                    console.log("Songs list", songs);
+                    localStorage.setItem('listSongs', JSON.stringify(songs))
+                    choicePlaylist1.style.display = "none";
+                    choicePlaylist2.style.display = "none";
+                    choicePlaylist3.style.display = "none";
+                    playlistSelected.style.display = "block"
+                    let str = `<div id="playlist-selected-tiem">
 <div class="top-top">
 <div class="top">
 <img src="${res.data[0].playList.avatar}" alt="">
 <h2>${res.data[0].playList.name}</h2>
 </div>
-<div class="play-playlist-btn">
-<i class="fa-regular fa-circle-play pause" id="displayPlay"></i>
+<div class="play-playlist-btn" >
+<i class="fa-regular fa-circle-play pause" id="displayPlay" onclick="playList()"></i>
 <i class="fa-regular fa-circle-pause pause" style="display: none" id="pauseMusic"></i>
 </div>
 </div>
@@ -153,51 +165,51 @@ function loginUser() {
 </tr>
 `
 
-                        res.data.forEach((item) => {
-                            console.log("test", item.song)
-                            str += `
+                    res.data.forEach((item, index) => {
+                        console.log("test", item.song)
+                        str += `
 <tr>
-<td>${item.song.name}</td>
+<td class="play-song" data-index="${index}">${item.song.name}</td>
 <td>${item.song.album.name}</td>
 <td>${item.song.likes}</td>
 <td>${item.song.listens}</td>
 </tr>
 `
-                        })
-                        str += `</table></div></div>`
-                        playlistSelected.innerHTML = str
 
                     })
-                });
+                    str += `</table></div></div>`
+                    playlistSelected.innerHTML = str
+                    document.querySelectorAll('.play-song').forEach(item => {
+                        item.addEventListener('click', function () {
+                            const index = parseInt(this.getAttribute('data-index'), 10);
+                            localStorage.setItem('activeSongList', 'saveListSongs');
+                            playSong(index);
+                        });
+                    });
+                })
             });
-            newBackground.style.display = "none";
-            homeUser.style.display = "block";
-            forUser.style.display = "flex"
-            forUser1.style.display = "block"
-            home.style.opacity = "100%";
-            loginNav.style.display = "none";
-            profileNav.style.display = "flex";
-            playlist.style.display = "flex"
-            playList.addEventListener('click', function () {
-                const playlistId = this.getAttribute("data-id");
-                axios.get(`http://localhost:8080/api/song-playlist/${playlistId}`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                }).then(res => {
-                    console.log("play", res.data)
-                });
+        });
+        newBackground.style.display = "none";
+        homeUser.style.display = "block";
+        forUser.style.display = "flex"
+        forUser1.style.display = "block"
+        home.style.opacity = "100%";
+        loginNav.style.display = "none";
+        profileNav.style.display = "flex";
+        playlist.style.display = "flex"
+        playList.addEventListener('click', function () {
+            const playlistId = this.getAttribute("data-id");
+            axios.get(`http://localhost:8080/api/song-playlist/${playlistId}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }).then(res => {
+                console.log("play", res.data)
+            });
 
-            })
-            })
-    } else if (token !== null && role === 'ROLE_ADMIN') {
-        showListUser();
-    }
-    else if (token !== null && role === `ROLE_AUTHOR`) {
-        showSongByAuthorId()
-    }
+        })
+    })
 }
-
 document.getElementById("xLogin-btn").addEventListener("click", function () {
     newBackground.style.display = "none";
     home.style.opacity = "100%";
@@ -209,43 +221,30 @@ document.getElementById("xSignup-btn").addEventListener("click", function () {
 
 document.getElementById("main-view").addEventListener("click", function () {
     newBackground.style.display = "none";
-    document.getElementById("formEdit").style.display="none";
+    document.getElementById("formEdit").style.display = "none";
     signup.style.display = "none";
     home.style.opacity = "100%";
 });
 document.getElementById("home-btn").addEventListener("click", function () {
-    choicePlaylist1.style.display = "block";
-    choicePlaylist2.style.display = "block";
-    choicePlaylist3.style.display = "block";
-    playlistSelected.style.display = "none"
-    itemDiv.classList.remove("App__category-item--selected")
-    homeBtn.classList.add("App__category-item--selected")
+    if(token !== null && role === 'ROLE_ADMIN'){
+        window.location.reload()
+    }
+    else if (token !== null && role === 'ROLE_AUTHOR'){
+        showSongByAuthorId()
+    }
+    else if (token !== null && role === 'ROLE_USER'){
+        choicePlaylist1.style.display = "block";
+        choicePlaylist2.style.display = "block";
+        choicePlaylist3.style.display = "block";
+        playlistSelected.style.display = "none"
+    }
+    else {
+        window.location.reload()
+    }
 });
 document.getElementById("logout").addEventListener("click", function () {
-    localStorage.setItem('userToken', null);
-    localStorage.setItem('role', null);
-    localStorage.setItem('currentId', null);
-    console.log(localStorage.getItem('userToken'))
-    forUser.style.display = "none"
-    forUser1.style.display = "none"
-    newBackground.style.display = "none";
-    home.style.opacity = "100%";
-    loginNav.style.display = "block";
-    profileNav.style.display = "none";
-    playlist.style.display = "none"
-    adminBox.style.display = "none"
-    backUser.style.display = "block"
-    playingBar.style.display = "block"
-    playingBar.style.background = "#1B1B1B"
-    itemDiv.classList.remove("App__category-item--selected")
-    homeBtn.classList.add("App__category-item--selected")
-    choicePlaylist1.style.display = "block";
-    choicePlaylist2.style.display = "block";
-    choicePlaylist3.style.display = "block";
-    playlistSelected.style.display = "none"
-    document.getElementById("formEdit").style.display="none";
-    authorBackground.style.display="none"
-    currentId = null;
+    localStorage.clear();
+    window.location.reload();
 })
 
 function showListUser() {
@@ -263,7 +262,6 @@ function showListUser() {
     axios.get(`http://localhost:8080/admin`).then(response => {
         let data = response.data;
         totalPages = Math.ceil(data.length / itemsPerPage);
-        // Tính toán chỉ số bắt đầu và kết thúc của mục trên trang hiện tại
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = Math.min(startIndex + itemsPerPage, data.length);
 

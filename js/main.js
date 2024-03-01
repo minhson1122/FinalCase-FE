@@ -12,16 +12,17 @@ const displayPlay = document.getElementById("displayPlay")
 const like = document.getElementById("like")
 let searchBox = document.getElementById("searchBox")
 let home = document.getElementById("home")
-
+const control = document.getElementById("control");
+const love = document.getElementById("love");
 function toggleAudio(url, name, nameSinger, avatar) {
     nameSing.innerHTML = nameSinger;
     nameMuic.innerHTML = name;
     img.src = avatar;
-
     audioElement.src = url;
     console.log(url)
     img.style.display = 'block'
-
+    control.style.display = 'block';
+    love.style.display = 'block';
     if (audioElement.paused) {
         audioElement.play();
         pausePlay.style.display = 'block'
@@ -29,7 +30,6 @@ function toggleAudio(url, name, nameSinger, avatar) {
     } else {
         audioElement.pause();
     }
-
 }
 
 function updateLike(likes) {
