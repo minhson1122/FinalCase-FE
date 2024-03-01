@@ -104,17 +104,19 @@ function showSongByAuthorId() {
     backUser.style.display = "none"
     authorBackground.style.display = "block"
     document.getElementById(`create-song-button`).style.display = `block`
+    document.getElementById("author-title").innerHTML = `List Song`
+    document.getElementById("home-page-title").innerHTML = `Author`
     axios.get(`http://localhost:8080/api/songs/${currentId}`).then(resp => {
         console.log(resp.data)
         let data = resp.data
-        let str = `<div class="song-item">`
+        let str = `<div class="App__section-grid-container">`
         for (const item of data) {
-            str += `<div class="listSong">
-                <div class="album-avt">
+            str += `<div class="App__section-grid-item">
+                <div>
                 <img src="${item.album.avatar}" alt="avt"/></div>
                 <div><h5>${item.name}</h5></div>
                 <div><h5>${item.singer.name}</h5></div>
-                <div class="song-item-btn-gr">
+                <div class="grid-item-btn-gr">
                 <button onclick="showEditSongForm(${item.id})">Edit</button>
                 <button onclick="removeSong(${item.id})">Delete</button>    
                 </div>   
