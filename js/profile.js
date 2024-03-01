@@ -67,16 +67,15 @@ function dataProfile(currentId) {
         headers: {
             'Authorization': `Bearer ${token}`
         }
-    }).then(res => {
+    }).then(res=>{
         console.log(res.data)
-        document.getElementById('nameU').value = res.data.name
-        document.getElementById('email').value = res.data.username
-        document.getElementById('phoneu').value = res.data.phone
-        document.getElementById('profilePics').src = res.data.avatar
+        document.getElementById('nameU').value=res.data.name
+        document.getElementById('email').value=res.data.username
+        document.getElementById('phoneu').value=res.data.phone
+        document.getElementById('profilePics').src=res.data.avatar
         currentId = id
     })
 }
-
 function edit() {
     let name = document.getElementById("name").value;
     let password = document.getElementById("password").value;
