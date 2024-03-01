@@ -67,7 +67,7 @@
                                   fill="#fff"/>
                         </svg>
                     </div>
-                    <span>Home</span>
+                    <span id="home-page-title">Home</span>
                 </div>
                 <div class="App__category-item" id="search">
                     <div class="icon">
@@ -168,16 +168,16 @@
                             <div class="App__quick-link-featured-img">♥</div>
                             <span>Liked Songs</span>
                         </div>
-                        <div class="App__quick-link">
-                            <div class="App__quick-link-featured-img"></div>
-                            <span>Daily Mix 1</span>
-                        </div>
+<!--                        <div class="App__quick-link">-->
+<!--                            <div class="App__quick-link-featured-img"></div>-->
+<!--                            <span>Daily Mix 1</span>-->
+<!--                        </div>-->
                     </div>
                 </section>
                 <section class="App__section App__your-shows" id="choice-playlist2">
                     <div class="App__section-header">
-                        <h3>Top 10 trending</h3>
-                        <span onclick="ShowList()">SEE ALL</span>
+                        <h3>Top Trending</h3>
+<!--                        <span onclick="ShowList()">SEE ALL</span>-->
                     </div>
                     <div class="App__section-grid-container" id="card"></div>
                 </section>
@@ -198,7 +198,7 @@
 <!--            Giao diện Author-->
             <div class="author-background" id="author-background" style="display: none">
                 <h1 id="author-title">List Song</h1>
-                <button onclick="showAddSongForm()" id="create-song-button">Create New Song</button>
+                <button onclick="showAddSongForm()" id="create-song-button"><i class="fa-solid fa-plus"></i></button>
                 <div class="author-song-item" id="author-song-item" ></div>
             </div>
         </div>

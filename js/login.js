@@ -229,6 +229,8 @@ function showListUser() {
     backUser.style.display = "none"
     playingBar.style.background = "#121212"
     functionBar.style.display = "none"
+    document.getElementById(`home-page-title`).innerHTML = `Admin`
+    document.getElementById(`search`).style.display = `none`
     axios.get(`http://localhost:8080/admin`).then(response => {
         let data = response.data;
         totalPages = Math.ceil(data.length / itemsPerPage);
@@ -250,7 +252,6 @@ function showListUser() {
             let user = data[i];
             let enabledStatus = user.enabled ? `Active` : `Inactive`;
             let roleStatus = user.roles[0].name === "ROLE_USER" ? `User` : `Author`;
-
             str += `<tr>
                         <td id="avt-${user.id}"><img src="${user.avt}" alt="User Avatar"></td>
                         <td id="username-${user.id}">${user.username}</td>
@@ -263,8 +264,10 @@ function showListUser() {
         }
         str += `</table>`;
         if (totalPages > 1) {
-            str += `<button onclick="previousPage()" class="btn btn-success">Previous</button>
-                    <button onclick="nextPage()" class="btn btn-success">Next</button>`;
+            str += `<div class="user-table-btn">
+                    <button onclick="previousPage()">Previous</button>
+                    <button onclick="nextPage()">Next</button>
+                    </div>`;
         }
 
         document.getElementById(`user-table`).innerHTML = str;

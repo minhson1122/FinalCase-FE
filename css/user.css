@@ -232,18 +232,22 @@
 }
 
 .App__user {
-    border: 0;
+    border: 1px solid #20D762 ;
     display: flex;
-    flex-direction: row;
     align-items: center;
-    height: 32px;
+    justify-content: center;
+    height: 35px;
+    width: 80px;
     border-radius: 16px;
-    padding: 3px 2px 2px 9px;
-    background-color: #000;
+    background: none;
+    color: white;
+    margin: 5px;
 }
 
 .App__user:hover {
-    background-color: #686868;
+    background-color: #20D762;
+    transition-duration: 0.3s;
+    border: 1px solid white;
 }
 
 .App__figure {
@@ -265,7 +269,7 @@
 .App__username {
     color: #fff;
     font-size: 0.9em;
-    margin-right: 8px;
+
     display: flex;
     justify-content: center;
 }
@@ -661,10 +665,7 @@
     cursor: pointer;
 }
 
-.song-name:hover {
-    font-size: 1.2em;
-    font-weight: bold;
-}
+
 
 .upper img,.pause {
     transition: transform 0.3s ease;
@@ -682,14 +683,36 @@
 * {
     scrollbar-width: none;
 }
+/* Hỗ trợ cho Chrome, Safari và Edge */
 *::-webkit-scrollbar {
     display: none;
 }
+
+/* Ẩn thanh scrollbar dọc */
+/* Hỗ trợ cho Firefox */
 * {
     scrollbar-width: none;
 }
+/* Hỗ trợ cho Chrome, Safari và Edge */
 *::-webkit-scrollbar {
     width: 0px;
+}
+button{
+    border: 1px solid #20D762 ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    width: 80px;
+    border-radius: 16px;
+    background: none;
+    color: white;
+    margin: 5px;
+}
+button:hover{
+    background-color: #20D762;
+    transition-duration: 0.3s;
+    border: 1px solid white;
 }
 #background-create-playlist{
     position: absolute;
