@@ -21,11 +21,10 @@ function Songs(url) {
             <div class="song-name">${item.name}</div>
             <span>${item.singer.name}</span>   
         `;
-            songDiv.querySelector('.song-name').addEventListener('click', function () {
+            songDiv.addEventListener('click', function () {
                 localStorage.setItem('activeSongList', 'savedSongs');
                 localStorage.setItem('idSong', JSON.stringify(`${item.id}`))
-                playSong(index)
-
+                 playSong(index)
             });
             card.appendChild(songDiv);
         });

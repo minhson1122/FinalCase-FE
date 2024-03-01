@@ -357,6 +357,7 @@
     /* hide grid items that overflow */
 }
 
+
 .App__section-grid-item {
     background-color: #242424;
     width: 100%;
@@ -364,6 +365,11 @@
     min-height: 150px;
     padding: 4%;
     border-radius: 4px;
+
+}
+.App__section-grid-item:hover {
+    font-size: 1.2em;
+    font-weight: bold;
 }
 
 .App__section-grid-item .featured-image {
@@ -375,26 +381,6 @@
     background-size: cover;
     margin-bottom: 16px;
     box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.5);
-}
-
-.App__section-grid-item:nth-of-type(1) .featured-image {
-    background-image: url("https://i.scdn.co/image/239649cd6dfd2296632d269b115d1e147695a0a8");
-}
-
-.App__section-grid-item:nth-of-type(2) .featured-image {
-    background-image: url("https://i.scdn.co/image/1ec33564b0c0c1db64babdcf678a5246a4605c6f");
-}
-
-.App__section-grid-item:nth-of-type(3) .featured-image {
-    background-image: url("https://i.scdn.co/image/50a4653e91a472a85b6759225ffd5a2f71d8a9ba");
-}
-
-.App__section-grid-item:nth-of-type(4) .featured-image {
-    background-image: url("https://i.scdn.co/image/8feb7ba9f991af98307ae1de9c491c43754765dc");
-}
-
-.App__section-grid-item:nth-of-type(5) .featured-image {
-    background-image: url("https://i.scdn.co/image/15488d6d07e4d31d388be232f921569bd32d1ac3");
 }
 
 .App__section-grid-item h3 {
@@ -665,10 +651,7 @@
     cursor: pointer;
 }
 
-.song-name:hover {
-    font-size: 1.2em;
-    font-weight: bold;
-}
+
 
 .upper img,.pause {
     transition: transform 0.3s ease;
