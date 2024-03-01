@@ -23,7 +23,7 @@
 }
 
 .form {
-    background-color: #5028f0;
+    background-color: #3f51b5;
     border-radius: 8px;
     box-shadow: 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -47,8 +47,6 @@
 .column-right img{
     width: 100%;
     height: auto;
-    /*height:1284px;*/
-    /*width:1284px*/
 }
 label{
     font-size: 16px;
@@ -83,4 +81,8 @@ img{
     max-width: 100%;
     height: auto;
     margin-bottom: 16px;border-radius: 4px;
+}
+.column-right>img{
+    width: 250px;
+    height: 250px;
 }

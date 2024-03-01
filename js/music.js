@@ -1,62 +1,71 @@
-axios.get('http://localhost:8080/api/songs').then(res => {
-    const card = document.getElementById("card");
-    const control = document.getElementById("control");
-    const love = document.getElementById("love");
-    card.innerHTML = '';
-    let songCount = 0;
-    let songIndex = -1;
-    let indexs = -1;
-    const songs = res.data
+const song = JSON.parse(localStorage.getItem('indexSong'))
+const savedSongs = JSON.parse(localStorage.getItem('songs'))
+const idSongs = JSON.parse(localStorage.getItem('idSong'))
+Songs('http://localhost:8080/api/songs/top')
 
-    function playSong(index) {
-        if (index < 0 || index >= songs.length) return;
-        songIndex = index;
-        const song = songs[index];
-        toggleAudio(song.src, song.name, song.singer.name, song.album.avatar)
-        updateLike(song.likes)
-        axios.get(`http://localhost:8080/api/songs/listen/${song.id}`
-        ).then(res => {
-            console.log(res.data)
-        })
-    }
+function ShowList() {
+    Songs('http://localhost:8080/api/songs')
+}
 
-    document.getElementById("nextSong").addEventListener("click", function () {
-        if (songIndex >= 0 && songIndex < songs.length - 1) {
-            playSong(songIndex + 1);
+function Songs(url) {
+    axios.get(url).then(res => {
+        const card = document.getElementById("card");
+        localStorage.setItem('activeSongList', 'savedSongs');
+        localStorage.setItem('songs', JSON.stringify(res.data));
+        card.innerHTML = '';
+        let songCount = 0;
+        let songIndex = -1;
+        let indexs = -1;
+        const songs = res.data
+
+        function playSong(index) {
+            if (index < 0 || index >= songs.length) return;
+            songIndex = index;
+            const song = songs[index];
+            toggleAudio(song.src, song.name, song.singer.name, song.album.avatar)
+            updateLike(song.likes)
+            axios.get(`http://localhost:8080/api/songs/listen/${song.id}`
+            ).then(res => {
+                console.log(res.data)
+            })
         }
-    });
-    document.getElementById("prevSong").addEventListener("click", function () {
-        if (songIndex > 0) {
-            playSong(songIndex - 1);
-        }
-    });
-    songs.forEach((item, index) => {
-        const songDiv = document.createElement("div");
-        songDiv.className = "App__section-grid-item";
-        songDiv.innerHTML = `
+
+        document.getElementById("nextSong").addEventListener("click", function () {
+            if (songIndex >= 0 && songIndex < songs.length - 1) {
+                playSong(songIndex + 1);
+            }
+        });
+        document.getElementById("prevSong").addEventListener("click", function () {
+            if (songIndex > 0) {
+                playSong(songIndex - 1);
+            }
+        });
+        songs.forEach((item, index) => {
+            res.data.forEach((item, index) => {
+                const songDiv = document.createElement("div");
+                songDiv.className = "App__section-grid-item";
+                songDiv.innerHTML = `
             <div class=""><img src="${item.album.avatar}" alt=""></div> 
             <div class="song-name">${item.name}</div>
-            <span>${item.singer.name}</span>
+            <span>${item.singer.name}</span>   
         `;
-        songDiv.querySelector('.song-name').addEventListener('click', () => {
-            playSong(index)
-            control.style.display = 'block';
-            love.style.display = 'block';
-            indexs = `${item.id}`;
+                songDiv.querySelector('.song-name').addEventListener('click', function () {
+                    localStorage.setItem('activeSongList', 'savedSongs');
+                    localStorage.setItem('idSong', JSON.stringify(`${item.id}`))
+                    playSong(index)
+
+                });
+                card.appendChild(songDiv);
+            });
+            love.addEventListener('click', () => {
+                axios.get(`http://localhost:8080/api/songs/like/${idSongs}`
+                ).then(res => {
+                    updateLike(res.data.likes)
+                })
+            });
         });
-        card.appendChild(songDiv);
-        songCount++;
-
-    });
-    love.addEventListener('click', () => {
-        axios.get(`http://localhost:8080/api/songs/like/${indexs}`
-        ).then(res => {
-            updateLike(res.data.likes)
-
-        })
-    });
-
-});
+    })
+}
 
 
 function showSongByAuthorId() {
@@ -68,7 +77,7 @@ function showSongByAuthorId() {
     newBackground.style.display = "none";
     home.style.opacity = "100%";
     backUser.style.display = "none"
-    authorBackground.style.display="block"
+    authorBackground.style.display = "block"
     document.getElementById(`create-song-button`).style.display = `block`
     axios.get(`http://localhost:8080/api/songs/${currentId}`).then(resp => {
         console.log(resp.data)
@@ -83,15 +92,15 @@ function showSongByAuthorId() {
                 
             </div>`
         }
-        str += '</div>'
-        document.getElementById("author-song-item").innerHTML = str
-    })
+    });
+    document.getElementById("prevSong").addEventListener("click", function () {
+        if (indexSong > 0) {
+            playSong(indexSong - 1);
+        }
+    });
 }
-function removeSong(id){
-    axios.delete(`http://localhost:8080/api/songs/${id}`).then(() => {
-        showSongByAuthorId(currentId)
-    })
-}
+
+
 function showAddSongForm() {
     document.getElementById("author-title").innerHTML = `Create New Song`
     document.getElementById(`create-song-button`).style.display = `none`
@@ -124,8 +133,9 @@ function showAddSongForm() {
         })
     })
 }
-function addSong(){
-    let data  = {
+
+function addSong() {
+    let data = {
         name: document.getElementById("song-name").value,
         note: document.getElementById(`song-note`).value,
         src: songURl,
@@ -133,7 +143,7 @@ function addSong(){
             id: document.getElementById(`list-album`).value
         },
         singer: {
-           id: document.getElementById(`list-singer`).value
+            id: document.getElementById(`list-singer`).value
         },
         author: {
             id: currentId
@@ -141,10 +151,12 @@ function addSong(){
         likes: 0,
         listens: 0,
     }
-    axios.post(`http://localhost:8080/api/songs`,data).then(() =>{
+    axios.post(`http://localhost:8080/api/songs`, data).then(() => {
         showSongByAuthorId()
     })
 }
+
+
 
 
 
