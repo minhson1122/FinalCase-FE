@@ -17,7 +17,7 @@ function Songs(url) {
             const songDiv = document.createElement("div");
             songDiv.className = "App__section-grid-item";
             songDiv.innerHTML = `
-            <div class=""><img src="${item.album.avatar}" alt=""></div> 
+            <div style="height: 136px" class=""><img src="${item.album.avatar}" alt=""></div> 
             <div class="song-name">${item.name}</div>
             <span>${item.singer.name}</span>   
         `;
