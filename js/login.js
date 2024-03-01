@@ -15,6 +15,7 @@ let totalPages = 0;
 const itemsPerPage = 10; // Số lượng mục trên mỗi trang
 let token = localStorage.getItem('userToken');
 let role = localStorage.getItem('role');
+
 let choicePlaylist1 = document.getElementById("choice-playlist1")
 let choicePlaylist2 = document.getElementById("choice-playlist2")
 let choicePlaylist3 = document.getElementById("choice-playlist3")
@@ -23,6 +24,7 @@ let homeBtn = document.getElementById("home-btn")
 let authorBackground = document.getElementById("author-background")
 let itemDiv = ""
 window.onload = function () {
+    loginUser()
     let greetingElement = document.getElementById('good-something');
     let currentTime = new Date().getHours();
 
@@ -33,7 +35,7 @@ window.onload = function () {
     } else {
         greetingElement.textContent = 'Good evening!';
     }
-    loginUser()
+
     console.log("load 1", currentId)
 
 }
@@ -94,7 +96,7 @@ function loginUser() {
     currentId = localStorage.getItem("currentId")
     dataProfile(currentId)
     if (token !== null && role === 'ROLE_USER') {
-        axios.get('http://localhost:8080/api/playLists/'+currentId, {
+        axios.get('http://localhost:8080/api/playLists/' + currentId, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -311,6 +313,7 @@ function previousPage() {
         showListUser();
     }
 }
+
 function nextPage() {
     if (currentPage < totalPages) {
         currentPage++;
