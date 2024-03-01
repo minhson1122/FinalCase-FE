@@ -68,18 +68,8 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
         console.log(res.data)
         console.log(res.data.accessToken)
         console.log(res.data.roles[0].authority)
-        if (res.data.roles[0].authority === 'ROLE_USER') {
-            loginUser()
-        } else if (res.data.roles[0].authority === 'ROLE_ADMIN') {
-            alert("tk admin")
-            showListUser();
-        } else {
-            alert("tk author")
-            console.log("id hiện tại", currentId)
-            showSongByAuthorId()
-            // role = res.data.roles[0].authority
-        }
-        window.location.reload();
+        loginUser()
+        // window.location.reload();
     })
         .catch(error => {
             console.error(error);
@@ -248,6 +238,7 @@ document.getElementById("logout").addEventListener("click", function () {
 })
 
 function showListUser() {
+    alert("tk admin")
     adminBox.style.display = "block";
     forUser.style.display = "none"
     forUser1.style.display = "none"
