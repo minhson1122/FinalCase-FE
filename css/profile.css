@@ -64,19 +64,19 @@ input{
     border-radius: 4px;
     font-size: 16px;
 }
-button{
-    background-color: #4caf50;
-    color: #fff;
-    padding: 12px 20px;
-    border: none;
-    border-bottom: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 20px;
-}
-button:hover{
-    background-color: #45a049;
-}
+/*button{*/
+/*    background-color: #4caf50;*/
+/*    color: #fff;*/
+/*    padding: 12px 20px;*/
+/*    border: none;*/
+/*    border-bottom: 4px;*/
+/*    cursor: pointer;*/
+/*    font-size: 16px;*/
+/*    border-radius: 20px;*/
+/*}*/
+/*button:hover{*/
+/*    background-color: #45a049;*/
+/*}*/
 img{
     max-width: 100%;
     height: auto;
