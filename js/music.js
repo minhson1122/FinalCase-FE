@@ -93,6 +93,7 @@ function playList() {
 
 }
 function showSongByAuthorId() {
+    alert("tk author")
     loginNav.style.display = "none";
     profileNav.style.display = "flex";
     playingBar.style.background = "#121212"
