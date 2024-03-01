@@ -173,3 +173,9 @@
 .foot-form>a:hover{
     color: #3f51b5;
 }
+.user-table-btn {
+    display: flex;
+}
+.admin-background {
+    margin-top: 105px;
+}
