@@ -106,6 +106,7 @@ function showSongByAuthorId() {
     document.getElementById(`create-song-button`).style.display = `block`
     document.getElementById("author-title").innerHTML = `List Song`
     document.getElementById("home-page-title").innerHTML = `Author`
+    document.getElementById(`search`).style.display = `none`
     axios.get(`http://localhost:8080/api/songs/${currentId}`).then(resp => {
         console.log(resp.data)
         let data = resp.data
@@ -130,6 +131,7 @@ function showSongByAuthorId() {
 function showEditSongForm(id) {
     document.getElementById("author-title").innerHTML = `Edit Song`
     document.getElementById(`create-song-button`).style.display = `none`
+    document.getElementById(`search`).style.display = `none`
     axios.get(`http://localhost:8080/api/songs/song/${id}`).then(resp => {
         axios.get(`http://localhost:8080/api/albums`).then(albums => {
             axios.get(`http://localhost:8080/api/singers`).then(singers => {
@@ -138,16 +140,18 @@ function showEditSongForm(id) {
                 <input type="hidden" id="song-id" value="${resp.data.id}">
                 <label>Name:<input type="text" name="name" id="edit-song-name" value="${resp.data.name}"></label>
                 <label>Note: <input type="text" name="note" id="edit-song-note" value="${resp.data.note}"></label>
-                <label>Choice Album: <select id="edit-album">`
+                <label>Choice Album:</label> 
+                <select id="edit-album">`
                 for (const album of albums.data) {
                     str += `<option value="${album.id}">${album.name}</option>`
                 }
-                str += `</select></label>
-                <label>Choice Singer: <select id="edit-singer">`
+                str += `</select>
+                <label>Choice Singer:</label> 
+                 <select id="edit-singer">`
                 for (const singer of singers.data) {
                     str += `<option value="${singer.id}">${singer.name}</option>`
                 }
-                str += `</select></label> 
+                str += `</select>
                 </div>
                 <div class="add-song-btn-gr">
                 <button type="button" onclick="showSongByAuthorId()">Cancel</button>
@@ -191,22 +195,23 @@ function removeSong(id) {
 function showAddSongForm() {
     document.getElementById("author-title").innerHTML = `Create New Song`
     document.getElementById(`create-song-button`).style.display = `none`
+    document.getElementById(`search`).style.display = `none`
     axios.get(`http://localhost:8080/api/albums`).then(albums => {
         axios.get(`http://localhost:8080/api/singers`).then(singers => {
             let str =
                 `<div class="column-left">
                 <label>Name:<input type="text" name="name" id="song-name"></label>
                 <label>Note: <input type="text" name="note" id="song-note"></label>
-                <label>Choice Album: <select id="list-album">`
+                <label>Choice Album:</label> <select id="list-album">`
             for (const album of albums.data) {
                 str += `<option value="${album.id}">${album.name}</option>`
             }
-            str += `</select></label>
-                <label>Choice Singer: <select id="list-singer">`
+            str += `</select>
+                <label>Choice Singer:</label> <select id="list-singer">`
             for (const singer of singers.data) {
                 str += `<option value="${singer.id}">${singer.name}</option>`
             }
-            str += `</select></label> 
+            str += `</select> 
                 </div>
                 <div class="song-data">
                 <label>Song Data:</label>

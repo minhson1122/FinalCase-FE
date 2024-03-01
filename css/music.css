@@ -9,6 +9,12 @@
 .author-song-item {
     margin: 25px;
 }
+.column-left > select {
+    width: 100%;
+    height: 45px;
+    border-radius: 3px;
+    margin-bottom: 18px;
+}
 .listSong {
     border-radius: 10px;
     background: #242424;
@@ -20,24 +26,19 @@
 .listSong > div {
     padding: 10px;
 }
-/*.song-item-btn-gr > button {*/
-/*    width: 90px;*/
-/*    height: 45px;*/
-/*}*/
+.grid-item-btn-gr {
+    display: flex;
+    height: 105px;
+    align-items: end;
+}
 .add-song-btn-gr {
     display: flex;
     margin: 5px;
 }
-/*.add-song-btn-gr > button {*/
-/*    width: 90px;*/
-/*    height: 45px;*/
-/*    margin: 5px;*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    text-align: center;*/
-/*}*/
+
 .song-data {
     width: 890px;
 }
+.a
 
 
