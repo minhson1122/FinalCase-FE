@@ -14,7 +14,6 @@ let searchBox = document.getElementById("searchBox")
 let home = document.getElementById("home")
 const control = document.getElementById("control");
 const love = document.getElementById("love");
-
 function toggleAudio(url, name, nameSinger, avatar) {
     nameSing.innerHTML = nameSinger;
     nameMuic.innerHTML = name;
@@ -93,5 +92,3 @@ document.getElementById("main-view").addEventListener("click", function () {
     searchBox.style.display = "none";
     home.style.opacity="100%";
 });
-  
-;

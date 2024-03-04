@@ -1,14 +1,24 @@
-let background_user=document.getElementById("back-user");
-let background_create_playlist=document.getElementById('background-create-playlist')
+let background_user = document.getElementById("back-user");
+let background_create_playlist = document.getElementById('background-create-playlist')
+let url = `http://localhost:8080/api/songs`;
+
 function createPlaylist() {
-    background_user.style.display='none';
-    background_create_playlist.style.display='block';
-    dataSong()
+    background_user.style.display = 'none';
+    background_create_playlist.style.display = 'block';
+    dataSong(url)
 }
-function dataSong() {
-    axios.get(`http://localhost:8080/api/songs`).then(res=>{
-        console.log("data",res.data);
-        let str=` <table>
+
+function searchSong() {
+    let search = document.getElementById('searchSong').value;
+    if (search!==null){
+        dataSong(`http://localhost:8080/api/songs?name=${search}`)
+    }
+}
+
+function dataSong(url) {
+    axios.get(url).then(res => {
+        console.log("data", res.data);
+        let str = ` <table>
                             <tr>
                                 <th></th>
                             <th>Name Song</th>
@@ -16,12 +26,12 @@ function dataSong() {
                             <th>Album</th>
                             <th></th>
                             </tr>`;
-        res.data.forEach((item,index)=>{
-            str+=`<tr>
+        res.data.forEach((item, index) => {
+            str += `<tr>
                                 <td><img src="${item.album.avatar}" style="width: 50px;height: 50px;margin-top: 10px;margin-left: 30px"></td>
                                 <td>${item.name}</td>
-                                <td>Pha Mạnh Quỳnh</td>
-                                <td>NHạc Hay</td>
+                                <td>${item.singer.name}</td>
+                                <td>${item.album.name}</td>
                                 <td><button>Add</button></td>
                             </tr>`
         })
@@ -30,6 +40,6 @@ function dataSong() {
     })
 }
 
-document.querySelector('.box_avatar').addEventListener('click', function() {
+document.querySelector('.box_avatar').addEventListener('click', function () {
     document.getElementById('fileInput').click();
-})
+});

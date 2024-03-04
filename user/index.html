@@ -24,6 +24,7 @@
     <script src="https://kit.fontawesome.com/44420478c7.js" crossorigin="anonymous"></script>
     <script src="../js/music.js"></script>
     <script src="../js/test-top-5-newsong.js"></script>
+
 </head>
 <body>
 <!--<input type="file" onchange="getImageData(event)">-->
@@ -169,23 +170,17 @@
                             <div class="App__quick-link-featured-img">♥</div>
                             <span>Liked Songs</span>
                         </div>
-<!--                        <div class="App__quick-link">-->
-<!--                            <div class="App__quick-link-featured-img"></div>-->
-<!--                            <span>Daily Mix 1</span>-->
-<!--                        </div>-->
                     </div>
                 </section>
                 <section class="App__section App__your-shows" id="choice-playlist2">
                     <div class="App__section-header">
                         <h3>Top Trending</h3>
-<!--                        <span onclick="ShowList()">SEE ALL</span>-->
                     </div>
                     <div class="App__section-grid-container" id="card"></div>
                 </section>
                 <section class="App__section App__your-shows" id="choice-playlist3">
                     <div class="App__section-header">
                         <h3>Top 5 New Song</h3>
-<!--                        <span>SEE ALL</span>-->
                     </div>
                     <div class="App__section-grid-container" id="top5-new-song"></div>
                 </section>
@@ -217,7 +212,7 @@
                 </div>
                 <div class="background-show-song">
                     <div class="search-song">
-                       <label><input type="text" placeholder="Tìm kiếm bài hát..."></label>
+                       <label><input type="text" id="searchSong"  placeholder="Tìm kiếm bài hát..." onchange="searchSong()"></label>
                     </div>
                     <div class="display-song" id="show">
 
@@ -342,5 +337,6 @@
 <script src="../js/main.js"></script>
 <script src="../js/login.js"></script>
 <script src="../js/profile.js"></script>
+<script src="../js/playList.js"></script>
 </body>
 </html>
