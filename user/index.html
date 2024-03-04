@@ -23,6 +23,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-storage.js"></script>
     <script src="https://kit.fontawesome.com/44420478c7.js" crossorigin="anonymous"></script>
     <script src="../js/music.js"></script>
+    <script src="../js/test-top-5-newsong.js"></script>
 </head>
 <body>
 <!--<input type="file" onchange="getImageData(event)">-->
@@ -41,15 +42,15 @@
                                       fill="#fff"></path>
                             </svg>
                         </div>
-                        <span class="App__username" >Hồ Sơ</span>
+                        <span class="App__username" >Profile</span>
                     </button>
                     <button class="App__user" id="logout" >
-                        <span class="App__username" >Đăng Xuất</span>
+                        <span class="App__username" >Logout</span>
                     </button>
                 </div>
                 <div id="login-nav">
                     <button class="App__user" id="myButton">
-                        <span class="App__username">Đăng nhập</span>
+                        <span class="App__username">Login</span>
                     </button>
                 </div>
 
@@ -200,16 +201,17 @@
                 </section>
                 <section class="App__section App__your-shows" id="choice-playlist2">
                     <div class="App__section-header">
-                        <h3>Top Trending<git /h3>
+                        <h3>Top Trending</h3>
 <!--                        <span onclick="ShowList()">SEE ALL</span>-->
                     </div>
                     <div class="App__section-grid-container" id="card"></div>
                 </section>
                 <section class="App__section App__your-shows" id="choice-playlist3">
                     <div class="App__section-header">
-                        <h3>Your top mixes</h3>
+                        <h3>Top 5 New Song</h3>
 <!--                        <span>SEE ALL</span>-->
                     </div>
+                    <div class="App__section-grid-container" id="top5-new-song"></div>
                 </section>
                 <div id="playlist-selected">
                 </div>

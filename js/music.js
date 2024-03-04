@@ -1,27 +1,25 @@
 const song = JSON.parse(localStorage.getItem('indexSong'))
 const savedSongs = JSON.parse(localStorage.getItem('songs'))
 const idSongs = JSON.parse(localStorage.getItem('idSong'))
+
+
 Songs('http://localhost:8080/api/songs/top')
-
-function ShowList() {
-    Songs('http://localhost:8080/api/songs')
-}
-
 function Songs(url) {
     axios.get(url).then(res => {
         const card = document.getElementById("card");
-        localStorage.setItem('activeSongList', 'savedSongs');
-        localStorage.setItem('songs', JSON.stringify(res.data));
         card.innerHTML = '';
         res.data.forEach((item, index) => {
             const songDiv = document.createElement("div");
             songDiv.className = "App__section-grid-item";
             songDiv.innerHTML = `
-            <div style="height: 136px" class=""><img src="${item.album.avatar}" alt=""></div> 
+            <div style="height: 136px" class=""><img src="${item.album.avatar}" alt=""></div>
             <div class="song-name">${item.name}</div>
-            <span>${item.singer.name}</span>   
+            <span>${item.singer.name}</span>
         `;
             songDiv.querySelector('.song-name').addEventListener('click', function () {
+                alert(1)
+                localStorage.setItem('activeSongList', 'savedSongs');
+                localStorage.setItem('songs', JSON.stringify(res.data));
                 localStorage.setItem('activeSongList', 'savedSongs');
                 localStorage.setItem('idSong', JSON.stringify(`${item.id}`))
                 playSong(index)
@@ -37,6 +35,42 @@ function Songs(url) {
         });
     });
 }
+
+
+showTop5NewSong('http://localhost:8080/api/songs/top5-new-song')
+function showTop5NewSong(url){
+    axios.get(url).then(res => {
+        console.log(res)
+        const song = document.getElementById("top5-new-song");
+        song.innerHTML = '';
+        res.data.forEach((item, index) => {
+            const songDivs = document.createElement("div");
+            songDivs.className = "App__section-grid-item";
+            songDivs.innerHTML = `
+            <div style="height: 136px" class=""><img src="${item.album.avatar}" alt=""></div>
+            <div class="song-name">${item.name}</div>
+            <span>${item.singer.name}</span>
+        `;
+            songDivs.querySelector('.song-name').addEventListener('click', function () {
+                alert(2)
+                localStorage.setItem('activeSongList', 'savedSongs');
+                localStorage.setItem('songs', JSON.stringify(res.data));
+                localStorage.setItem('activeSongList', 'savedSongs');
+                localStorage.setItem('idSong', JSON.stringify(`${item.id}`))
+                playSong(index)
+
+            });
+            song.appendChild(songDivs);
+        });
+        love.addEventListener('click', () => {
+            axios.get(`http://localhost:8080/api/songs/like/${idSongs}`
+            ).then(res => {
+                updateLike(res.data.likes)
+            })
+        });
+    });
+}
+
 
 function playSong(indexSong) {
     function getCurrentSongList() {
@@ -89,8 +123,6 @@ function playList() {
     document.getElementById('displayPlay').style.display = 'none';
     document.getElementById('pauseMusic').style.display = 'block';
     playSong(0);
-
-
 }
 
 function showSongByAuthorId() {
