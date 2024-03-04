@@ -29,7 +29,7 @@
 <!--Viêt giao diện Urer-->
 <div class="originnal-backround" id="home">
 
-    <div class="App" >
+    <div class="App">
         <div class="App__top-bar">
             <div class="App__header">
                 <div id="profile-nav">
@@ -41,10 +41,10 @@
                                       fill="#fff"></path>
                             </svg>
                         </div>
-                        <span class="App__username" >Hồ Sơ</span>
+                        <span class="App__username">Hồ Sơ</span>
                     </button>
-                    <button class="App__user" id="logout" >
-                        <span class="App__username" >Đăng Xuất</span>
+                    <button class="App__user" id="logout">
+                        <span class="App__username">Đăng Xuất</span>
                     </button>
                 </div>
                 <div id="login-nav">
@@ -96,8 +96,8 @@
                     <h3>Your playlists:</h3>
                 </div>
                 <div class="playlist-list" id="playlist-list">
-                    <div class="item-list" >
-                        <p class="name-item" id="name-item"> </p>
+                    <div class="item-list">
+                        <p class="name-item" id="name-item"></p>
                         <p class="name-playList" id="name-playList"></p>
                     </div>
                 </div>
@@ -168,16 +168,16 @@
                             <div class="App__quick-link-featured-img">♥</div>
                             <span>Liked Songs</span>
                         </div>
-<!--                        <div class="App__quick-link">-->
-<!--                            <div class="App__quick-link-featured-img"></div>-->
-<!--                            <span>Daily Mix 1</span>-->
-<!--                        </div>-->
+                        <!--                        <div class="App__quick-link">-->
+                        <!--                            <div class="App__quick-link-featured-img"></div>-->
+                        <!--                            <span>Daily Mix 1</span>-->
+                        <!--                        </div>-->
                     </div>
                 </section>
                 <section class="App__section App__your-shows" id="choice-playlist2">
                     <div class="App__section-header">
                         <h3>Top Trending</h3>
-<!--                        <span onclick="ShowList()">SEE ALL</span>-->
+                        <!--                        <span onclick="ShowList()">SEE ALL</span>-->
                     </div>
                     <div class="App__section-grid-container" id="card"></div>
                 </section>
@@ -190,42 +190,56 @@
                 <div id="playlist-selected">
                 </div>
             </div>
-<!--            Giao diện Admin-->
+            <!--            Giao diện Admin-->
             <div class="admin-background" id="admin-background">
-                    <h1>List User</h1>
-                    <div class="list-user" id="user-table"></div>
+                <h1>List User</h1>
+                <div class="list-user" id="user-table"></div>
             </div>
-<!--            Giao diện Author-->
+            <!--            Giao diện Author-->
             <div class="author-background" id="author-background" style="display: none">
                 <h1 id="author-title">List Song</h1>
                 <button onclick="showAddSongForm()" id="create-song-button"><i class="fa-solid fa-plus"></i></button>
-                <div class="author-song-item" id="author-song-item" ></div>
+                <div class="author-song-item" id="author-song-item"></div>
             </div>
+            <!--            Create PlayList-->
+            <div id="background-create-playlist" style="display: none">
+                <div class="background-create-song">
+                    <div class="iconAvatar">
+                        <div class="box_avatar">
+                            <input type="file" id="fileInput" style="display: none"/>
+                        </div>
+                    </div>
+                    <div class="iconCreate">
+                        <label>Create PlayList<input type="text" placeholder="Name PlayList"></label>
+                    </div>
+                </div>
+                <div class="background-show-song">
+                    <div class="search-song">
+                       <label><input type="text" placeholder="Tìm kiếm bài hát..."></label>
+                    </div>
+                    <div class="display-song">
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
-
-<!--            Create PlayList-->
-<div id="background-create-playlist" style="display: none"></div>
-<div class="background-search-song">
-    <div class="iconSearch"></div>
-</div>
-
-<div class="backround-edit-user"  style="display: none">
-    <div class="form-edit-container" >
+<div class="backround-edit-user" style="display: none">
+    <div class="form-edit-container">
         <div class="form" id="form-add-song">
         </div>
     </div>
 </div>
 <!--Giao diện EditProfile user-->
 <div class="backround-edit-user" id="formEdit" style="display: none">
-    <div class="form-edit-container" >
+    <div class="form-edit-container">
         <div class="form">
             <div class="column-left">
                 <label>Name:<input type="text" name="name" id="name"></label>
-                <label>Password: <input type="password" name="passwords" id="password" ></label>
-                <label>Confirm Password: <input type="password" name="confirmPasswords" id="confirmPassword" ></label>
-                <label>Phone :<input type="text" name="phone" id="phone" ></label>
+                <label>Password: <input type="password" name="passwords" id="password"></label>
+                <label>Confirm Password: <input type="password" name="confirmPasswords" id="confirmPassword"></label>
+                <label>Phone :<input type="text" name="phone" id="phone"></label>
                 <button onclick="edit()">Save</button>
                 <button type="button" onclick="backProfile()">Cancel</button>
             </div>
@@ -258,7 +272,9 @@
 <!--AE Viết Giao diện Login Đây Nhé-->
 <div class="login-backround" id="new-background">
     <div class="login-container">
-        <div class="xLogin"><button id="xLogin-btn">x</button></div>
+        <div class="xLogin">
+            <button id="xLogin-btn">x</button>
+        </div>
         <form id="loginForm">
             <h2>Welcome Back</h2>
             <div class="input-group">
@@ -278,7 +294,9 @@
 </div>
 <div class="signup-backround" id="signup-background">
     <div class="signup-container">
-        <div class="xLogin"><button id="xSignup-btn">x</button></div>
+        <div class="xLogin">
+            <button id="xSignup-btn">x</button>
+        </div>
         <form id="signupForm">
             <h2>Sign Up</h2>
             <div class="input-group">

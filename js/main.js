@@ -100,3 +100,6 @@ function createPlaylist() {
     background_user.style.display='none';
     background_create_playlist.style.display='block';
 }
+document.querySelector('.box_avatar').addEventListener('click', function() {
+    document.getElementById('fileInput').click();
+});
