@@ -10,8 +10,7 @@ function ShowList() {
 function Songs(url) {
     axios.get(url).then(res => {
         const card = document.getElementById("card");
-        localStorage.setItem('activeSongList', 'savedSongs');
-        localStorage.setItem('songs', JSON.stringify(res.data));
+
         card.innerHTML = '';
         res.data.forEach((item, index) => {
             const songDiv = document.createElement("div");
@@ -22,6 +21,8 @@ function Songs(url) {
             <span>${item.singer.name}</span>
         `;
             songDiv.querySelector('.song-name').addEventListener('click', function () {
+                localStorage.setItem('activeSongList', 'savedSongs');
+                localStorage.setItem('songs', JSON.stringify(res.data));
                 localStorage.setItem('activeSongList', 'savedSongs');
                 localStorage.setItem('idSong', JSON.stringify(`${item.id}`))
                  playSong(index)
@@ -53,7 +54,6 @@ function showTop5NewSong(url){
             <span>${item.singer.name}</span>
         `;
             songDivs.querySelector('.song-name').addEventListener('click', function () {
-                alert(2)
                 localStorage.setItem('activeSongList', 'savedSongs');
                 localStorage.setItem('songs', JSON.stringify(res.data));
                 localStorage.setItem('activeSongList', 'savedSongs');
