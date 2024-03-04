@@ -137,8 +137,11 @@ function showEditSongForm(id) {
                 let str =
                     `<div class="column-left">
                 <input type="hidden" id="song-id" value="${resp.data.id}">
+                <input type="hidden" id="edit-song-src" value="${resp.data.src}">
+                <input type="hidden" id="edit-song-likes" value="${resp.data.likes}">
+                <input type="hidden" id="edit-song-listens" value="${resp.data.listens}">
                 <label>Name:<input type="text" name="name" id="edit-song-name" value="${resp.data.name}"></label>
-                <label>Note: <input type="text" name="note" id="edit-song-note" value="${resp.data.note}"></label>
+                <label>Note: <input type="text" name="note" id="edit-song-note" value="${resp.data.note}"></label
                 <label>Choice Album:</label> 
                 <select id="edit-album">`
                 for (const album of albums.data) {
@@ -169,7 +172,9 @@ function editSong() {
     let data = {
         name: document.getElementById(`edit-song-name`).value,
         note: document.getElementById(`edit-song-note`).value,
-        src: songURl,
+        src:  document.getElementById(`edit-song-src`).value,
+        likes:  document.getElementById(`edit-song-likes`).value,
+        listens:  document.getElementById(`edit-song-listens`).value,
         album: {
             id: document.getElementById(`edit-album`).value
         },
