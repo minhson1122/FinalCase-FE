@@ -23,13 +23,14 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-storage.js"></script>
     <script src="https://kit.fontawesome.com/44420478c7.js" crossorigin="anonymous"></script>
     <script src="../js/music.js"></script>
+    <script src="../js/test-top-5-newsong.js"></script>
 </head>
 <body>
 <!--<input type="file" onchange="getImageData(event)">-->
 <!--Viêt giao diện Urer-->
 <div class="originnal-backround" id="home">
 
-    <div class="App">
+    <div class="App" >
         <div class="App__top-bar">
             <div class="App__header">
                 <div id="profile-nav">
@@ -41,15 +42,15 @@
                                       fill="#fff"></path>
                             </svg>
                         </div>
-                        <span class="App__username">Hồ Sơ</span>
+                        <span class="App__username" >Hồ Sơ</span>
                     </button>
-                    <button class="App__user" id="logout">
-                        <span class="App__username">Đăng Xuất</span>
+                    <button class="App__user" id="logout" >
+                        <span class="App__username" >Đăng Xuất</span>
                     </button>
                 </div>
                 <div id="login-nav">
                     <button class="App__user" id="myButton">
-                        <span class="App__username">Đăng nhập</span>
+                        <span class="App__username">Login</span>
                     </button>
                 </div>
 
@@ -168,34 +169,35 @@
                             <div class="App__quick-link-featured-img">♥</div>
                             <span>Liked Songs</span>
                         </div>
-                        <!--                        <div class="App__quick-link">-->
-                        <!--                            <div class="App__quick-link-featured-img"></div>-->
-                        <!--                            <span>Daily Mix 1</span>-->
-                        <!--                        </div>-->
+<!--                        <div class="App__quick-link">-->
+<!--                            <div class="App__quick-link-featured-img"></div>-->
+<!--                            <span>Daily Mix 1</span>-->
+<!--                        </div>-->
                     </div>
                 </section>
                 <section class="App__section App__your-shows" id="choice-playlist2">
                     <div class="App__section-header">
                         <h3>Top Trending</h3>
-                        <!--                        <span onclick="ShowList()">SEE ALL</span>-->
+<!--                        <span onclick="ShowList()">SEE ALL</span>-->
                     </div>
                     <div class="App__section-grid-container" id="card"></div>
                 </section>
                 <section class="App__section App__your-shows" id="choice-playlist3">
                     <div class="App__section-header">
-                        <h3>Your top mixes</h3>
-                        <span>SEE ALL</span>
+                        <h3>Top 5 New Song</h3>
+<!--                        <span>SEE ALL</span>-->
                     </div>
+                    <div class="App__section-grid-container" id="top5-new-song"></div>
                 </section>
                 <div id="playlist-selected">
                 </div>
             </div>
-            <!--            Giao diện Admin-->
+<!--            Giao diện Admin-->
             <div class="admin-background" id="admin-background">
-                <h1>List User</h1>
-                <div class="list-user" id="user-table"></div>
+                    <h1>List User</h1>
+                    <div class="list-user" id="user-table"></div>
             </div>
-            <!--            Giao diện Author-->
+<!--            Giao diện Author-->
             <div class="author-background" id="author-background" style="display: none">
                 <h1 id="author-title">List Song</h1>
                 <button onclick="showAddSongForm()" id="create-song-button"><i class="fa-solid fa-plus"></i></button>
@@ -234,13 +236,13 @@
 </div>
 <!--Giao diện EditProfile user-->
 <div class="backround-edit-user" id="formEdit" style="display: none">
-    <div class="form-edit-container">
+    <div class="form-edit-container" >
         <div class="form">
             <div class="column-left">
                 <label>Name:<input type="text" name="name" id="name"></label>
-                <label>Password: <input type="password" name="passwords" id="password"></label>
-                <label>Confirm Password: <input type="password" name="confirmPasswords" id="confirmPassword"></label>
-                <label>Phone :<input type="text" name="phone" id="phone"></label>
+                <label>Password: <input type="password" name="passwords" id="password" ></label>
+                <label>Confirm Password: <input type="password" name="confirmPasswords" id="confirmPassword" ></label>
+                <label>Phone :<input type="text" name="phone" id="phone" ></label>
                 <button onclick="edit()">Save</button>
                 <button type="button" onclick="backProfile()">Cancel</button>
             </div>
@@ -273,9 +275,7 @@
 <!--AE Viết Giao diện Login Đây Nhé-->
 <div class="login-backround" id="new-background">
     <div class="login-container">
-        <div class="xLogin">
-            <button id="xLogin-btn">x</button>
-        </div>
+        <div class="xLogin"><button id="xLogin-btn">x</button></div>
         <form id="loginForm">
             <h2>Welcome Back</h2>
             <div class="input-group">
@@ -289,33 +289,45 @@
             <div class="foot-form">
                 <a id="signup-box"><strong><i>Don't have an account? Sign Up!</i></strong></a>
             </div>
-            <button type="submit" class="login-btn">Login</button>
+            <button type="submit"  class="login-btn">Login</button>
         </form>
     </div>
 </div>
 <div class="signup-backround" id="signup-background">
     <div class="signup-container">
-        <div class="xLogin">
-            <button id="xSignup-btn">x</button>
-        </div>
+        <div class="xLogin"><button id="xSignup-btn">x</button></div>
         <form id="signupForm">
             <h2>Sign Up</h2>
             <div class="input-group">
-                <input type="text" name="username" required>
+                <input type="text" id="usernameSignup" required>
                 <label>Username</label>
             </div>
             <div class="input-group">
-                <input type="password" name="password" required>
+                <input type="password" id="passwordSignup" required>
                 <label>Password</label>
             </div>
             <div class="input-group">
-                <input type="password" name="confirmPassword" required>
+                <input type="password" id="confirmPasswordSignup" required>
                 <label>Confirm Password</label>
+            </div>
+            <div class="input-group">
+                <input type="text" id="nameSignup" required>
+                <label>Name</label>
+            </div>
+            <div class="input-group">
+                <input type="number" id="phoneSignup" required>
+                <label>Phone Number</label>
+            </div>
+            <div class="input-group">
+                <select id="select-role">
+                    <option value="2">User</option>
+                    <option value="3">Author</option>
+                </select>
             </div>
             <div class="foot-form">
                 <a id="login-box"><strong><i>Do you already have an account? Login here</i></strong></a>
             </div>
-            <button type="submit" class="signup-btn">Sign Up</button>
+            <button type="submit" class="login-btn">Sign Up</button>
         </form>
 
     </div>
