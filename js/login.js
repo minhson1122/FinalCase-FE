@@ -252,6 +252,7 @@ document.getElementById("logout").addEventListener("click", function () {
 })
 
 function showListUser() {
+    createPlaylist()
     adminBox.style.display = "block";
     forUser.style.display = "none"
     forUser1.style.display = "none"
