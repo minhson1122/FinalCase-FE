@@ -29,7 +29,7 @@ function Songs(url) {
             card.appendChild(songDiv);
         });
         love.addEventListener('click', () => {
-            axios.get(`http://localhost:8080/api/songs/like/${idSongs}`
+            axios.get(`http://localhost:8080/api/songs/like/${item.id}`
             ).then(res => {
                 updateLike(res.data.likes)
             })

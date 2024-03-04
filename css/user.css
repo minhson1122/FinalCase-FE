@@ -710,19 +710,12 @@
 * {
     scrollbar-width: none;
 }
-
-/* Hỗ trợ cho Chrome, Safari và Edge */
 *::-webkit-scrollbar {
     display: none;
 }
-
-/* Ẩn thanh scrollbar dọc */
-/* Hỗ trợ cho Firefox */
 * {
     scrollbar-width: none;
 }
-
-/* Hỗ trợ cho Chrome, Safari và Edge */
 *::-webkit-scrollbar {
     width: 0px;
 }
@@ -867,4 +860,24 @@ button:hover {
     overflow-y: auto;
     box-sizing: border-box;
     color: white;
+}
+.display-song table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.display-song th, .display-song td {
+    padding: 3px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.display-song th {
+    background-color:#2C2C2C;
+    color: white;
+}
+
+.display-song tr:hover {
+    background-color: #2C2C2C;
 }
