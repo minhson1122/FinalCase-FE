@@ -6,7 +6,7 @@ let loginNav = document.getElementById("login-nav")
 let profileNav = document.getElementById("profile-nav")
 let playlist = document.getElementById("playlist-nav-bar")
 let adminBox = document.getElementById("admin-background")
-let backUser = document.getElementById("back-user")
+let background_user = document.getElementById("back-user")
 let playingBar = document.getElementById("playing-bar")
 let functionBar = document.getElementById("function")
 let currentPage = 1;
@@ -112,18 +112,16 @@ document.getElementById("signupForm").addEventListener('submit',function ( event
 })
 
 function loginUser() {
-    const nameItem = document.getElementById("name-item")
-    const imgItem = document.getElementById("img-item")
-    const playList = document.getElementById("playlist-list")
     currentId = localStorage.getItem("currentId")
     dataProfile(currentId)
     if (token !== null && role === 'ROLE_USER') {
-        userView()
+        userView();
     } else if (token !== null && role === 'ROLE_ADMIN') {
         showListUser();
     } else if (token !== null && role === `ROLE_AUTHOR`) {
         showSongByAuthorId()
     }
+
 }
 
 function userView() {
@@ -234,6 +232,7 @@ document.getElementById("main-view").addEventListener("click", function () {
 });
 document.getElementById("home-btn").addEventListener("click", function () {
     if (token !== null && role === 'ROLE_ADMIN') {
+
         window.location.reload()
     } else if (token !== null && role === 'ROLE_AUTHOR') {
         showSongByAuthorId()
@@ -242,6 +241,8 @@ document.getElementById("home-btn").addEventListener("click", function () {
         choicePlaylist2.style.display = "block";
         choicePlaylist3.style.display = "block";
         playlistSelected.style.display = "none"
+        background_create_playlist.style.display="none"
+        background_user.style.display = 'block';
     } else {
         window.location.reload()
     }
@@ -252,18 +253,16 @@ document.getElementById("logout").addEventListener("click", function () {
 })
 
 function showListUser() {
-    createPlaylist()
+    profileNav.style.display = "flex";
     adminBox.style.display = "block";
-    forUser.style.display = "none"
+    background_user.style.display = "none";
     forUser1.style.display = "none"
     newBackground.style.display = "none";
     home.style.opacity = "100%";
     loginNav.style.display = "none";
-    profileNav.style.display = "flex";
-    playlist.style.display = "none"
-    backUser.style.display = "none"
-    playingBar.style.background = "#121212"
-    functionBar.style.display = "none"
+    playlist.style.display = "none";
+    playingBar.style.background = "#121212";
+    functionBar.style.display = "none";
     document.getElementById(`home-page-title`).innerHTML = `Admin`
     document.getElementById(`search`).style.display = `none`
     axios.get(`http://localhost:8080/admin`).then(response => {

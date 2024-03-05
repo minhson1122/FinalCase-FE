@@ -187,17 +187,6 @@
                 <div id="playlist-selected">
                 </div>
             </div>
-<!--            Giao diện Admin-->
-            <div class="admin-background" id="admin-background">
-                    <h1>List User</h1>
-                    <div class="list-user" id="user-table"></div>
-            </div>
-<!--            Giao diện Author-->
-            <div class="author-background" id="author-background" style="display: none">
-                <h1 id="author-title">List Song</h1>
-                <button onclick="showAddSongForm()" id="create-song-button"><i class="fa-solid fa-plus"></i></button>
-                <div class="author-song-item" id="author-song-item"></div>
-            </div>
             <!--            Create PlayList-->
             <div id="background-create-playlist" style="display: none">
                 <div class="background-create-song">
@@ -212,25 +201,37 @@
                 </div>
                 <div class="background-show-song">
                     <div class="search-song">
-                       <label><input type="text" id="searchSong"  placeholder="Tìm kiếm bài hát..." onchange="searchSong()"></label>
+                        <label><input type="text" id="searchSong"  placeholder="Tìm kiếm bài hát..." onchange="searchSong()"></label>
                     </div>
                     <div class="display-song" id="show">
 
                     </div>
                 </div>
             </div>
+<!--            Giao diện Admin-->
+            <div class="admin-background" id="admin-background">
+                    <h1>List User</h1>
+                    <div class="list-user" id="user-table"></div>
+            </div>
+<!--            Giao diện Author-->
+            <div class="author-background" id="author-background" style="display: none">
+                <h1 id="author-title">List Song</h1>
+                <button onclick="showAddSongForm()" id="create-song-button"><i class="fa-solid fa-plus"></i></button>
+                <div class="author-song-item" id="author-song-item"></div>
+            </div>
+
 
         </div>
     </div>
 </div>
-<div class="backround-edit-user" style="display: none">
+<div class="background-edit-user" style="display: none">
     <div class="form-edit-container">
         <div class="form" id="form-add-song">
         </div>
     </div>
 </div>
 <!--Giao diện EditProfile user-->
-<div class="backround-edit-user" id="formEdit" style="display: none">
+<div class="background-edit-user" id="formEdit" style="display: none">
     <div class="form-edit-container" >
         <div class="form">
             <div class="column-left">
@@ -250,7 +251,7 @@
     </div>
 </div>
 <!--Giao dien profile-->
-<div class="backround-edit-user" id="profiles" style="display: none">
+<div class="background-edit-user" id="profiles" style="display: none">
     <div class="form-edit-container">
         <div class="form">
             <div class="column-left">
@@ -268,7 +269,7 @@
     </div>
 </div>
 <!--AE Viết Giao diện Login Đây Nhé-->
-<div class="login-backround" id="new-background">
+<div class="login-background" id="new-background">
     <div class="login-container">
         <div class="xLogin"><button id="xLogin-btn">x</button></div>
         <form id="loginForm">
@@ -288,7 +289,7 @@
         </form>
     </div>
 </div>
-<div class="signup-backround" id="signup-background">
+<div class="signup-background" id="signup-background">
     <div class="signup-container">
         <div class="xLogin"><button id="xSignup-btn">x</button></div>
         <form id="signupForm">

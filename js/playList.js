@@ -1,4 +1,3 @@
-let background_user = document.getElementById("back-user");
 let background_create_playlist = document.getElementById('background-create-playlist')
 let url = `http://localhost:8080/api/songs`;
 
