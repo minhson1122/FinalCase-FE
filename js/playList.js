@@ -18,8 +18,8 @@ function searchSong() {
 function dataSong(url) {
     axios.get(url).then(res => {
         console.log("data", res.data);
-        let str = ` <table>
-                            <tr>
+        let str = ` <table class="all-song-tb">
+                            <tr class="all-song-thead">
                                 <th></th>
                             <th>Name Song</th>
                             <th>Name Singer</th>
@@ -27,7 +27,7 @@ function dataSong(url) {
                             <th></th>
                             </tr>`;
         res.data.forEach((item, index) => {
-            str += `<tr>
+            str += `<tr class="all-song-tbody">
                                 <td><img src="${item.album.avatar}" style="width: 50px;height: 50px;margin-top: 10px;margin-left: 30px"></td>
                                 <td>${item.name}</td>
                                 <td>${item.singer.name}</td>
