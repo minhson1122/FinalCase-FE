@@ -4,6 +4,8 @@ let backgroundSearch = document.getElementById('background-search')
 function openSearchBox() {
     background_user.style.display = 'none';
     backgroundSearch.style.display = 'block';
+    background_create_playlist.style.display = 'none';
+
     dataSong1(url)
 }
 
@@ -23,7 +25,7 @@ function dataSong1(url) {
                             <th>Name Song</th>
                             <th>Name Singer</th>
                             <th>Album</th>
-                            <th></th>
+                        
                             </tr>`;
         res.data.forEach((item, index) => {
             str += `<tr class="all-song-tbody" onclick="playSong(${index})">
@@ -31,7 +33,7 @@ function dataSong1(url) {
                                 <td>${item.name}</td>
                                 <td>${item.singer.name}</td>
                                 <td>${item.album.name}</td>
-                                
+                             
                             </tr>`
             localStorage.setItem('activeSongList', 'savedSongs');
             localStorage.setItem('songs', JSON.stringify(res.data));
