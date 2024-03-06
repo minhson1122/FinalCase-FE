@@ -14,6 +14,7 @@ let searchBox = document.getElementById("searchBox")
 let home = document.getElementById("home")
 const control = document.getElementById("control");
 const love = document.getElementById("love");
+let formEditUser= document.getElementById("formEdit")
 function toggleAudio(url, name, nameSinger, avatar) {
     nameSing.innerHTML = nameSinger;
     nameMuic.innerHTML = name;
@@ -85,10 +86,11 @@ audio.addEventListener("timeupdate", function () {
 });
 document.getElementById("search").addEventListener("click", function () {
     searchBox.style.display = "block";
-    home.style.opacity="75%";
+    home.style.opacity="100%";
 });
 
 document.getElementById("main-view").addEventListener("click", function () {
     searchBox.style.display = "none";
+    formEditUser.style.display="none";
     home.style.opacity="100%";
 });

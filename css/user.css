@@ -153,8 +153,8 @@
 .search {
     position: absolute;
     height: 50px;
-    top: 100px;
-    left: 310px;
+    top: 1vh;
+    left: 12.5vw;
     right: 310px;
     bottom: 200px;
     margin: 0;

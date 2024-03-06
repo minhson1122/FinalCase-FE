@@ -201,7 +201,7 @@
                 </div>
                 <div class="background-show-song">
                     <div class="search-song">
-                        <label><input type="text" id="searchSong"  placeholder="Tìm kiếm bài hát..." onchange="searchSong()"></label>
+                        <label><input type="text" id="searchSong"  placeholder="Tìm kiếm bài hát..." oninput="searchSong()"></label>
                     </div>
                     <div class="display-song" id="show">
 
@@ -329,9 +329,9 @@
     </div>
 </div>
 <div class="search" id="searchBox">
-    <label>Search
-        <input type="text">
-    </label>
+    <div class="search-song">
+        <label><input type="text"  placeholder="Tìm kiếm bài hát..." oninput="searchSong()"></label>
+    </div>
 </div>
 <div class="admin-backround"></div>
 <script src="../js/main.js"></script>

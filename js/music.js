@@ -123,6 +123,7 @@ function playList() {
     localStorage.setItem('activeSongList', 'saveListSongs');
     document.getElementById('displayPlay').style.display = 'none';
     document.getElementById('pauseMusic').style.display = 'block';
+
     playSong(0);
 
 

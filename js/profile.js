@@ -49,8 +49,8 @@ const getImageData = (e) => {
     );
 };
 document.getElementById('editProfile').addEventListener('click', function () {
-    var newBackground = document.getElementById("formEdit");
-    newBackground.style.display = "block";
+
+    formEditUser.style.display = "block";
     document.getElementById("profiles").style.display = "none";
 
 })
