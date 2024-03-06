@@ -267,7 +267,6 @@ function showListUser() {
     playingBar.style.background = "#121212";
     functionBar.style.display = "none";
     document.getElementById(`home-page-title`).innerHTML = `Admin`
-    document.getElementById(`search`).style.display = `none`
     axios.get(`http://localhost:8080/admin`).then(response => {
         let data = response.data;
         totalPages = Math.ceil(data.length / itemsPerPage);

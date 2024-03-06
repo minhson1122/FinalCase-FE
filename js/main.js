@@ -10,7 +10,6 @@ const audioElement = document.getElementById("myAudio");
 const pausePlay = document.getElementById("pauseMusic")
 const displayPlay = document.getElementById("displayPlay")
 const like = document.getElementById("like")
-let searchBox = document.getElementById("searchBox")
 let home = document.getElementById("home")
 const control = document.getElementById("control");
 const love = document.getElementById("love");
@@ -84,13 +83,8 @@ audio.addEventListener("timeupdate", function () {
         totalTime.style.display = 'none';
     }
 });
-document.getElementById("search").addEventListener("click", function () {
-    searchBox.style.display = "block";
-    home.style.opacity="100%";
-});
 
 document.getElementById("main-view").addEventListener("click", function () {
-    searchBox.style.display = "none";
     formEditUser.style.display="none";
     home.style.opacity="100%";
 });

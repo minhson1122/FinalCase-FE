@@ -31,7 +31,7 @@
 <!--Viêt giao diện Urer-->
 <div class="originnal-backround" id="home">
 
-    <div class="App" >
+    <div class="App">
         <div class="App__top-bar">
             <div class="App__header">
                 <div id="profile-nav">
@@ -43,10 +43,10 @@
                                       fill="#fff"></path>
                             </svg>
                         </div>
-                        <span class="App__username" >Hồ Sơ</span>
+                        <span class="App__username">Hồ Sơ</span>
                     </button>
-                    <button class="App__user" id="logout" >
-                        <span class="App__username" >Đăng Xuất</span>
+                    <button class="App__user" id="logout">
+                        <span class="App__username">Đăng Xuất</span>
                     </button>
                 </div>
                 <div id="login-nav">
@@ -71,7 +71,7 @@
                     </div>
                     <span id="home-page-title">Home</span>
                 </div>
-                <div class="App__category-item" id="search">
+                <div class="App__category-item" id="search" onclick="openSearchBox()">
                     <div class="icon">
                         <svg viewBox="0 0 512 512" width="100" title="search">
                             <path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
@@ -187,6 +187,16 @@
                 <div id="playlist-selected">
                 </div>
             </div>
+            <!--            giao diện tìm kiếm bài hát-->
+            <div class="background-search-songs" id="background-search" style="display: none">
+                <div class="background-show-song"  >
+                    <div class="search-song">
+                        <label><input type="text" id="searchSong1" placeholder="Tìm kiếm bài hát..."
+                                      oninput="searchSong1()"></label>
+                    </div>
+                    <div class="display-song" id="show1"></div>
+                </div>
+            </div>
             <!--            Create PlayList-->
             <div id="background-create-playlist" style="display: none">
                 <div class="background-create-song">
@@ -201,19 +211,20 @@
                 </div>
                 <div class="background-show-song">
                     <div class="search-song">
-                        <label><input type="text" id="searchSong"  placeholder="Tìm kiếm bài hát..." oninput="searchSong()"></label>
+                        <label><input type="text" id="searchSong" placeholder="Tìm kiếm bài hát..."
+                                      oninput="searchSong()"></label>
                     </div>
                     <div class="display-song" id="show">
 
                     </div>
                 </div>
             </div>
-<!--            Giao diện Admin-->
+            <!--            Giao diện Admin-->
             <div class="admin-background" id="admin-background">
-                    <h1>List User</h1>
-                    <div class="list-user" id="user-table"></div>
+                <h1>List User</h1>
+                <div class="list-user" id="user-table"></div>
             </div>
-<!--            Giao diện Author-->
+            <!--            Giao diện Author-->
             <div class="author-background" id="author-background" style="display: none">
                 <h1 id="author-title">List Song</h1>
                 <button onclick="showAddSongForm()" id="create-song-button"><i class="fa-solid fa-plus"></i></button>
@@ -232,13 +243,13 @@
 </div>
 <!--Giao diện EditProfile user-->
 <div class="background-edit-user" id="formEdit" style="display: none">
-    <div class="form-edit-container" >
+    <div class="form-edit-container">
         <div class="form">
             <div class="column-left">
                 <label>Name:<input type="text" name="name" id="name"></label>
-                <label>Password: <input type="password" name="passwords" id="password" ></label>
-                <label>Confirm Password: <input type="password" name="confirmPasswords" id="confirmPassword" ></label>
-                <label>Phone :<input type="text" name="phone" id="phone" ></label>
+                <label>Password: <input type="password" name="passwords" id="password"></label>
+                <label>Confirm Password: <input type="password" name="confirmPasswords" id="confirmPassword"></label>
+                <label>Phone :<input type="text" name="phone" id="phone"></label>
                 <button onclick="edit()">Save</button>
                 <button type="button" onclick="backProfile()">Cancel</button>
             </div>
@@ -271,7 +282,9 @@
 <!--AE Viết Giao diện Login Đây Nhé-->
 <div class="login-background" id="new-background">
     <div class="login-container">
-        <div class="xLogin"><button id="xLogin-btn">x</button></div>
+        <div class="xLogin">
+            <button id="xLogin-btn">x</button>
+        </div>
         <form id="loginForm">
             <h2>Welcome Back</h2>
             <div class="input-group">
@@ -285,13 +298,15 @@
             <div class="foot-form">
                 <a id="signup-box"><strong><i>Don't have an account? Sign Up!</i></strong></a>
             </div>
-            <button type="submit"  class="login-btn">Login</button>
+            <button type="submit" class="login-btn">Login</button>
         </form>
     </div>
 </div>
 <div class="signup-background" id="signup-background">
     <div class="signup-container">
-        <div class="xLogin"><button id="xSignup-btn">x</button></div>
+        <div class="xLogin">
+            <button id="xSignup-btn">x</button>
+        </div>
         <form id="signupForm">
             <h2>Sign Up</h2>
             <div class="input-group">
@@ -328,15 +343,12 @@
 
     </div>
 </div>
-<div class="search" id="searchBox">
-    <div class="search-song">
-        <label><input type="text"  placeholder="Tìm kiếm bài hát..." oninput="searchSong()"></label>
-    </div>
-</div>
+
 <div class="admin-backround"></div>
 <script src="../js/main.js"></script>
 <script src="../js/login.js"></script>
 <script src="../js/profile.js"></script>
 <script src="../js/playList.js"></script>
+<script src="../js/search.js"></script>
 </body>
 </html>

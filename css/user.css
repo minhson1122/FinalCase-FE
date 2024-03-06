@@ -150,29 +150,8 @@
     margin-right: 10px;
 }
 
-.search {
-    position: absolute;
-    height: 50px;
-    top: 1vh;
-    left: 12.5vw;
-    right: 310px;
-    bottom: 200px;
-    margin: 0;
-    padding: 0;
-    z-index: 2;
-    display: none;
-    justify-content: center;
-    align-items: center;
-}
 
-.search label {
-    font-size: 30px;
-    color: white;
-}
 
-.search input {
-    border-radius: 10px;
-}
 
 .App__category-item .icon svg {
     width: 24px;
@@ -738,6 +717,22 @@ button:hover {
     transition-duration: 0.3s;
     border: 1px solid white;
 }
+#background-search {
+    background-image: linear-gradient(#1E1150 0%, #121212 20%);
+    background-color: #5028f0;
+    position: absolute;
+    bottom: 1px;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}
+#background-search>div{
+    margin-top: 10vh;
+}
+
+
 
 #background-create-playlist {
     background-image: linear-gradient(#1E1150 0%, #121212 20%);
@@ -853,7 +848,6 @@ button:hover {
     width: 100%;
     height: 69vh;
     box-sizing: border-box;
-    /*background-color: #2C2C2C;*/
 }
 .all-song-thead{
     position: sticky;
@@ -867,18 +861,17 @@ button:hover {
 .display-song {
     width: 100%;
     height: calc(100% - 80px);
-    /*background-color: #2C2C2C;*/
     overflow-y: auto;
     box-sizing: border-box;
     color: white;
 }
-.display-song table {
+table {
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
 }
 
-.display-song th, .display-song td {
+th, td {
     padding: 3px;
     text-align: left;
 
