@@ -201,12 +201,13 @@
             <div id="background-create-playlist" style="display: none">
                 <div class="background-create-song">
                     <div class="iconAvatar">
-                        <div class="box_avatar">
-                            <input type="file" id="fileInput" style="display: none"/>
+                        <div class="box_avatar" onclick="changePlaylist()">
+                            <img src="../img/3427956.jpg" height="1080" width="1000" id="img_playlist" />
+                            <input type="file" id="fileInput" onchange="getImageData(event)" style="display: none" />
                         </div>
                     </div>
                     <div class="iconCreate">
-                        <label>Create PlayList<input type="text" placeholder="Name PlayList"></label>
+                        <label>Create PlayList<input id='create_playlist' type="text" placeholder="Name PlayList" onchange="savePalaylist()"></label>
                     </div>
                 </div>
                 <div class="background-show-song">

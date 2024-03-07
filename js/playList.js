@@ -1,5 +1,6 @@
 let background_create_playlist = document.getElementById('background-create-playlist')
 let url = `http://localhost:8080/api/songs`;
+let idPlaylist;
 
 function createPlaylist() {
     background_user.style.display = 'none';
@@ -9,7 +10,7 @@ function createPlaylist() {
 
 function searchSong() {
     let search = document.getElementById('searchSong').value;
-    if (search!==null){
+    if (search !== null) {
         dataSong(`http://localhost:8080/api/songs?name=${search}`)
     }
 }
@@ -31,7 +32,7 @@ function dataSong(url) {
                                 <td>${item.name}</td>
                                 <td>${item.singer.name}</td>
                                 <td>${item.album.name}</td>
-                                <td><button>Add</button></td>
+                                <td><button onclick="addSongPlaylist(${item.id})" >Add</button></td>
                             </tr>`
         })
         str += `</table>`;
@@ -39,6 +40,41 @@ function dataSong(url) {
     })
 }
 
-document.querySelector('.box_avatar').addEventListener('click', function () {
+
+function changePlaylist() {
     document.getElementById('fileInput').click();
-});
+}
+
+function savePalaylist() {
+    let name = document.getElementById('create_playlist').value;
+    currentId = localStorage.getItem("currentId")
+    console.log(name)
+    let img = '';
+    if (imageURL == null) {
+        img = '../img/3427956.jpg';
+    } else {
+        img = imageURL;
+    }
+    let data = {
+        name: name,
+        avatar: img,
+        user: {
+            id: currentId
+        }
+    }
+    axios.post('http://localhost:8080/api/playLists',data).then(res=>{
+        userView()
+        idPlaylist=res.data.id
+    })
+}
+function addSongPlaylist(id) {
+    let data={
+        playList:{
+            id:idPlaylist
+        },
+        song:{
+            id:id
+        }
+    }
+    axios.post("http://localhost:8080/api/song-playlist",data).then()
+}

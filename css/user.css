@@ -417,7 +417,7 @@
 }
 
 .top {
-    margin-left: 15vw;
+    margin-left: 12vw;
     display: flex;
     justify-content: start;
     align-items: center;
@@ -426,10 +426,16 @@
 .top > h2 {
     margin-left: 2vw;
 }
-
-.play-playlist-btn > i {
-    margin-left: 8vw;
+.play-playlist-btn{
+    display: flex;
+    justify-content: end;
+   align-items: center;
+    margin-left:46vw;
 }
+.play-playlist-btn>i{
+    font-size: 50px;
+}
+
 
 .bot {
     margin-left: 10vw;
@@ -776,7 +782,7 @@ button:hover {
 
 .box_avatar::after {
     content: 'Chỉnh ảnh';
-    color: white;
+    color: #4a6948;
     font-size: 20px;
     position: absolute;
     top: 50%;
@@ -788,8 +794,8 @@ button:hover {
 
 .box_avatar:hover::after {
     display: block;
+    color: #4a6948;
 }
-
 .iconCreate {
     margin-top: 120px;
     background-color: transparent;

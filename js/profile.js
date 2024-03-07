@@ -16,6 +16,7 @@ let fileName;
 let uploadedFileName;
 let imageURL;
 let songURl;
+let profileURL;
 let currentId = null;
 const getImageData = (e) => {
     file = e.target.files[0];
@@ -39,8 +40,10 @@ const getImageData = (e) => {
                 .then((url) => {
                     console.log(url)
                     imageURL = url;
+                    profileURL=url;
                     songURl = url;
-                    document.getElementById("profilePic").src = url;
+                    document.getElementById('img_playlist').src=url
+                    document.getElementById("profilePic").src = profileURL;
                     document.getElementById("profilePic").style.display = 'block';
                     document.getElementById(`song-url`).src = url;
                     document.getElementById("save-song-button").style.display = `block`;
