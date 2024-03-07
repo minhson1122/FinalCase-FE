@@ -19,7 +19,7 @@ function dataSong(url) {
         console.log("data", res.data);
         let str = ` <table class="all-song-tb">
                             <tr class="all-song-thead">
-                                <th></th>
+                            <th></th>
                             <th>Name Song</th>
                             <th>Name Singer</th>
                             <th>Album</th>

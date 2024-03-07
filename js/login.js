@@ -93,10 +93,12 @@ document.getElementById("signupForm").addEventListener('submit',function ( event
     let id = selectedOption.value;
     console.log(id)
     console.log(dataSignup)
-        axios.post(`http://localhost:8080/register/${id}`,dataSignup).then(()=>{
+        axios.post(`http://localhost:8080/register/${id}`,dataSignup).then(res=>{
+            console.log(res)
             document.getElementById('new-background').style.display='block'
             document.getElementById('signup-background').style.display='none'
             alert('Bạn đã đăng ký thành công tk')
+
         })
         .catch(error => {
             if (error.response.data === "Username existed")

@@ -95,10 +95,12 @@ function edit() {
         headers: {
             'Authorization': `Bearer ${token}`
         }
-    }).then(() => {
+    }).then(res => {
         alert("edit done")
-        document.getElementById("formEdit").style.display = "none";
-        document.getElementById("profiles").style.display = "none";
+        console.log(res)
+        // document.getElementById("formEdit").style.display = "none";
+        // document.getElementById("profiles").style.display = "none";
+        window.location.reload()
     })
 
 }
