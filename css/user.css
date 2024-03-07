@@ -782,7 +782,7 @@ button:hover {
 
 .box_avatar::after {
     content: 'Chỉnh ảnh';
-    color: white;
+    color: #4a6948;
     font-size: 20px;
     position: absolute;
     top: 50%;
@@ -794,8 +794,8 @@ button:hover {
 
 .box_avatar:hover::after {
     display: block;
+    color: #4a6948;
 }
-
 .iconCreate {
     margin-top: 12vh;
     background-color: transparent;
