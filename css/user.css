@@ -753,15 +753,10 @@ button:hover {
 }
 
 .background-create-song {
-    /*background-color: #363636; !* Màu nền với độ trong suốt *!*/
-
     width: 100%;
     height: 20vh;
     border-radius: 10px;
     display: flex;
-    /*-webkit-box-shadow: 0px 9px 23px -3px rgba(44, 44, 44, 1);*/
-    /*-moz-box-shadow: 0px 9px 23px -3px rgba(44, 44, 44, 1);*/
-    /*box-shadow: 0px 9px 23px -3px rgba(44, 44, 44, 1);*/
 }
 
 .iconAvatar {
